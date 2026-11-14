@@ -287,32 +287,83 @@ section{padding-block:clamp(80px,10vw,130px)}
 @media (max-width:980px){.mods{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.mods{grid-template-columns:1fr}}
 
-/* ---------- Datenübernahme ---------- */
-.move-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:clamp(32px,5vw,72px);align-items:center}
-.move-points{display:grid;gap:22px;margin-top:34px}
-.mp{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start}
-.mp .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--grass-soft);color:var(--grass)}
-.mp .ic svg{width:22px;height:22px}
-.mp p{color:var(--muted);font-size:16px;margin-top:4px}
-.flow{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);align-items:center;gap:8px}
-.sheet{background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;font-size:12.5px}
-.sheet .fn{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#F0F6F2;border-bottom:1px solid var(--rule);font:500 12px var(--f-mono);color:#24533D}
-.sheet .fn i{width:16px;height:16px;border-radius:4px;background:var(--grass);display:inline-block}
-.sheet table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
-.sheet th,.sheet td{border-bottom:1px solid #EEF1F5;border-right:1px solid #EEF1F5;padding:6px 8px;text-align:left;white-space:nowrap}
-.sheet th{background:#FAFBFC;font-weight:600;color:var(--muted);font-size:11.5px}
-.sheet tr.go td{background:#EEF3FD;transition:background .4s}
-.arrow{display:grid;place-items:center;color:var(--blue)}
-.arrow svg{width:40px;height:40px}
-.cards{display:grid;gap:8px}
-.sc{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow);font-size:13.5px;opacity:.25;transform:translateX(-10px);transition:opacity .45s ease,transform .45s var(--ease)}
-.sc.on{opacity:1;transform:none}
-.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:600 12px var(--f-body);color:#fff;flex:none}
-.sc b{display:block;font-weight:600;line-height:1.2}
-.sc span{color:var(--muted);font-size:12.5px}
-.sc .ok{margin-left:auto;color:var(--grass);font:500 12px var(--f-mono)}
-@media (max-width:980px){.move-grid{grid-template-columns:1fr}}
-@media (max-width:560px){.flow{grid-template-columns:1fr}.arrow svg{transform:rotate(90deg)}}
+/* ---------- Umstieg: Import wie in der App (Daten importieren) ---------- */
+.live.rev{grid-template-columns:minmax(0,1.38fr) minmax(0,.62fr)}
+.live.rev>ol{order:2}
+.uapp{position:relative;background:#F8FAFC;padding:14px;height:410px;overflow:hidden;font-family:"Geist",Inter,system-ui,sans-serif}
+.uhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.uhead b{font:600 16px var(--f-body);color:var(--ink)}
+.utabs{display:inline-flex;gap:2px;background:#F1F5F9;border-radius:8px;padding:3px;margin-left:auto}
+.utabs span{font-size:11.5px;padding:4px 10px;border-radius:6px;color:#64748B;transition:background .3s,color .3s,box-shadow .3s}
+.utabs span.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(15,29,54,.08)}
+.ustage{position:relative;height:calc(100% - 44px)}
+.ucard{background:#fff;border:1px solid #E2E8F0;border-radius:10px;padding:12px}
+.ucard h4{font:600 13px var(--f-body);color:var(--ink);margin:0}
+.u2col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+.ucard .sub{font-size:11px;color:#64748B;margin-top:2px}
+.ufade{opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s var(--ease)}
+.ufade.on{opacity:1;transform:none}
+/* Excel-Fenster */
+.uxl{background:#fff;border:1px solid #D7DEE8;border-radius:10px;box-shadow:var(--shadow);overflow:hidden;font-size:11px}
+.uxl .fn{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#F0F6F2;border-bottom:1px solid #DDE7E0;font:500 11px var(--f-mono);color:#24533D}
+.uxl .fn i{width:13px;height:13px;border-radius:3px;background:#2E7D58;display:inline-block}
+.uxl table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.uxl th,.uxl td{border-bottom:1px solid #EEF1F5;border-right:1px solid #EEF1F5;padding:4px 7px;text-align:left;white-space:nowrap;transition:background .3s}
+.uxl th{background:#FAFBFC;font-weight:600;color:#64748B;font-size:10.5px}
+.uxl tr.sel td,.uxl tr.sel th{background:#DCE7FB}
+.uxl tr.go td{background:#EEF3FD}
+.ukey{position:absolute;z-index:5;font:600 13px var(--f-mono);background:var(--ink);color:#fff;border-radius:8px;padding:6px 10px;box-shadow:var(--shadow-lg);opacity:0;transform:scale(.8);transition:opacity .25s,transform .25s}
+.ukey.on{opacity:1;transform:none}
+/* Vorschau Schülerliste */
+.urows{display:grid;gap:6px}
+.urow{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E2E8F0;border-radius:9px;padding:6px 9px;font-size:12px;opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s var(--ease)}
+.urow.on{opacity:1;transform:none}
+.urow b{font-weight:500;color:var(--ink)}
+.urow small{color:#64748B;font-size:11px}
+.urow .st{margin-left:auto;font-size:10.5px;border-radius:6px;border:1px solid;padding:1px 6px;white-space:nowrap}
+.st.found{background:#ECFDF5;color:#065F46;border-color:#A7F3D0}
+.st.check{background:#FFFBEB;color:#92400E;border-color:#FDE68A}
+.st.neu{background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE}
+/* Spaltenzuordnung */
+.umap{display:grid;grid-template-columns:1.1fr 1.2fr 1fr 1.6fr .8fr;gap:5px;margin-bottom:6px}
+.umap span{font-size:10px;border:1px solid #CBD5E1;border-radius:6px;padding:4px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#475569;background:#fff;transition:background .3s,border-color .3s,color .3s}
+.umap span.on{border-color:rgba(34,82,204,.5);background:rgba(34,82,204,.06);color:var(--ink)}
+.ugrid5{display:grid;grid-template-columns:1.1fr 1.2fr 1fr 1.6fr .8fr;font-size:11px}
+.ugrid5 div{padding:4px 6px;border-top:1px solid #EEF2F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ugrid5 .hd{background:#F1F5F9;font-weight:500}
+/* Abgleich */
+.ustats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:9px}
+.ustat{border:1px solid #E2E8F0;border-radius:9px;padding:7px 9px;background:#fff}
+.ustat small{display:block;font-size:10px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ustat b{font:600 20px var(--f-body);font-variant-numeric:tabular-nums;color:var(--ink)}
+.ustat.g{background:#ECFDF5;border-color:#A7F3D0}.ustat.a{background:#FFFBEB;border-color:#FDE68A}.ustat.b{background:#EFF6FF;border-color:#BFDBFE}
+.ucheck{display:grid;grid-template-columns:1.1fr .8fr 1.7fr .5fr;align-items:center;gap:6px;font-size:11.5px;padding:6px 0;border-top:1px solid #EEF2F7;opacity:0;transition:opacity .35s}
+.ucheck.on{opacity:1}
+.ucheck .sel{border:1px solid #CBD5E1;border-radius:6px;padding:3px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#fff}
+.ucheck .sel.a{border-color:#FCD34D;background:#FFFBEB;color:#92400E}
+.ucheck .sel.b{border-color:#93C5FD;background:#EFF6FF;color:#1E40AF}
+.ucheck .age{border:1px solid #CBD5E1;border-radius:6px;padding:3px 7px;text-align:center;background:#fff}
+.ucheck .who{font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ucheck .when{color:#64748B;font-size:10.5px}
+.ubtn{position:absolute;right:0;bottom:0;background:var(--blue);color:#fff;border-radius:8px;padding:7px 12px;font:500 12px var(--f-body);box-shadow:0 6px 14px -6px rgba(34,82,204,.6);transition:transform .2s}
+.ubtn.press{transform:scale(.96)}
+/* Ergebnis: Wochenplan */
+.uweek{display:grid;grid-template-columns:38px repeat(3,minmax(0,1fr));grid-auto-rows:58px;gap:5px}
+.uweek .dh{text-align:center;align-self:end;padding-bottom:4px;border-bottom:1px solid #E2E8F0;display:grid;justify-items:center}
+.uweek .dh small{font:500 10px var(--f-body);letter-spacing:.04em;color:#64748B}
+.uweek .dh strong{font:600 15px var(--f-body);color:var(--ink);line-height:1.15}
+.uweek .th{font:500 10.5px var(--f-mono);color:#94A3B8;padding-top:2px}
+.uweek .cell{border-radius:8px;border-top:1px solid #EEF2F7}
+.utoast{position:absolute;right:0;bottom:0;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow-lg);font-size:12px;line-height:1.35;max-width:300px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--ease)}
+.utoast.on{opacity:1;transform:none}
+.utoast svg{width:20px;height:20px;color:#059669;flex:none}
+.utoast b{display:block;font-size:12.5px;color:var(--ink)}
+.utoast span{color:#64748B;font-size:11px}
+.ufmt{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:34px}
+.ufmt span{font-size:13px;border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:6px 12px;color:var(--muted)}
+.ufmt .ufmt-h{border:0;background:transparent;color:var(--ink);font-weight:600;padding-left:0}
+@media (max-width:980px){.live.rev{grid-template-columns:1fr}.live.rev>ol{order:0}}
+@media (max-width:560px){.u2col{grid-template-columns:1fr;gap:8px}.u2col .ucard{padding:8px 10px}.u2col .ucard .sub{display:none}.urows{gap:4px}.urow{padding:4px 8px}.urow small{display:none}.lwin .bar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.lstep h3{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere}.uapp{height:470px;padding:10px}.uhead b{display:none}.utabs{margin-left:0}.utabs span{padding:4px 7px;font-size:10.5px}.ustats{grid-template-columns:repeat(2,minmax(0,1fr))}.ucheck{grid-template-columns:1fr 1.5fr .5fr}.ucheck .when{display:none}.umap,.ugrid5{grid-template-columns:.9fr 1fr .8fr 1.5fr .6fr}.umap span{font-size:9px;padding:3px 4px}.ugrid5{font-size:10px}.ubtn{font-size:11px;padding:6px 9px}}
 
 /* ---------- Assistent ---------- */
 .assist-box{background:linear-gradient(135deg,#E9F0FD 0%,#F3F7FE 55%,#EAF4EE 100%);border:1px solid #DCE5F5;border-radius:32px;padding:clamp(28px,5vw,64px)}
@@ -671,27 +722,36 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
   <!-- ============ DATENÜBERNAHME ============ -->
   <section id="umzug" aria-labelledby="umzug-h">
-    <div class="wrap move-grid">
-      <div class="rise">
-        <span class="label">Datenübernahme</span>
-        <h2 id="umzug-h" style="margin-top:18px">Deine Daten ziehen mit um.</h2>
-        <p class="lead" style="margin-top:18px">Du fängst nicht bei null an. Deine Schülerliste aus Excel oder deinem bisherigen Programm ist in wenigen Minuten in Roger.</p>
-        <div class="move-points">
-          <div class="mp"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span><div><h3>Excel oder CSV hochladen</h3><p>Du wählst den Verein, ordnest die Spalten einmal zu, und Roger zeigt dir vorher eine Vorschau jeder Zeile.</p></div></div>
-          <div class="mp"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14h6M9 17h4"/></svg></span><div><h3>Aus alten Rechnungen übernehmen</h3><p>Keine Liste zur Hand? Roger liest Namen, Adressen und E-Mails aus deinen bisherigen PDF-Rechnungen.</p></div></div>
-          <div class="mp"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span><div><h3>Keine doppelten Schüler</h3><p>Wer schon in Roger ist, wird erkannt und nicht ein zweites Mal angelegt, auch wenn er in mehreren Vereinen spielt.</p></div></div>
+    <div class="wrap">
+      <div class="sec-head center rise">
+        <span class="label">Umstieg</span>
+        <h2 id="umzug-h">Deine Listen rein, dein Trainingsplan steht.</h2>
+        <p class="lead">Du fängst nicht bei null an. Schülerlisten und Trainingspläne bringst du so mit, wie sie heute sind: als Excel-Datei, als kopierte Tabelle oder aus alten PDF-Rechnungen. Roger erkennt, wer schon da ist, legt Fehlende mit Alter an und baut daraus deinen Plan.</p>
+      </div>
+      <div class="live rev">
+        <ol class="lsteps" id="usteps">
+          <li><button class="lstep" type="button" data-s="0"><span class="num">1</span><span><h3>Schülerliste rein</h3><p>Excel, CSV oder alte PDF-Rechnungen. Roger ordnet die Spalten zu und legt niemanden doppelt an, auch wer in mehreren Vereinen spielt.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="1"><span class="num">2</span><span><h3>Trainingsplan einfügen</h3><p>Plan in Excel markieren, kopieren, in Roger einfügen. Tage, Uhrzeiten, Trainer und Schüler werden erkannt, als Liste oder Wochenraster.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="2"><span class="num">3</span><span><h3>Roger gleicht ab</h3><p>Bekannte Schüler werden zugeordnet, ähnliche Schreibweisen vorgeschlagen, fehlende mit Alter zum Anlegen vorgemerkt. Du siehst alles vorher.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="3"><span class="num">4</span><span><h3>Plan steht</h3><p>Ein Klick, und alle Stunden sind angelegt, Schüler eingetragen, Altersklassen gesetzt. Die Saison kann starten.</p></span><span class="pb"><i></i></span></button></li>
+        </ol>
+        <div>
+          <div class="window lwin rise">
+            <div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de · Daten importieren</span></div>
+            <div class="uapp" id="uapp" aria-hidden="true">
+              <div class="uhead"><b>Daten importieren</b>
+                <div class="utabs" id="utabs"><span data-t="0">Excel / CSV</span><span data-t="1">PDF-Rechnungen</span><span data-t="2">Trainingsplan</span></div>
+              </div>
+              <div class="ustage" id="ustage"></div>
+              <svg class="lcursor" id="ucursor" viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#0F1D36" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <p class="lcap" id="ucap"></p>
         </div>
       </div>
-      <div class="flow rise" aria-label="Beispiel: Schülerliste wird übernommen">
-        <div class="sheet">
-          <div class="fn"><i></i>Schuelerliste_2026.xlsx</div>
-          <table>
-            <thead><tr><th>Name</th><th>Geburtstag</th><th>Verein</th></tr></thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
-        <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-        <div class="cards" id="cards"></div>
+      <div class="ufmt rise">
+        <span class="ufmt-h">Das versteht Roger</span>
+        <span>Eine Zeile pro Schüler</span><span>Mehrere Namen in einer Zelle</span><span>Wochenraster Mo bis So</span><span>Verbundene Zellen</span><span>15:00–16:00 oder 15-16 Uhr</span><span>Alter, Jahrgang oder Geburtsdatum</span><span>Alte PDF-Rechnungen</span>
       </div>
     </div>
   </section>
@@ -789,7 +849,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <div class="faq">
         <details><summary>Was kostet Roger?</summary><p>Der Preis richtet sich nach der Größe deiner Tennisschule. Starte die Demo, nenn uns grob die Zahl deiner Schüler und Trainer, dann bekommst du ein Angebot. Der Umzug deiner Daten ist inklusive.</p></details>
         <details><summary>Was passiert, wenn ich die Demo starte?</summary><p>Du trägst den Namen deiner Tennisschule und deine E-Mail ein und landest sofort in einer Beispiel-Tennisschule mit erfundenen Daten. Du kannst alles ausprobieren, nichts davon ist echt. Paul meldet sich danach persönlich bei dir.</p></details>
-        <details><summary>Wie kommen meine bisherigen Daten in Roger?</summary><p>Über eine Excel- oder CSV-Datei oder direkt aus deinen alten PDF-Rechnungen. Du wählst den Verein, ordnest die Spalten zu, prüfst die Vorschau und bestätigst. Doppelte Einträge erkennt Roger selbst.</p></details>
+        <details><summary>Wie kommen meine bisherigen Daten in Roger?</summary><p>Schülerlisten lädst du als Excel- oder CSV-Datei hoch oder Roger liest sie aus deinen alten PDF-Rechnungen. Deinen Trainingsplan kopierst du einfach aus Excel und fügst ihn ein: Roger erkennt Tage, Uhrzeiten, Trainer und Schüler, ordnet bekannte Schüler zu und legt fehlende mit Alter an. Vor dem Übernehmen siehst du jede Stunde und jeden Schüler, doppelte Einträge entstehen nicht.</p></details>
         <details><summary>Brauchen Eltern ein eigenes Konto?</summary><p>Nein. Anmeldungen kommen über das Formular auf deiner Website direkt in Roger. Eltern müssen sich nirgends registrieren und keine App installieren.</p></details>
         <details><summary>Funktioniert Roger mit mehreren Vereinen und Hallen?</summary><p>Ja. Du verwaltest beliebig viele Vereine und Hallen in einem Trainingsplan, mit eigenen Hallenkosten pro Verein. Für einzelne Gruppen, etwa Mannschaftstraining für einen Verein, legst du einen individuellen Preis fest.</p></details>
         <details><summary>Wie rechnet Roger einen Einstieg mitten in der Saison ab?</summary><p>Roger zählt die Trainingstermine ab dem Einstiegsdatum, berücksichtigt Ferien und trainingsfreie Tage und teilt den Gruppenpreis durch die tatsächliche Teilnehmerzahl. Ausgefallene Stunden werden abgezogen.</p></details>
@@ -1159,40 +1219,149 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     ['mail', 'Infomail an Eltern', 'Nachrichten an alle Schüler eines Vereins oder einer Gruppe, zum Beispiel bei Hallenschließung.'],
     ['chart', 'Dashboard', 'Schüler, Wochenstunden, Saison-Umsatz, offene Posten und Trainerkosten auf einen Blick.'],
     ['spark', 'Assistent', 'Aufträge tippen oder einsprechen. Roger zeigt die Änderung vorher und führt sie erst nach deiner Bestätigung aus.'],
-    ['doc', 'Datenübernahme', 'Schülerlisten aus Excel oder CSV, Daten aus alten PDF-Rechnungen. Mit Vorschau vor dem Import.'],
+    ['doc', 'Datenübernahme', 'Schülerlisten aus Excel, CSV oder alten PDF-Rechnungen, Trainingspläne per Kopieren und Einfügen. Mit Vorschau vor dem Import.'],
   ];
   $('#mods').innerHTML = MODS.map(([i, h, p]) => `<div class="mod rise"><span class="ic">${IC[i]}</span><h3>${h}</h3><p>${p}</p></div>`).join('');
   $$('.mod,.tc').forEach((t) => t.addEventListener('pointermove', (e) => {
     const r = t.getBoundingClientRect(); t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
   }));
 
-  // Datenübernahme
-  const PEOPLE = [
-    ['Mia Schneider', '03.05.2015', 'TC Musterstadt', '#2252CC'],
-    ['Theo Werner', '17.11.2013', 'SV Grünstadt', '#2E7D58'],
-    ['Emma Fuchs', '22.08.2016', 'TC Musterstadt', '#7A5AC8'],
-    ['Noah Scholz', '09.01.2012', 'TG Bergheim', '#C2575B'],
-    ['Lena Krause', '30.06.2014', 'SV Grünstadt', '#1F7F94'],
-  ];
-  const rows = $('#rows'), cards = $('#cards');
-  PEOPLE.forEach(([n, g, v, c]) => {
-    rows.insertAdjacentHTML('beforeend', `<tr><td>${n}</td><td>${g}</td><td>${v}</td></tr>`);
-    const ini = n.split(' ').map((x) => x[0]).join('');
-    cards.insertAdjacentHTML('beforeend', `<div class="sc on"><span class="av" style="background:${c}">${ini}</span><div><b>${n}</b><span>${v}</span></div><span class="ok">übernommen</span></div>`);
-  });
-  if (!reduce) {
-    let started = false;
-    const run = async () => {
-      const trs = rows.querySelectorAll('tr'), cs = cards.querySelectorAll('.sc');
-      cs.forEach((c) => c.classList.remove('on'));
-      for (let i = 0; i < trs.length; i++) {
-        trs[i].classList.add('go'); await new Promise((r) => setTimeout(r, 380));
-        cs[i].classList.add('on'); trs[i].classList.remove('go'); await new Promise((r) => setTimeout(r, 260));
+  // ---------- Umstieg: Import (Inhalte wie im Tool „Daten importieren“) ----------
+  (() => {
+    const app = $('#uapp'), stage = $('#ustage'), cursor = $('#ucursor'), cap = $('#ucap');
+    const steps = $$('#usteps .lstep'), tabs = $$('#utabs span');
+    const LIST = [['Mia Schneider', '03.05.2016', 'TC Musterstadt', 'found'], ['Ben Wolff', '17.11.2015', 'TC Musterstadt', 'found'], ['Lea Krause', '22.08.2014', 'SV Grünstadt', 'found'], ['Tom Becker', '09.01.2014', 'TC Musterstadt', 'neu'], ['Noah Scholz', '30.06.2013', 'TC Musterstadt', 'neu']];
+    // Trainingsplan wie er in Excel steht (verbundene Zellen = leer)
+    const PLAN = [['Montag', '15:00-16:00', 'Lisa', 'Mia Schneider', '9'], ['', '', '', 'Ben Wolff', '10'], ['', '', '', 'Greta Walther', '9'], ['', '16:00-17:00', 'Marco', 'Finn Neumann', '8'], ['', '', '', 'Ella Brandt', '9'], ['Dienstag', '17:00-18:00', 'Lisa', 'Lea Krause', '12'], ['', '', '', 'Tom Becker', '12'], ['', '', '', 'Noah Scholz', '13']];
+    const MAP = ['Wochentag', 'Uhrzeit (von–bis)', 'Trainer', 'Schüler (Name, auch mehrere)', 'Alter / Jahrgang'];
+    const CAPS = [
+      'Schülerliste hochladen: Roger zeigt jede Zeile vorher und erkennt, wer schon da ist.',
+      'Den Plan in Excel kopieren und einfügen. Roger erkennt die Spalten selbst.',
+      'Abgleich mit deinen Schülern: 5 gefunden, 1 ähnliche Schreibweise, 2 neu mit Alter.',
+      'Ein Klick: 3 Stunden angelegt, 8 Schüler eingetragen, Altersklassen gesetzt.',
+    ];
+    const DUR = [5200, 5600, 6000, 5600];
+    const T = { Marco: '#2563eb', Lisa: '#059669' };
+    let token = 0, visible = false, running = false;
+    const sleep = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+    const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>';
+    const rel = (el) => { const a = el.getBoundingClientRect(), p = app.getBoundingClientRect(); return { x: a.left - p.left, y: a.top - p.top, w: a.width, h: a.height }; };
+    function moveCursor(x, y, instant) {
+      if (instant || reduce) { cursor.style.transition = 'none'; requestAnimationFrame(() => (cursor.style.transition = '')); }
+      cursor.style.transform = `translate(${x}px,${y}px)`;
+    }
+    async function clickAt(el, my) {
+      const r = rel(el); const x = r.x + r.w * 0.5, y = r.y + r.h * 0.5;
+      moveCursor(x, y); await sleep(950); if (my !== token) return false;
+      const rp = document.createElement('span'); rp.className = 'ripple'; rp.style.left = x + 'px'; rp.style.top = y + 'px';
+      app.appendChild(rp); setTimeout(() => rp.remove(), 650); return true;
+    }
+    const tab = (i) => tabs.forEach((t, j) => t.classList.toggle('on', j === i));
+    const show = (el) => requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+    const xl = (name, head, rows) => `<div class="uxl"><div class="fn"><i></i>${name}</div><table><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+
+    function scene0(instant) {
+      tab(0);
+      stage.innerHTML = `<div class="u2col">
+        ${xl('Schuelerliste_2026.xlsx', ['Name', 'Geburtstag', 'Verein'], LIST.map((p) => p.slice(0, 3)))}
+        <div class="ucard"><h4>Vorschau</h4><div class="sub">Schritt 3: Vorschau &amp; Import</div><div class="urows" style="margin-top:8px">${LIST.map(([n, , v, st]) => `<div class="urow${instant ? ' on' : ''}"><b>${n}</b><small>${v}</small><span class="st ${st}">${st === 'found' ? 'schon da' : 'neu'}</span></div>`).join('')}</div></div></div>`;
+    }
+    function planTable(mapped) {
+      return `<div class="ucard ufade${mapped ? ' on' : ''}" id="upaste"><h4>Eingefügte Tabelle</h4><div class="sub">Erkannt: Liste. Die Spalten sind schon zugeordnet, bei Bedarf hier ändern.</div>
+        <div style="margin-top:8px"><div class="umap">${MAP.map((m) => `<span class="${mapped ? 'on' : ''}">${m}</span>`).join('')}</div>
+        <div class="ugrid5">${['Tag', 'Uhrzeit', 'Trainer', 'Schüler', 'Alter'].map((h) => `<div class="hd">${h}</div>`).join('')}${PLAN.slice(0, 6).map((r) => r.map((c) => `<div>${c}</div>`).join('')).join('')}</div></div></div>`;
+    }
+    function scene1(instant) {
+      tab(2);
+      stage.innerHTML = `<div id="uxlwrap" style="position:absolute;left:0;top:0;width:min(100%,430px);transition:opacity .4s,transform .5s var(--ease)">${xl('Trainingsplan_Winter.xlsx', ['Tag', 'Uhrzeit', 'Trainer', 'Schüler', 'Alter'], PLAN)}</div>
+        <div style="position:absolute;inset:0">${planTable(instant)}</div><span class="ukey" id="ukey">⌘ V</span>`;
+      if (instant) $('#uxlwrap').style.opacity = '0';
+    }
+    function checks() {
+      return [['Greta Walther', 'Mo 15:00', '<span class="sel a">Gemeint: Greta Walter · geb. 02.03.2017</span>', '9'], ['Finn Neumann', 'Mo 16:00', '<span class="sel b">Neu anlegen</span>', '8'], ['Ella Brandt', 'Mo 16:00', '<span class="sel b">Neu anlegen</span>', '9']];
+    }
+    function scene2(instant) {
+      tab(2);
+      const v = (n) => (instant ? n : 0);
+      stage.innerHTML = `<div class="ustats"><div class="ustat"><small>Stunden</small><b data-to="3">${v(3)}</b></div><div class="ustat g"><small>In Roger gefunden</small><b data-to="5">${v(5)}</b></div><div class="ustat a"><small>Bitte prüfen</small><b data-to="1">${v(1)}</b></div><div class="ustat b"><small>Neu anlegen</small><b data-to="2">${v(2)}</b></div></div>
+        <div class="ucard"><h4>Schüler, die Roger nicht sicher kennt</h4><div class="sub">Neue Schüler werden mit Alter angelegt, die Altersklasse im Plan ergibt sich daraus.</div>
+        ${checks().map(([n, w, sel, a]) => `<div class="ucheck${instant ? ' on' : ''}"><span class="who">${n}</span><span class="when">${w}</span>${sel}<span class="age">${a}</span></div>`).join('')}</div>
+        <span class="ubtn" id="ubtn">2 Schüler anlegen und Plan übernehmen</span>`;
+    }
+    const tone = (n, c) => { const r = n / Math.max(1, c); return r === 0 ? 'o0' : r < 0.5 ? 'o1' : r < 1 ? 'o2' : 'o3'; };
+    const SLOTS = [[0, 0, '15:00–16:00', 'U12 Mixed', 'Lisa', 3], [0, 1, '16:00–17:00', 'U10 Mixed', 'Marco', 2], [1, 2, '17:00–18:00', 'U15 Mixed', 'Lisa', 3]];
+    function scene3(instant) {
+      tab(2);
+      const days = [['MO.', 16], ['DI.', 17], ['MI.', 18]];
+      let h = '<span></span>' + days.map(([d, n]) => `<span class="dh"><small>${d}</small><strong>${n}</strong></span>`).join('');
+      ['15:00', '16:00', '17:00'].forEach((t, r) => { h += `<span class="th" style="grid-row:${r + 2}">${t}</span>`; days.forEach((_, c) => (h += `<span class="cell" style="grid-column:${c + 2};grid-row:${r + 2}"></span>`)); });
+      h += SLOTS.map(([d, r, t, g, tr, n]) => `<div class="lslot ${tone(n, 4)}${instant ? '' : ' new'}" style="grid-column:${d + 2};grid-row:${r + 2};--tc:${T[tr]}"><div class="t"><span>${t}</span></div><div class="g">${g}</div><div class="c">${tr} · ${n}/4</div></div>`).join('');
+      stage.innerHTML = `<div class="ucard" style="padding:10px"><div class="uweek">${h}</div></div>
+        <div class="utoast${instant ? ' on' : ''}" id="utoast">${check}<div><b>Trainingsplan übernommen</b><span>3 Stunden neu angelegt · 8 Schüler eingetragen · 2 neue Schüler</span></div></div>`;
+    }
+    const BUILD = [scene0, scene1, scene2, scene3];
+
+    const SCENES = [
+      async (my) => {
+        scene0(false); moveCursor(app.clientWidth * 0.3, app.clientHeight * 0.85, true);
+        const trs = $$('.uxl tbody tr', stage), rs = $$('.urow', stage);
+        for (let i = 0; i < trs.length; i++) {
+          if (my !== token) return;
+          trs[i].classList.add('go'); await sleep(360); rs[i].classList.add('on'); trs[i].classList.remove('go'); await sleep(260);
+        }
+      },
+      async (my) => {
+        scene1(false); moveCursor(app.clientWidth * 0.15, app.clientHeight * 0.3, true); await sleep(500);
+        // Zeilen in Excel markieren
+        const trs = $$('#uxlwrap tr', stage);
+        moveCursor(rel(trs[0]).x + 20, rel(trs[0]).y + 8); await sleep(700); if (my !== token) return;
+        for (const tr of trs) { if (my !== token) return; tr.classList.add('sel'); await sleep(70); }
+        await sleep(350);
+        const key = $('#ukey'); key.style.left = (app.clientWidth / 2 - 30) + 'px'; key.style.top = (app.clientHeight * 0.42) + 'px';
+        key.textContent = '⌘ C'; key.classList.add('on'); await sleep(600); key.classList.remove('on');
+        const w = $('#uxlwrap'); w.style.opacity = '0'; w.style.transform = 'translateY(-10px) scale(.98)'; await sleep(450); if (my !== token) return;
+        key.textContent = '⌘ V'; key.classList.add('on'); await sleep(500);
+        $('#upaste').classList.add('on'); key.classList.remove('on'); await sleep(450);
+        for (const m of $$('.umap span', stage)) { if (my !== token) return; m.classList.add('on'); await sleep(260); }
+      },
+      async (my) => {
+        scene2(false); moveCursor(app.clientWidth * 0.6, app.clientHeight * 0.95, true);
+        const nums = $$('.ustat b', stage); const t0 = performance.now();
+        await new Promise((res) => { const stepF = (now) => { const p = Math.min(1, (now - t0) / (reduce ? 1 : 800)); nums.forEach((b) => (b.textContent = Math.round(+b.dataset.to * p))); if (p < 1 && my === token) requestAnimationFrame(stepF); else res(); }; requestAnimationFrame(stepF); });
+        for (const r of $$('.ucheck', stage)) { if (my !== token) return; r.classList.add('on'); await sleep(420); }
+        await sleep(500); const b = $('#ubtn'); if (!(await clickAt(b, my))) return; b.classList.add('press'); await sleep(200); b.classList.remove('press');
+      },
+      async (my) => {
+        scene3(false);
+        const tiles = $$('.lslot', stage);
+        for (const t of tiles) { if (my !== token) return; await sleep(260); t.classList.add('pop', 'flash'); setTimeout(() => t.classList.remove('flash'), 600); }
+        await sleep(500); $('#utoast').classList.add('on');
+      },
+    ];
+    function mark(n, ms) {
+      steps.forEach((b, i) => { b.classList.toggle('on', i === n); const bar = b.querySelector('.pb i'); bar.style.transition = 'none'; bar.style.width = '0'; });
+      const bar = steps[n].querySelector('.pb i'); requestAnimationFrame(() => { bar.style.transition = `width ${ms}ms linear`; bar.style.width = '100%'; });
+      cap.textContent = CAPS[n];
+    }
+    async function runFrom(n) {
+      const my = ++token; running = true;
+      for (let i = n; ; i++) {
+        const k = i % 4;
+        while (!visible && my === token) await sleep(400);
+        if (my !== token) return;
+        mark(k, DUR[k]); const t0 = performance.now();
+        await SCENES[k](my); if (my !== token) return;
+        const rest = DUR[k] - (performance.now() - t0); if (rest > 0) await sleep(rest);
+        if (my !== token) return;
       }
-      setTimeout(run, 4200);
-    };
-    new IntersectionObserver(([e], o) => { if (e.isIntersecting && !started) { started = true; o.disconnect(); run(); } }, { threshold: .5 }).observe(cards);
-  }
+    }
+    steps.forEach((b) => b.addEventListener('click', () => runFrom(+b.dataset.s)));
+    if (reduce) { BUILD[3](true); mark(3, 0); }
+    else {
+      BUILD[0](true);
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) runFrom(0); }, { threshold: 0.35 }).observe(app);
+    }
+  })();
 
   // Assistent
   const SCEN = [
