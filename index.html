@@ -453,6 +453,8 @@ section{padding-block:clamp(80px,10vw,130px)}
 .final-list svg{width:20px;height:20px;margin-top:3px;color:#8FD3AE}
 .final-contact{margin-top:28px;color:#9FAECA;font-size:15px}
 .final-contact a{color:#fff}
+.step-link{justify-self:start;font-weight:600;font-size:14.5px;color:var(--blue);text-decoration:none}
+.step-link:hover{text-decoration:underline}
 .form{background:#fff;color:var(--ink);border-radius:22px;padding:clamp(22px,3vw,30px);box-shadow:0 40px 80px -30px rgba(0,0,0,.5);display:grid;gap:14px}
 .form h3{font-size:22px}
 .form .sub{color:var(--muted);font-size:14.5px;margin-top:-6px}
@@ -470,6 +472,24 @@ section{padding-block:clamp(80px,10vw,130px)}
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
 .form .btn{width:100%}
 .form-msg{font-size:14px;min-height:1.3em}
+.form-msg:empty{display:none}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#EEF2F8;border-radius:12px;padding:4px}
+.seg button{font:600 14px var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:9px;padding:10px 6px;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.seg button.on{background:#fff;color:var(--blue);box-shadow:0 1px 3px rgba(15,29,54,.12)}
+.seg button:focus-visible,.chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:500 14px var(--f-body);color:var(--ink);background:#F7F9FC;border:1px solid #D9E1EC;border-radius:999px;padding:8px 14px;cursor:pointer}
+.chips button.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+.field[hidden]{display:none}
+.ferr{color:#B42318;font-size:13px;min-height:0}
+.ferr:empty{display:none}
+.field.bad input,.field.bad textarea{border-color:#D92D20;background:#FEF3F2}
+.consent.bad{color:#B42318}
+.done-card{display:grid;gap:12px;text-align:left}
+.done-card .ok-ic{width:44px;height:44px;border-radius:12px;background:var(--grass-soft);color:var(--grass);display:grid;place-items:center}
+.done-card .ok-ic svg{width:24px;height:24px}
+.done-card p{color:var(--muted);font-size:15px}
+@media (max-width:420px){.seg button{font-size:13px;padding:9px 4px}}
 .form-msg.err{color:#B42318}
 .form-msg.ok{color:var(--grass)}
 .form .fine{font-size:12.5px;color:var(--muted);text-align:center}
@@ -695,7 +715,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
           <div class="mtabs" role="tablist" id="mtabs">
             <button class="mtab" role="tab" type="button" aria-selected="true" data-m="0"><h3>Die Krankmeldung um 15:30</h3><p>Vertretung in der Stunde wählen. Der Plan zeigt sie allen Trainern, die Abrechnung vergütet automatisch den richtigen Trainer.</p></button>
             <button class="mtab" role="tab" type="button" aria-selected="false" data-m="1"><h3>Die Abrechnung nach Saisonende</h3><p>Statt Abende mit Excel: Roger kennt Gruppen, Einstiege und Ausfälle und erstellt alle Rechnungen eines Vereins in einem Lauf.</p></button>
-            <button class="mtab" role="tab" type="button" aria-selected="false" data-m="2"><h3>„Haben die Müllers schon bezahlt?“</h3><p>Kontoauszug hochladen. Roger erkennt Rechnungsnummer und Namen und bucht die Zahlungen. Offene Posten siehst du auf einen Blick.</p></button>
+            <button class="mtab" role="tab" type="button" aria-selected="false" data-m="2"><h3>„Haben die Müllers schon bezahlt?“</h3><p>Kontoauszug hochladen. Roger erkennt Rechnungsnummer und Namen und ordnet die Zahlungen zu, du bestätigst mit einem Klick. Offene Posten siehst du auf einen Blick.</p></button>
           </div>
         </div>
         <div class="iso-wrap" aria-hidden="true">
@@ -784,7 +804,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <div class="steps" style="position:relative">
         <span class="steps-line" aria-hidden="true"></span>
         <div class="step rise"><span class="n">1</span><span class="meta">Sofort · 2 Minuten</span><h3>Demo ausprobieren</h3><p>Name deiner Tennisschule und E-Mail eintragen, und du landest direkt in einer Beispiel-Tennisschule mit Plan, Schülern und Rechnungen.</p></div>
-        <div class="step rise"><span class="n">2</span><span class="meta">Persönlich · 30 Minuten</span><h3>Gespräch mit Paul</h3><p>Wir schauen gemeinsam auf deine Vereine, Preise und Trainer und klären, wie deine Schülerlisten umziehen.</p></div>
+        <div class="step rise"><span class="n">2</span><span class="meta">Persönlich · 30 Minuten</span><h3>Gespräch mit Paul</h3><p>Wir schauen gemeinsam auf deine Vereine, Preise und Trainer und klären, wie deine Schülerlisten umziehen.</p><a class="step-link" href="#rueckruf" data-call>Rückruf vereinbaren →</a></div>
         <div class="step rise"><span class="n">3</span><span class="meta">Startklar · in wenigen Tagen</span><h3>Loslegen</h3><p>Deine Daten sind drin, Preise und Hallenkosten eingestellt. Die erste Abrechnung machst du schon mit Roger.</p></div>
       </div>
       <div class="fit">
@@ -852,7 +872,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <details><summary>Wie kommen meine bisherigen Daten in Roger?</summary><p>Schülerlisten lädst du als Excel- oder CSV-Datei hoch oder Roger liest sie aus deinen alten PDF-Rechnungen. Deinen Trainingsplan kopierst du einfach aus Excel und fügst ihn ein: Roger erkennt Tage, Uhrzeiten, Trainer und Schüler, ordnet bekannte Schüler zu und legt fehlende mit Alter an. Vor dem Übernehmen siehst du jede Stunde und jeden Schüler, doppelte Einträge entstehen nicht.</p></details>
         <details><summary>Brauchen Eltern ein eigenes Konto?</summary><p>Nein. Anmeldungen kommen über das Formular auf deiner Website direkt in Roger. Eltern müssen sich nirgends registrieren und keine App installieren.</p></details>
         <details><summary>Funktioniert Roger mit mehreren Vereinen und Hallen?</summary><p>Ja. Du verwaltest beliebig viele Vereine und Hallen in einem Trainingsplan, mit eigenen Hallenkosten pro Verein. Für einzelne Gruppen, etwa Mannschaftstraining für einen Verein, legst du einen individuellen Preis fest.</p></details>
-        <details><summary>Wie rechnet Roger einen Einstieg mitten in der Saison ab?</summary><p>Roger zählt die Trainingstermine ab dem Einstiegsdatum, berücksichtigt Ferien und trainingsfreie Tage und teilt den Gruppenpreis durch die tatsächliche Teilnehmerzahl. Ausgefallene Stunden werden abgezogen.</p></details>
+        <details><summary>Wie rechnet Roger einen Einstieg mitten in der Saison ab?</summary><p>Roger zählt die Trainingstermine ab dem Einstiegsdatum, berücksichtigt Ferien und trainingsfreie Tage und teilt den Gruppenpreis durch die tatsächliche Teilnehmerzahl. Ausgefallene Stunden werden abgezogen. Wechselt ein Schüler die Gruppe, zahlt er bis zum Wechsel den alten und danach den neuen Gruppenpreis, und die Preise der beiden Gruppen passen sich automatisch an. Die Saison kannst du auch in zwei Hälften abrechnen.</p></details>
         <details><summary>Ist Roger DSGVO-konform?</summary><p>Ja. Die Daten liegen auf Servern in Frankfurt, jede Tennisschule ist technisch von den anderen getrennt, und du bekommst einen Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.</p></details>
         <details><summary>Wie funktioniert der Assistent?</summary><p>Du schreibst oder sprichst einen Auftrag, zum Beispiel eine Vertretung oder eine neue Stunde. Roger zeigt dir die geplante Änderung, und erst nach deiner Bestätigung wird sie gespeichert.</p></details>
       </div>
@@ -871,7 +891,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Link zur Demo zusätzlich per E-Mail</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Kostenlos und unverbindlich, kein Newsletter</li>
           </ul>
-          <p class="final-contact">Lieber direkt? <a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a></p>
+          <p class="final-contact">Lieber erst sprechen? <a href="#rueckruf" data-call>Rückruf vereinbaren</a> · <a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a></p>
         </div>
         <div id="inlineFormSlot"></div>
       </div>
@@ -882,24 +902,38 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 <!-- Formular-Vorlage (wird im Abschluss und im Fenster verwendet) -->
 <template id="formTpl">
   <form class="form" novalidate>
-    <h3>Demo starten</h3>
-    <p class="sub">Dauert eine Minute. Danach geht es direkt in die Demo.</p>
-    <div class="field"><label>Name deiner Tennisschule</label><input name="school" required maxlength="160" autocomplete="organization" placeholder="z. B. Tennisschule Sonnenhang"></div>
+    <h3>Wie kann ich helfen?</h3>
+    <div class="seg" role="radiogroup" aria-label="Dein Anliegen">
+      <button type="button" role="radio" data-intent="demo">Demo ansehen</button>
+      <button type="button" role="radio" data-intent="call">Rückruf</button>
+      <button type="button" role="radio" data-intent="question">Frage stellen</button>
+    </div>
+    <p class="sub" data-text="sub"></p>
+    <div class="field" data-show="demo call question"><label>Name deiner Tennisschule <small data-opt="question">(optional)</small></label><input name="school" maxlength="160" autocomplete="organization" placeholder="z. B. Tennisschule Sonnenhang"><small class="ferr"></small></div>
     <div class="two">
-      <div class="field"><label>Dein Name</label><input name="contact" required maxlength="120" autocomplete="name" placeholder="Vor- und Nachname"></div>
-      <div class="field"><label>E-Mail</label><input name="email" type="email" required maxlength="200" autocomplete="email" placeholder="du@tennisschule.de"></div>
+      <div class="field" data-show="demo call question"><label>Dein Name <small data-opt="demo question">(optional)</small></label><input name="contact" maxlength="120" autocomplete="name" placeholder="Vor- und Nachname"><small class="ferr"></small></div>
+      <div class="field" data-show="demo call question"><label>E-Mail</label><input name="email" type="email" maxlength="200" autocomplete="email" inputmode="email" placeholder="du@tennisschule.de"><small class="ferr"></small></div>
     </div>
     <div class="two">
-      <div class="field"><label>Telefon <small>(optional)</small></label><input name="phone" type="tel" maxlength="60" autocomplete="tel" placeholder="für Rückfragen"></div>
-      <div class="field"><label>Schüler <small>(ungefähr)</small></label>
+      <div class="field" data-show="demo call question"><label>Telefon <small data-opt="demo question">(optional)</small></label><input name="phone" type="tel" maxlength="60" autocomplete="tel" inputmode="tel" placeholder="für Rückfragen"><small class="ferr"></small></div>
+      <div class="field" data-show="demo call"><label>Schüler <small>(ungefähr)</small></label>
         <select name="students"><option value="">Bitte wählen</option><option>unter 50</option><option>50–150</option><option>150–300</option><option>über 300</option></select></div>
     </div>
-    <div class="field"><label>Nachricht <small>(optional)</small></label><textarea name="message" maxlength="2000" placeholder="Wie viele Vereine und Trainer? Was ist dir wichtig?"></textarea></div>
+    <div class="field" data-show="call"><label>Wann erreiche ich dich am besten?</label>
+      <div class="chips" role="radiogroup" aria-label="Erreichbarkeit">
+        <button type="button" role="radio" data-when="vormittags">Vormittags</button>
+        <button type="button" role="radio" data-when="mittags">Mittags</button>
+        <button type="button" role="radio" data-when="nachmittags">Nachmittags</button>
+        <button type="button" role="radio" data-when="abends">Abends</button>
+      </div>
+    </div>
+    <div class="field" data-show="demo call question"><label><span data-text="msgLabel">Nachricht</span> <small data-opt="demo call">(optional)</small></label><textarea name="message" maxlength="2000"></textarea><small class="ferr"></small></div>
     <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
-    <label class="consent"><input type="checkbox" name="consent" required><span>Ich bin einverstanden, dass Roger meine Angaben speichert, mir den Demo-Zugang per E-Mail schickt und mich wegen der Demo kontaktiert. Details in der <a href="datenschutz.html#demo" target="_blank" rel="noopener">Datenschutzerklärung</a>. Widerruf jederzeit per E-Mail.</span></label>
-    <button class="btn btn-primary btn-lg" type="submit">Demo jetzt öffnen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <label class="consent"><input type="checkbox" name="consent"><span><span data-text="consent"></span> Details in der <a href="datenschutz.html#demo" target="_blank" rel="noopener">Datenschutzerklärung</a>. Widerruf jederzeit per E-Mail.</span></label>
+    <small class="ferr" data-err="consent"></small>
+    <button class="btn btn-primary btn-lg" type="submit"><span data-text="button">Demo jetzt öffnen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     <p class="form-msg" role="status" aria-live="polite"></p>
-    <p class="fine">Kostenlos und unverbindlich. Kein Newsletter.</p>
+    <p class="fine" data-text="fine">Kostenlos und unverbindlich. Kein Newsletter.</p>
   </form>
 </template>
 
@@ -1418,38 +1452,120 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   const modal = $('#modal'), modalSlot = $('#modalSlot');
   let lastFocus = null;
 
-  function mountForm(slot, inModal) {
-    const node = tpl.content.firstElementChild.cloneNode(true);
-    const form = node;
+  const TEXT = {
+    demo: {
+      sub: 'Dauert eine Minute. Danach geht es direkt in die Beispiel-Tennisschule.',
+      msgLabel: 'Nachricht', msgPh: 'Wie viele Vereine und Trainer? Was ist dir wichtig?',
+      consent: 'Ich bin einverstanden, dass Roger meine Angaben speichert, mir den Demo-Zugang per E-Mail schickt und mich wegen der Demo kontaktiert.',
+      button: 'Demo jetzt öffnen', busy: 'Demo wird vorbereitet …', fine: 'Kostenlos und unverbindlich. Kein Newsletter.',
+    },
+    call: {
+      sub: 'Ich rufe dich persönlich an, meist innerhalb von ein bis zwei Werktagen. Rund 30 Minuten, unverbindlich.',
+      msgLabel: 'Worum soll es gehen?', msgPh: 'z. B. drei Vereine, fünf Trainer, Abrechnung bisher in Excel',
+      consent: 'Ich bin einverstanden, dass Roger meine Angaben speichert und mich wegen meiner Anfrage anruft oder anschreibt.',
+      button: 'Rückruf anfragen', busy: 'Wird gesendet …', fine: 'Kostenlos und unverbindlich. Kein Newsletter.',
+    },
+    question: {
+      sub: 'Schreib mir einfach. Ich antworte persönlich, meist innerhalb von ein bis zwei Werktagen.',
+      msgLabel: 'Deine Frage', msgPh: 'Was möchtest du wissen?',
+      consent: 'Ich bin einverstanden, dass Roger meine Angaben speichert, um meine Frage zu beantworten.',
+      button: 'Frage senden', busy: 'Wird gesendet …', fine: 'Kein Newsletter. Antwort von Paul persönlich.',
+    },
+  };
+  const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+
+  function mountForm(slot, inModal, startIntent = 'demo') {
+    const form = tpl.content.firstElementChild.cloneNode(true);
     const opened = Date.now();
+    let intent = startIntent;
+    let when = '';
     if (inModal) {
       const x = document.createElement('button'); x.type = 'button'; x.className = 'x'; x.setAttribute('aria-label', 'Schließen');
       x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
       x.onclick = closeModal; form.prepend(x);
     }
+    const field = (name) => form.querySelector(`[name=${name}]`);
+    const clearErr = (name) => {
+      const el = field(name); if (!el) return;
+      const box = name === 'consent' ? form.querySelector('.consent') : el.closest('.field');
+      box?.classList.remove('bad');
+      const err = name === 'consent' ? form.querySelector('[data-err=consent]') : box?.querySelector('.ferr');
+      if (err) err.textContent = '';
+    };
+    const setErr = (name, text) => {
+      const el = field(name);
+      const box = name === 'consent' ? form.querySelector('.consent') : el.closest('.field');
+      box.classList.add('bad');
+      const err = name === 'consent' ? form.querySelector('[data-err=consent]') : box.querySelector('.ferr');
+      if (err) err.textContent = text;
+    };
+    const apply = () => {
+      const t = TEXT[intent];
+      form.querySelectorAll('.seg button').forEach((b) => {
+        const on = b.dataset.intent === intent; b.classList.toggle('on', on); b.setAttribute('aria-checked', on);
+      });
+      form.querySelectorAll('[data-show]').forEach((el) => { el.hidden = !el.dataset.show.split(' ').includes(intent); });
+      form.querySelectorAll('[data-opt]').forEach((el) => { el.hidden = !el.dataset.opt.split(' ').includes(intent); });
+      form.querySelectorAll('[data-text]').forEach((el) => { if (t[el.dataset.text]) el.textContent = t[el.dataset.text]; });
+      field('message').placeholder = t.msgPh;
+      field('phone').placeholder = intent === 'call' ? 'unter der ich dich erreiche' : 'für Rückfragen';
+      ['school', 'contact', 'email', 'phone', 'message', 'consent'].forEach(clearErr);
+      const msg = form.querySelector('.form-msg'); msg.className = 'form-msg'; msg.textContent = '';
+    };
+    form.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => { intent = b.dataset.intent; apply(); }));
+    form.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
+      when = when === b.dataset.when ? '' : b.dataset.when;
+      form.querySelectorAll('.chips button').forEach((c) => { const on = c.dataset.when === when; c.classList.toggle('on', on); c.setAttribute('aria-checked', on); });
+    }));
+    ['school', 'contact', 'email', 'phone', 'message'].forEach((n) => field(n).addEventListener('input', () => clearErr(n)));
+    field('consent').addEventListener('change', () => clearErr('consent'));
+    apply();
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const msg = form.querySelector('.form-msg'); const btn = form.querySelector('button[type=submit]');
       msg.className = 'form-msg'; msg.textContent = '';
       const f = Object.fromEntries(new FormData(form).entries());
-      const bad = (t, name) => { msg.className = 'form-msg err'; msg.textContent = t; if (name) form.querySelector(`[name=${name}]`).focus(); };
-      if ((f.school || '').trim().length < 2) return bad('Bitte den Namen deiner Tennisschule angeben.', 'school');
-      if ((f.contact || '').trim().length < 2) return bad('Bitte deinen Namen angeben.', 'contact');
-      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test((f.email || '').trim())) return bad('Bitte eine gültige E-Mail-Adresse angeben.', 'email');
-      if (!form.querySelector('[name=consent]').checked) return bad('Bitte stimme der Verarbeitung deiner Angaben zu.', 'consent');
-      const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Demo wird vorbereitet …';
+      const v = (n) => (f[n] || '').trim();
+      const errors = [];
+      if (intent !== 'question' && v('school').length < 2) errors.push(['school', 'Bitte den Namen deiner Tennisschule angeben.']);
+      if (intent === 'call' && v('contact').length < 2) errors.push(['contact', 'Bitte deinen Namen angeben.']);
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v('email'))) errors.push(['email', v('email') ? 'Diese E-Mail-Adresse sieht nicht vollständig aus.' : 'Bitte deine E-Mail-Adresse angeben.']);
+      if (intent === 'call' && v('phone').replace(/\D/g, '').length < 6) errors.push(['phone', 'Bitte eine Telefonnummer angeben, unter der ich dich erreiche.']);
+      if (intent === 'question' && v('message').length < 5) errors.push(['message', 'Bitte schreib kurz deine Frage.']);
+      if (!field('consent').checked) errors.push(['consent', 'Bitte bestätige noch kurz die Einwilligung.']);
+      if (errors.length) {
+        errors.forEach(([n, t]) => setErr(n, t));
+        const first = errors[0][0]; field(first).focus();
+        return;
+      }
+      const t = TEXT[intent];
+      const label = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<span class="spin"></span>${t.busy}`;
       try {
         const res = await fetch(ENDPOINT, {
           method: 'POST', headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ school: f.school, contact: f.contact, email: f.email, phone: f.phone, students: f.students, message: f.message, website: f.website, consent: true, source: location.href.slice(0, 200), elapsed_ms: Date.now() - opened }),
+          body: JSON.stringify({ intent, when, school: f.school, contact: f.contact, email: f.email, phone: f.phone, students: intent === 'question' ? '' : f.students, message: f.message, website: f.website, consent: true, source: location.href.slice(0, 200), elapsed_ms: Date.now() - opened }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.ok) throw new Error(data.error || 'Gerade nicht erreichbar. Bitte versuch es gleich noch einmal oder schreib an info@roger-verwaltung.de.');
-        msg.className = 'form-msg ok'; msg.textContent = 'Danke! Du wirst jetzt zur Demo weitergeleitet. Den Link bekommst du auch per E-Mail.';
-        btn.innerHTML = '<span class="spin"></span>Demo öffnet sich …';
-        setTimeout(() => { location.href = data.demo_url; }, 1100);
+        if (intent === 'demo') {
+          msg.className = 'form-msg ok'; msg.innerHTML = `Danke! Die Demo öffnet sich jetzt. Falls nicht: <a href="${data.demo_url}">hier klicken</a>. Den Link bekommst du auch per E-Mail.`;
+          btn.innerHTML = '<span class="spin"></span>Demo öffnet sich …';
+          setTimeout(() => { location.href = data.demo_url; }, 1100);
+          return;
+        }
+        const first = v('contact').split(' ')[0];
+        const done = document.createElement('div'); done.className = 'form done-card'; done.setAttribute('role', 'status');
+        done.innerHTML = `<div class="ok-ic">${CHECK}</div><h3>Danke${first ? ', ' + first.replace(/[<>&"]/g, '') : ''}!</h3>`
+          + `<p>${intent === 'call' ? 'Ich rufe dich an' + (when ? ' (' + when + ')' : '') + ', meist innerhalb von ein bis zwei Werktagen.' : 'Ich antworte dir persönlich, meist innerhalb von ein bis zwei Werktagen.'} Eine Bestätigung ist per E-Mail unterwegs.</p>`
+          + `<p>Bis dahin kannst du Roger schon mit einer Beispiel-Tennisschule ausprobieren:</p>`
+          + `<a class="btn btn-primary btn-lg" href="${data.demo_url}">Demo ansehen</a>`;
+        if (inModal) {
+          const x = form.querySelector('.x'); if (x) done.prepend(x);
+        }
+        form.replaceWith(done);
       } catch (err) {
-        btn.disabled = false; btn.innerHTML = label; bad(err.message);
+        btn.disabled = false; btn.innerHTML = label; msg.className = 'form-msg err'; msg.textContent = err.message;
       }
     });
     slot.replaceChildren(form);
@@ -1457,9 +1573,9 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   }
   mountForm($('#inlineFormSlot'), false);
 
-  function openModal() {
+  function openModal(intent = 'demo') {
     lastFocus = document.activeElement;
-    const form = mountForm(modalSlot, true);
+    const form = mountForm(modalSlot, true, intent);
     modal.classList.add('open'); document.body.classList.add('modal-open');
     setTimeout(() => form.querySelector('[name=school]').focus(), 60);
   }
@@ -1469,8 +1585,11 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   }
   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
-  $$('[data-demo]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); openModal(); }));
-  if (location.hash === '#demo') openModal();
+  $$('[data-demo]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); openModal('demo'); }));
+  $$('[data-call]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); openModal('call'); }));
+  $$('[data-question]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); openModal('question'); }));
+  if (location.hash === '#demo') openModal('demo');
+  if (location.hash === '#rueckruf') openModal('call');
 })();
 </script>
 
