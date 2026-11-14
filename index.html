@@ -20,8 +20,11 @@
     var reload = nav ? nav.type === 'reload' : performance.navigation && performance.navigation.type === 1;
     if (reload && location.hash) history.replaceState(null, '', location.pathname + location.search);
     if (reload || !location.hash) {
-      window.scrollTo(0, 0);
-      addEventListener('load', function () { window.scrollTo(0, 0); });
+      // „instant“, weil die Seite sonst mit scroll-behavior: smooth langsam (oder gar nicht) nach oben gleitet
+      var top = function () { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); };
+      top();
+      addEventListener('DOMContentLoaded', top);
+      addEventListener('load', function () { top(); setTimeout(top, 0); });
     }
   })();
 </script>
