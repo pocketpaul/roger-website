@@ -476,10 +476,10 @@ section{padding-block:clamp(80px,10vw,130px)}
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#EEF2F8;border-radius:12px;padding:4px}
 .seg button{font:600 14px var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:9px;padding:10px 6px;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
 .seg button.on{background:#fff;color:var(--blue);box-shadow:0 1px 3px rgba(15,29,54,.12)}
-.seg button:focus-visible,.chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips button{font:500 14px var(--f-body);color:var(--ink);background:#F7F9FC;border:1px solid #D9E1EC;border-radius:999px;padding:8px 14px;cursor:pointer}
-.chips button.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+.seg button:focus-visible,.when-chips button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.when-chips{display:flex;flex-wrap:wrap;gap:8px}
+.when-chips button{font:500 14px var(--f-body);color:var(--ink);background:#F7F9FC;border:1px solid #D9E1EC;border-radius:999px;padding:8px 14px;cursor:pointer}
+.when-chips button.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
 .field[hidden]{display:none}
 .ferr{color:#B42318;font-size:13px;min-height:0}
 .ferr:empty{display:none}
@@ -920,7 +920,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <select name="students"><option value="">Bitte wählen</option><option>unter 50</option><option>50–150</option><option>150–300</option><option>über 300</option></select></div>
     </div>
     <div class="field" data-show="call"><label>Wann erreiche ich dich am besten?</label>
-      <div class="chips" role="radiogroup" aria-label="Erreichbarkeit">
+      <div class="when-chips" role="radiogroup" aria-label="Erreichbarkeit">
         <button type="button" role="radio" data-when="vormittags">Vormittags</button>
         <button type="button" role="radio" data-when="mittags">Mittags</button>
         <button type="button" role="radio" data-when="nachmittags">Nachmittags</button>
@@ -1513,9 +1513,9 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       const msg = form.querySelector('.form-msg'); msg.className = 'form-msg'; msg.textContent = '';
     };
     form.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => { intent = b.dataset.intent; apply(); }));
-    form.querySelectorAll('.chips button').forEach((b) => b.addEventListener('click', () => {
+    form.querySelectorAll('.when-chips button').forEach((b) => b.addEventListener('click', () => {
       when = when === b.dataset.when ? '' : b.dataset.when;
-      form.querySelectorAll('.chips button').forEach((c) => { const on = c.dataset.when === when; c.classList.toggle('on', on); c.setAttribute('aria-checked', on); });
+      form.querySelectorAll('.when-chips button').forEach((c) => { const on = c.dataset.when === when; c.classList.toggle('on', on); c.setAttribute('aria-checked', on); });
     }));
     ['school', 'contact', 'email', 'phone', 'message'].forEach((n) => field(n).addEventListener('input', () => clearErr(n)));
     field('consent').addEventListener('change', () => clearErr('consent'));
