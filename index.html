@@ -94,7 +94,9 @@ section{padding-block:clamp(80px,10vw,130px)}
 .pl-short{display:none}@media (max-width:560px){.pl-long{display:none}.pl-short{display:inline}}
 .pill b{font-weight:600;color:var(--grass);background:var(--grass-soft);border-radius:999px;padding:2px 9px;font-size:12px;letter-spacing:.02em}
 .hero h1{font-size:clamp(40px,6.2vw,84px);margin:24px auto 0;max-width:17ch;line-height:1}
-@media (max-width:420px){.hero h1{font-size:clamp(30px,9vw,40px)}}
+.hero h1 .hl{display:block}
+.hero h1:has(.hl){max-width:none;font-size:clamp(34px,5.6vw,76px)}
+@media (max-width:420px){.hero h1:has(.hl){font-size:clamp(28px,8.4vw,36px)}}
 .hero h1 em{font-style:normal;color:var(--blue);position:relative;white-space:nowrap}
 .hero h1 em svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.3em;overflow:visible}
 .hero h1 em path{fill:none;stroke:var(--grass);stroke-width:5;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.2s .7s var(--ease) forwards}
@@ -566,7 +568,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     <div class="capsules" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="wrap">
       <span class="pill"><b>Neu</b><span class="pl-long">Verwaltung für Tennisschulen mit mehreren Vereinen</span><span class="pl-short">Software für Tennisschulen</span></span>
-      <h1 id="hero-h">Deine ganze Tennisschule. Ein Tool. <em>Kein Büro-Stress.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></h1>
+      <h1 id="hero-h"><span class="hl">Deine ganze Tennisschule.</span> <span class="hl">Ein Tool. <em>Kein Büro-Stress.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></span></h1>
       <p class="lead">Trainingsplan, Anmeldungen, Schüler, Trainer, Rechnungen und Zahlungen an einem Ort. Was du einmal einträgst, rechnet Roger überall weiter.</p>
       <div class="cta-row">
         <button class="btn btn-primary btn-lg" type="button" data-demo>Demo sofort starten<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -1522,7 +1524,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         await new Promise((r) => setTimeout(r, 140));
       }
     };
-    new IntersectionObserver(([e]) => { if (e.isIntersecting) play(); else { running = false; rally.classList.remove('go'); } }, { threshold: 0.6 }).observe(rally);
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) play(); else { running = false; rally.classList.remove('go'); } }, { threshold: 0.15 }).observe(rally);
     addEventListener('resize', () => { if (narrow()) { running = false; rally.classList.remove('go'); stats.forEach((_, i) => countUp(i)); } });
   })();
 
