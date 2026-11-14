@@ -1492,7 +1492,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     let running = false, seq = 0;
     const order = [0, 1, 2, 1];
     const flight = (a, b, ms) => new Promise((res) => {
-      const t0 = performance.now(); const h = Math.max(60, Math.abs(b.x - a.x) * 0.28);
+      const t0 = performance.now(); const h = Math.min(40, Math.max(24, Math.abs(b.x - a.x) * 0.18));
       const step = (t) => {
         if (!running) return res(false);
         const p = Math.min(1, (t - t0) / ms);
@@ -1503,7 +1503,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       requestAnimationFrame(step);
     });
     const drawTrail = (pts) => {
-      const d = pts.slice(1).map((b, k) => { const a = pts[k]; const h = Math.max(60, Math.abs(b.x - a.x) * 0.28); return `Q ${(a.x + b.x) / 2} ${Math.min(a.y, b.y) - 2 * h} ${b.x} ${b.y}`; }).join(' ');
+      const d = pts.slice(1).map((b, k) => { const a = pts[k]; const h = Math.min(40, Math.max(24, Math.abs(b.x - a.x) * 0.18)); return `Q ${(a.x + b.x) / 2} ${Math.min(a.y, b.y) - 2 * h} ${b.x} ${b.y}`; }).join(' ');
       trail.setAttribute('d', `M ${pts[0].x} ${pts[0].y} ${d}`);
     };
     const play = async () => {
