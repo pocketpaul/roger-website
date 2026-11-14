@@ -100,7 +100,21 @@ section{padding-block:clamp(80px,10vw,130px)}
 @keyframes draw{to{stroke-dashoffset:0}}
 .hero .lead{margin:26px auto 0;font-size:clamp(17px,1.6vw,20px)}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;justify-content:center}
-.stats{display:flex;justify-content:center;gap:clamp(28px,6vw,80px);margin-top:46px;flex-wrap:wrap}
+.claim{margin-top:46px;text-align:center}
+.claim-line{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.02em;color:var(--ink)}
+.claim-line span{color:var(--grass)}
+.rally{position:relative;display:flex;justify-content:center;gap:clamp(28px,7vw,96px);flex-wrap:wrap;margin-top:22px;padding-top:56px}
+.rally-court{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.rally-court path{fill:none;stroke:var(--blue-mid);stroke-width:2;stroke-dasharray:2 8;stroke-linecap:round;opacity:0;transition:opacity .6s}
+.rally.go .rally-court path{opacity:1}
+.rally-ball{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;opacity:0;transition:opacity .4s;will-change:transform;filter:drop-shadow(0 6px 6px rgba(15,29,54,.18))}
+.rally-ball svg{width:100%;height:100%;display:block}
+.rally.go .rally-ball{opacity:1}
+.rally .stat{transition:transform .35s var(--ease)}
+.rally .stat.hit{transform:translateY(3px) scale(1.06)}
+.rally .stat b{color:var(--ink)}
+.rally .stat.hit b{color:var(--blue)}
+@media (max-width:640px){.rally{padding-top:8px;gap:18px 28px}.rally-ball,.rally-court{display:none}}
 .stat{text-align:center}
 .stat b{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,3.4vw,42px);letter-spacing:-.03em;line-height:1}
 .stat span{display:block;margin-top:6px;color:var(--muted);font-size:14.5px}
@@ -557,10 +571,15 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <button class="btn btn-primary btn-lg" type="button" data-demo>Demo sofort starten<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <a class="btn btn-ghost btn-lg" href="#aktion"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Roger in Aktion</a>
       </div>
-      <div class="stats">
-        <div class="stat"><b>30 Jahre</b><span>aus der eigenen Tennisschule</span></div>
-        <div class="stat"><b>0 Konten</b><span>für Eltern nötig</span></div>
-        <div class="stat"><b>Frankfurt</b><span>Serverstandort, EU</span></div>
+      <div class="claim" id="claim">
+        <p class="claim-line">Von Tennistrainern. <span>Für Tennistrainer.</span></p>
+        <div class="rally" id="rally">
+          <svg class="rally-court" aria-hidden="true"><path id="rallyTrail"/></svg>
+          <span class="rally-ball" id="rallyBall" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></span>
+          <div class="stat"><b data-count="30" data-unit=" Jahre">30 Jahre</b><span>Tennisschule im Rücken</span></div>
+          <div class="stat"><b data-count="1" data-unit=" Plan">1 Plan</b><span>für alle Vereine, Hallen und Trainer</span></div>
+          <div class="stat"><b data-count="1" data-unit=" Lauf">1 Lauf</b><span>für alle Rechnungen eines Vereins</span></div>
+        </div>
       </div>
       <div class="stage" id="stage">
         <div class="window">
@@ -577,7 +596,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
   <div class="trustbar" aria-label="Das Wichtigste in Kürze">
     <div class="wrap">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Server in Frankfurt</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Kostenlos testen</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>DSGVO und AVV</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Datenumzug aus Excel inklusive</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Persönlicher Ansprechpartner</span>
@@ -1445,6 +1464,66 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     c.querySelector('.acts button:not(.ok)').onclick = () => { if (my === token) staticState(i); };
   }
   staticState(0);
+
+  // ---------- Ballwechsel über den Kennzahlen ----------
+  (() => {
+    const rally = $('#rally'); if (!rally) return;
+    const ball = $('#rallyBall'), trail = $('#rallyTrail');
+    const stats = $$('.stat', rally);
+    const nums = stats.map((st) => st.querySelector('b'));
+    const counted = new Set();
+    const countUp = (i) => {
+      if (counted.has(i)) return; counted.add(i);
+      const b = nums[i], to = +b.dataset.count, unit = b.dataset.unit || '';
+      if (reduce || to <= 1) { b.textContent = to + unit; return; }
+      const t0 = performance.now();
+      const step = (t) => { const p = Math.min(1, (t - t0) / 900); b.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + unit; if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    const narrow = () => matchMedia('(max-width:640px)').matches;
+    if (reduce) { stats.forEach((_, i) => countUp(i)); return; }
+    // Startwerte, bis der Ball kommt
+    nums.forEach((b) => { if (+b.dataset.count > 1) b.textContent = '0' + (b.dataset.unit || ''); });
+    const points = () => {
+      const r = rally.getBoundingClientRect();
+      return stats.map((st) => { const q = st.getBoundingClientRect(); return { x: q.left - r.left + q.width / 2, y: q.top - r.top - 6 }; });
+    };
+    const hit = (i) => { stats[i].classList.add('hit'); setTimeout(() => stats[i].classList.remove('hit'), 320); countUp(i); };
+    let running = false, seq = 0;
+    const order = [0, 1, 2, 1];
+    const flight = (a, b, ms) => new Promise((res) => {
+      const t0 = performance.now(); const h = Math.max(60, Math.abs(b.x - a.x) * 0.28);
+      const step = (t) => {
+        if (!running) return res(false);
+        const p = Math.min(1, (t - t0) / ms);
+        const x = a.x + (b.x - a.x) * p; const y = a.y + (b.y - a.y) * p - 4 * h * p * (1 - p);
+        ball.style.transform = `translate(${x}px,${y}px) rotate(${p * 540}deg)`;
+        if (p < 1) requestAnimationFrame(step); else res(true);
+      };
+      requestAnimationFrame(step);
+    });
+    const drawTrail = (pts) => {
+      const d = pts.slice(1).map((b, k) => { const a = pts[k]; const h = Math.max(60, Math.abs(b.x - a.x) * 0.28); return `Q ${(a.x + b.x) / 2} ${Math.min(a.y, b.y) - 2 * h} ${b.x} ${b.y}`; }).join(' ');
+      trail.setAttribute('d', `M ${pts[0].x} ${pts[0].y} ${d}`);
+    };
+    const play = async () => {
+      if (running || narrow()) { if (narrow()) stats.forEach((_, i) => countUp(i)); return; }
+      running = true; const my = ++seq; rally.classList.add('go');
+      let k = 0; let pts = points(); drawTrail(pts);
+      ball.style.transform = `translate(${pts[0].x}px,${pts[0].y - 120}px)`;
+      if (!(await flight({ x: pts[0].x, y: pts[0].y - 120 }, pts[0], 520))) return;
+      hit(0);
+      while (running && my === seq) {
+        pts = points(); drawTrail(pts);
+        const from = order[k % order.length], to = order[(k + 1) % order.length];
+        if (!(await flight(pts[from], pts[to], 900))) return;
+        hit(to); k++;
+        await new Promise((r) => setTimeout(r, 140));
+      }
+    };
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) play(); else { running = false; rally.classList.remove('go'); } }, { threshold: 0.6 }).observe(rally);
+    addEventListener('resize', () => { if (narrow()) { running = false; rally.classList.remove('go'); stats.forEach((_, i) => countUp(i)); } });
+  })();
 
   // ---------- Demo-Formular ----------
   const ENDPOINT = 'https://jkvhlxgwzzyvycwojprd.supabase.co/functions/v1/demo-request';
