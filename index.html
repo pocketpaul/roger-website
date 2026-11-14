@@ -145,34 +145,79 @@ section{padding-block:clamp(80px,10vw,130px)}
 .slotgrid i.b{background:var(--blue-mid)}.slotgrid i.g{background:var(--grass-mid)}.slotgrid i.d{background:var(--blue)}
 @media (max-width:980px){.what{grid-template-columns:1fr}.trio{grid-template-columns:1fr}}
 
-/* ---------- Vom Zettel zu Roger ---------- */
-.conv{position:relative;height:330px;margin-top:10px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
-.belt{position:absolute;top:50%;left:0;display:flex;gap:46px;align-items:center;transform:translateY(-50%);will-change:transform;animation:belt 46s linear infinite}
-.conv:hover .belt{animation-play-state:paused}
-@keyframes belt{from{transform:translate(0,-50%)}to{transform:translate(-50%,-50%)}}
-.item{position:relative;width:250px;height:178px;flex:none}
-.item>div{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden}
-.item>div>*{height:100%}
-.note{background:var(--paper);border:1px solid #EDE5D3;box-shadow:0 18px 30px -18px rgba(70,50,10,.35);padding:16px 18px;font-family:var(--f-hand);color:#3B3426;font-size:15px;line-height:1.45;transform:rotate(var(--r,-2deg))}
-.note h5{margin:0 0 6px;font:700 15px var(--f-hand);text-decoration:underline;text-decoration-color:#C7B98F}
-.note s{color:#9A8B6A}
-.note .red{color:#B4442E}
-.note.wa{background:#fff;border-color:#E3E7EE;font-family:var(--f-body);font-size:13.5px;color:#22303F}
-.note.wa .bubble{background:#E7F6EC;border-radius:12px 12px 12px 4px;padding:8px 10px;margin-top:6px}
-.note.wa small{color:#7A8698;font-size:11.5px}
-.digital{background:#fff;border:1px solid var(--rule);box-shadow:var(--shadow-lg);padding:16px;display:grid;gap:10px;align-content:start}
-.digital .hd{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.digital .hd .ic{width:26px;height:26px;border-radius:8px}
-.digital .hd .ic svg{width:15px;height:15px}
-.digital .badge{margin-left:auto;font:600 11.5px var(--f-body);color:var(--grass);background:var(--grass-soft);border-radius:999px;padding:3px 9px}
-.digital h6{margin:0;font:700 17px var(--f-display);letter-spacing:-.01em}
-.digital p{font-size:13px;color:var(--muted);line-height:1.45}
-.scanner{position:absolute;left:50%;top:8%;bottom:8%;width:2px;transform:translateX(-50%);background:linear-gradient(transparent,var(--blue) 18%,var(--blue) 82%,transparent);z-index:3}
-.scanner::after{content:"";position:absolute;inset:0 -18px;background:linear-gradient(90deg,transparent,rgba(34,82,204,.10),transparent)}
-.scanner .logo{position:absolute;left:50%;top:-6px;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:#fff;box-shadow:var(--shadow-lg),0 0 0 6px rgba(34,82,204,.12);display:grid;place-items:center}
-.scanner .logo svg{width:34px;height:34px}
-.conv-note{text-align:center;color:var(--muted);font-size:14px;margin-top:14px}
-@media (prefers-reduced-motion:reduce){.belt{animation:none;transform:translate(-12%,-50%)}}
+/* ---------- Lebendiger Trainingsplan ---------- */
+.live{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(24px,4vw,48px);align-items:center}
+.live>*{min-width:0}
+.lsteps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:ls}
+.lstep{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;text-align:left;width:100%;font:inherit;color:inherit;background:transparent;border:1px solid transparent;border-radius:16px;padding:14px 14px 16px;cursor:pointer;position:relative;overflow:hidden;transition:background .3s,border-color .3s,box-shadow .3s}
+.lstep .num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font:700 15px var(--f-display);background:#EDF1F7;color:var(--muted);transition:background .3s,color .3s}
+.lstep h3{font-size:18px}
+.lstep p{color:var(--muted);font-size:14.5px;margin-top:4px;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s var(--ease),opacity .35s}
+.lstep .pb{position:absolute;left:14px;right:14px;bottom:7px;height:3px;border-radius:3px;background:#E6EBF3;opacity:0;transition:opacity .3s}
+.lstep .pb i{display:block;height:100%;width:0;border-radius:3px;background:var(--blue)}
+.lstep.on{background:#fff;border-color:var(--rule);box-shadow:var(--shadow)}
+.lstep.on .num{background:var(--blue);color:#fff}
+.lstep.on p{max-height:120px;opacity:1}
+.lstep.on .pb{opacity:1}
+.lwin .bar span{margin-left:14px}
+.lplan{position:relative;padding:14px;background:#F8FAFC;overflow:hidden}
+.ltop{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:var(--muted)}
+.ltop b{color:var(--ink);font:700 15px var(--f-display);letter-spacing:-.01em}
+.ltop .lchip{margin-left:auto;display:flex;gap:6px}
+.ltop .lchip span{background:#fff;border:1px solid var(--rule);border-radius:8px;padding:4px 9px;font-size:12px}
+.ltop .lchip span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lgrid{position:relative;display:grid;grid-template-columns:40px repeat(5,minmax(0,1fr));grid-template-rows:auto;grid-auto-rows:62px;gap:5px}
+.lgrid .dh{grid-row:1;height:auto;text-align:center;align-self:end;padding-bottom:6px;border-bottom:1px solid #E2E8F0}
+.lgrid .th{grid-column:1;font:500 11px var(--f-mono);color:#94A3B8;padding-top:2px}
+.lgrid .cell{border-radius:8px;border-top:1px solid #EEF2F7}
+.lgrid .dh{display:grid;justify-items:center;gap:0}
+.lgrid .dh small{font:500 10.5px var(--f-body);letter-spacing:.04em;color:#64748B}
+.lgrid .dh strong{font:600 17px var(--f-body);color:var(--ink);line-height:1.15}
+/* Kachel 1:1 nach Roger (Trainingsplan, Wochenansicht): Hintergrund = Auslastung, linker Rand = Trainerfarbe */
+.lslot{position:relative;z-index:1;border-radius:8px;padding:4px 8px;line-height:1.25;border:1px solid rgba(226,232,240,.6);border-left:3px solid var(--tc,#2563eb);display:flex;flex-direction:column;overflow:hidden;font-family:"Geist",Inter,system-ui,sans-serif;transition:background-color .45s,border-color .45s,opacity .45s,transform .45s var(--ease),box-shadow .3s}
+.lslot .t{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;white-space:nowrap;overflow:hidden}
+.lslot .bd{border-radius:4px;background:rgba(255,255,255,.7);padding:0 4px;font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.lslot .g{font-size:12px;font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lslot .c{font-size:10px;margin-top:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lslot.o0{background:#F8FAFC}.lslot.o0 .g{color:#475569}.lslot.o0 .t,.lslot.o0 .c{color:#94A3B8}
+.lslot.o1{background:#EFF6FF}.lslot.o1 .g{color:#1E3A8A}.lslot.o1 .t,.lslot.o1 .c{color:#2563EB}
+.lslot.o2{background:#ECFDF5}.lslot.o2 .g{color:#064E3B}.lslot.o2 .t,.lslot.o2 .c{color:#059669}
+.lslot.o3{background:#FFFBEB}.lslot.o3 .g{color:#78350F}.lslot.o3 .t,.lslot.o3 .c{color:#D97706}
+.lslot.off{background:#FEF2F2;opacity:.5;text-decoration:line-through}.lslot.off .g{color:#B91C1C}.lslot.off .t,.lslot.off .c{color:#EF4444}
+.lslot.new{transform:scale(.6);opacity:0}
+.lslot.pop{transform:none;opacity:1}
+.lslot.flash{box-shadow:0 0 0 3px rgba(37,99,235,.25)}
+.llegend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11px;color:#64748B}
+.llegend span{display:inline-flex;align-items:center;gap:5px}
+.llegend i{width:10px;height:10px;border-radius:3px;border:1px solid}
+.lcursor{position:absolute;left:0;top:0;width:22px;height:22px;z-index:6;pointer-events:none;transition:transform .9s cubic-bezier(.45,.05,.2,1);filter:drop-shadow(0 3px 4px rgba(15,29,54,.35))}
+.ripple{position:absolute;z-index:5;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:2px solid var(--blue);pointer-events:none;animation:rip .6s ease-out forwards}
+@keyframes rip{from{transform:scale(.3);opacity:1}to{transform:scale(1.6);opacity:0}}
+.lpick{position:absolute;z-index:4;width:190px;background:#fff;border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow-lg);padding:8px;display:grid;gap:5px;font-size:12px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.lpick.show{opacity:1;transform:none}
+.lpick .q{border:1px solid #D9E1EC;border-radius:8px;padding:5px 8px;color:var(--muted)}
+.lpick .p{display:flex;align-items:center;gap:7px;border-radius:8px;padding:4px 6px;transition:background .25s,opacity .3s}
+.lpick .p.go{background:var(--blue-soft)}
+.lpick .p.gone{opacity:.35}
+.av2{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:600 9px var(--f-body);color:#fff;flex:none}
+.fly{position:absolute;z-index:7;pointer-events:none;transition:transform .7s cubic-bezier(.5,0,.2,1),opacity .7s}
+.linv{position:absolute;z-index:8;right:14px;top:14px;bottom:14px;width:min(300px,78%);background:#fff;border:1px solid var(--rule);border-radius:16px;box-shadow:0 40px 80px -30px rgba(15,29,54,.45);padding:16px;display:grid;align-content:start;gap:10px;font-size:12.5px;transform:translateX(115%);transition:transform .7s var(--ease)}
+.linv.show{transform:none}
+.linv .h{display:flex;justify-content:space-between;align-items:center}
+.linv .h b{font:700 15px var(--f-display)}
+.linv .h span{font:600 11px var(--f-mono);color:var(--blue);background:var(--blue-soft);border-radius:6px;padding:2px 7px}
+.linv .who{color:var(--muted)}
+.linv .ln{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-top:1px solid #EEF1F5;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.linv .ln.show{opacity:1;transform:none}
+.linv .ln small{display:block;color:var(--muted);font-size:11.5px}
+.linv .tot{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--ink);padding-top:9px;margin-top:2px}
+.linv .tot b{font:700 22px var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.linv .sent{display:flex;align-items:center;gap:7px;color:var(--grass);font-weight:600;opacity:0;transition:opacity .4s}
+.linv .sent.show{opacity:1}
+.linv .sent svg{width:16px;height:16px}
+.lcap{margin-top:14px;color:var(--muted);font-size:14px;min-height:1.5em;text-align:center}
+@media (max-width:980px){.live{grid-template-columns:1fr}.lsteps{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.lstep{grid-template-columns:1fr;justify-items:center;text-align:center;padding:10px 6px 14px}.lstep h3{font-size:13px}.lstep p{display:none}.lstep .num{width:28px;height:28px;font-size:13px}}
+@media (max-width:560px){.lplan{padding:10px}.lgrid{grid-template-columns:30px repeat(5,minmax(0,1fr));grid-auto-rows:50px;gap:3px}.lslot{padding:3px 4px}.lslot .t{font-size:8px}.lslot .g{font-size:10px}.lslot .c{font-size:8px}.lslot .bd{font-size:6.5px;padding:0 2px}.lgrid .dh strong{font-size:14px}.ltop .lchip{display:none}.lgrid .th{font-size:9.5px}.lpick{width:160px}.linv{width:86%;padding:12px}}
 
 /* ---------- Momente (Tabs + Iso-Platz) ---------- */
 .moments{background:linear-gradient(160deg,#EEF3FD 0%,#F4F8FE 55%,#EDF6F1 100%);border:1px solid #DCE5F5;border-radius:32px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(28px,5vw,60px);align-items:center}
@@ -514,20 +559,37 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </div>
   </section>
 
-  <!-- ============ VOM ZETTEL ZU ROGER ============ -->
-  <section class="band" aria-labelledby="conv-h" style="padding-bottom:clamp(60px,8vw,100px)">
+  <!-- ============ LEBENDIGER TRAININGSPLAN ============ -->
+  <section class="band" aria-labelledby="live-h">
     <div class="wrap">
       <div class="sec-head center rise">
-        <span class="label">Vom Zettel zu Roger</span>
-        <h2 id="conv-h">Schluss mit Zetteln, Listen und WhatsApp-Verläufen.</h2>
-        <p class="lead">Was heute auf Papier, in Excel und im Handy verteilt ist, liegt in Roger an einem Ort, sauber und für alle Trainer gleich.</p>
+        <span class="label">Der Trainingsplan ist das Herz</span>
+        <h2 id="live-h">Ein Klick im Plan. Den Rest rechnet Roger.</h2>
+        <p class="lead">Stunde anlegen, Schüler eintragen, Vertretung regeln. Roger merkt sich alles und macht daraus am Ende die Rechnung, ohne dass du etwas doppelt eintippst.</p>
+      </div>
+      <div class="live">
+        <ol class="lsteps" id="lsteps">
+          <li><button class="lstep" type="button" data-s="0"><span class="num">1</span><span><h3>Stunde anlegen</h3><p>Freien Platz anklicken, Verein, Trainer und Gruppe wählen. Die Termine für die ganze Saison entstehen sofort.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="1"><span class="num">2</span><span><h3>Schüler eintragen</h3><p>Namen suchen, eintragen, fertig. Roger erkennt die Gruppengröße und den Einstieg mitten in der Saison.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="2"><span class="num">3</span><span><h3>Vertretung &amp; Ausfall</h3><p>Trainer krank? Vertretung wählen. Halle zu? Stunde absagen. Der Plan zeigt es allen, die Abrechnung zieht es ab.</p></span><span class="pb"><i></i></span></button></li>
+          <li><button class="lstep" type="button" data-s="3"><span class="num">4</span><span><h3>Rechnung entsteht</h3><p>Aus dem Plan wird die Rechnung: Gruppenpreis geteilt durch Teilnehmer, Hallenkosten dazu, Ausfälle abgezogen.</p></span><span class="pb"><i></i></span></button></li>
+        </ol>
+        <div>
+          <div class="window lwin rise">
+            <div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de · Trainingsplan</span></div>
+            <div class="lplan" id="lplan" aria-hidden="true">
+              <div class="ltop"><b>16. Nov. – 20. Nov. 2026</b><span class="lchip"><span class="on">Woche</span><span>Tag</span><span>Monat</span></span></div>
+              <div class="lgrid" id="lgrid"></div>
+              <div class="llegend"><span><i style="background:#ECFDF5;border-color:#A7F3D0"></i>Gut belegt</span><span><i style="background:#FFFBEB;border-color:#FDE68A"></i>Voll</span><span><i style="background:#FEF2F2;border-color:#FECACA"></i>Ausfall</span><span><i style="background:#F8FAFC;border-color:#CBD5E1"></i>Platz frei</span></div>
+              <svg class="lcursor" id="lcursor" viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#0F1D36" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <div class="lpick" id="lpick"></div>
+              <div class="linv" id="linv"></div>
+            </div>
+          </div>
+          <p class="lcap" id="lcap"></p>
+        </div>
       </div>
     </div>
-    <div class="conv" aria-hidden="true">
-      <div class="belt" id="belt"></div>
-      <div class="scanner"><span class="logo"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>
-    </div>
-    <p class="conv-note">Links der Alltag ohne Roger, rechts mit Roger.</p>
   </section>
 
   <!-- ============ MOMENTE ============ -->
@@ -859,44 +921,160 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     }, 2600);
   }
 
-  // Vom Zettel zu Roger: Paare aus Alltag (Papier) und Roger (digital)
-  const PAIRS = [
-    [`<div class="note" style="--r:-3deg"><h5>Hallenplan Do</h5>17h U12 – Ben, Lea, Tom<br>18h <s>Damen</s> → <span class="red">fällt aus!</span><br>19h Herren 30 – ??</div>`,
-     ['blue', 'cal', 'Trainingsplan', 'Aktualisiert', 'Donnerstag, 3 Stunden', 'U12 · Damen ausgefallen · Herren 30, alle Trainer sehen es sofort']],
-    [`<div class="note wa"><small>WhatsApp · Mama von Lena</small><div class="bubble">Hallo, Lena kann ab nächster Woche dienstags statt mittwochs, geht das? 🙂</div><small>15:42</small></div>`,
-     ['green', 'users', 'Gruppenwechsel', 'Erledigt', 'Lena → Di 17:00', 'Ab Einheit 9, Rechnung passt sich an']],
-    [`<div class="note" style="--r:2deg"><h5>Rechnungen Winter</h5>Müller 414,- ✓<br>Schulz 770,50 ?<br>Weber <span class="red">noch offen!!</span><br>Krause … Einstieg Nov??</div>`,
-     ['blue', 'doc', 'Sammelabrechnung', '49 erstellt', 'Wintersaison 2026/27', 'Einstiege, Ausfälle und Hallenkosten automatisch berücksichtigt']],
-    [`<div class="note" style="--r:-1.5deg"><h5>Vertretung</h5>Sandra krank → wer kann??<br>Lisa? Marco? <br><span class="red">Std. aufschreiben!</span></div>`,
-     ['green', 'swap', 'Vertretung', 'Eingetragen', 'Lisa statt Sandra, 17–20 Uhr', 'Trainerkosten werden Lisa gutgeschrieben']],
-    [`<div class="note" style="--r:2.5deg"><h5>Kontoauszug Okt</h5>+ 414,00 Mueller T.<br>+ 770,50 RE 17 ??<br>+ 92,00 Schulz Camp</div>`,
-     ['blue', 'bank', 'Zahlungsabgleich', '3 zugeordnet', 'Kontoauszug Oktober', 'Rechnungsnummer und Name erkannt, offene Posten aktuell']],
-    [`<div class="note wa"><small>WhatsApp · Trainergruppe</small><div class="bubble">Wer hat die neue Liste für die Herbstferien? Ich find nix 😅</div><small>09:12</small></div>`,
-     ['green', 'sun', 'Ferien & Camps', 'Geplant', 'Herbstcamp 2026', 'Trainingsfreie Tage im Plan, Camp-Anmeldungen online']],
-  ];
-  const belt = $('#belt');
-  const digital = ([c, i, t, badge, h, p]) => `<div class="digital"><div class="hd"><span class="ic ${c}">${IC[i]}</span>${t}<span class="badge">${badge}</span></div><h6>${h}</h6><p>${p}</p></div>`;
-  // jeder Eintrag zweimal: Papier und digital; die Mitte (Scanner) „verwandelt“ per clip-path
-  const html = PAIRS.map(([paper, dig]) => `<div class="item"><div class="paper-side">${paper}</div><div class="dig-side">${digital(dig)}</div></div>`).join('');
-  belt.innerHTML = html + html;
-  const conv = belt.parentElement;
-  const sides = () => $$('.item', belt);
-  const clip = () => {
-    const mid = conv.getBoundingClientRect().left + conv.clientWidth / 2;
-    for (const it of sides()) {
-      const r = it.getBoundingClientRect();
-      const split = Math.min(r.width, Math.max(0, mid - r.left)); // links der Mitte: digital
-      const pct = (split / r.width) * 100;
-      it.firstElementChild.style.clipPath = `inset(-30px -30px -30px ${pct}%)`;
-      it.lastElementChild.style.clipPath = `inset(-30px ${100 - pct}% -30px -30px)`;
+  // ---------- Lebendiger Trainingsplan ----------
+  (() => {
+    const grid = $('#lgrid'), plan = $('#lplan'), cursor = $('#lcursor'), pick = $('#lpick'), inv = $('#linv'), cap = $('#lcap');
+    const steps = $$('#lsteps .lstep');
+    const DAYS = ['MO.', 'DI.', 'MI.', 'DO.', 'FR.'], DATES = [16, 17, 18, 19, 20], TIMES = ['15:00', '16:00', '17:00', '18:00', '19:00'];
+    // Trainerfarben aus der App (COACH_COLOR_PALETTE)
+    const T = { Marco: '#2563eb', Lisa: '#059669', Jonas: '#7c3aed', Sandra: '#db2777', Max: '#0891b2' };
+    // [Tag 0-4, Zeile 0-4, Gruppe, Trainer, belegt, Kapazität]
+    const BASE = [
+      [0, 0, 'U10 m', 'Marco', 3, 4], [0, 2, 'U15 Mixed', 'Sandra', 4, 4], [0, 4, 'Herren 30', 'Jonas', 1, 4],
+      [1, 0, 'U8', 'Lisa', 4, 6], [1, 3, 'Damen', 'Marco', 4, 4],
+      [2, 1, 'U12 w', 'Jonas', 3, 4], [2, 3, 'U18', 'Sandra', 2, 4],
+      [3, 1, 'U10 Mixed', 'Marco', 4, 4], [3, 3, 'Herren', 'Sandra', 3, 4], [3, 4, 'Damen 30', 'Max', 4, 4],
+      [4, 0, 'U8', 'Max', 5, 6], [4, 2, 'U15 m', 'Lisa', 3, 4],
+    ];
+    const NEW = [1, 2]; // Di 17:00
+    const PEOPLE = [['Mia Schneider', 'MS', '#2252CC'], ['Ben Wolff', 'BW', '#2E7D58'], ['Lea Krause', 'LK', '#7A5AC8']];
+    const CAPS = [
+      'Klick auf einen freien Platz: Di 17:00 wird zur neuen U12-Gruppe mit Trainerin Lisa.',
+      'Drei Schüler eingetragen. Roger erkennt die 3er-Gruppe und rechnet ab ihrem Einstieg.',
+      'Sandra ist krank: Lisa übernimmt am Donnerstag. Die Stunde am Mittwoch fällt aus und wird nicht berechnet.',
+      'Aus dem Plan wird die Rechnung: 17 Einheiten, Gruppenpreis geteilt durch 3, Hallenkosten dazu.',
+    ];
+    const DUR = [3600, 4600, 5200, 6200];
+    let token = 0, scene = 0, visible = false, running = false;
+    const sleep = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+    // gleiche Stufen wie getSlotStyle() in der App
+    const tone = (n, cap) => { const r = n / Math.max(1, cap); return r === 0 ? 'o0' : r < 0.5 ? 'o1' : r < 1 ? 'o2' : 'o3'; };
+    const slotEl = (d, t, g, tr, n, cap) => {
+      const el = document.createElement('div'); el.className = 'lslot ' + tone(n, cap);
+      el.style.gridColumn = d + 2; el.style.gridRow = t + 2; el.style.setProperty('--tc', T[tr]);
+      el.dataset.n = n; el.dataset.cap = cap; el.dataset.tr = tr;
+      el.innerHTML = `<div class="t"><span>${TIMES[t]}–${TIMES[t].replace(/^(\d\d)/, (h) => String(+h + 1))}</span></div><div class="g">${g}</div><div class="c">${tr} · ${n}/${cap}</div>`;
+      return el;
+    };
+    const setCount = (el, n) => {
+      el.dataset.n = n; el.classList.remove('o0', 'o1', 'o2', 'o3'); el.classList.add(tone(n, +el.dataset.cap));
+      el.querySelector('.c').textContent = `${el.dataset.tr} · ${n}/${el.dataset.cap}`;
+    };
+    function build() {
+      grid.innerHTML = '<span></span>' + DAYS.map((d, i) => `<span class="dh" style="grid-column:${i + 2}"><small>${d}</small><strong>${DATES[i]}</strong></span>`).join('');
+      TIMES.forEach((t, r) => {
+        grid.insertAdjacentHTML('beforeend', `<span class="th" style="grid-row:${r + 2}">${t}</span>`);
+        DAYS.forEach((_, c) => grid.insertAdjacentHTML('beforeend', `<span class="cell" style="grid-column:${c + 2};grid-row:${r + 2}"></span>`));
+      });
+      BASE.forEach((b) => grid.appendChild(slotEl(...b)));
+      pick.className = 'lpick'; inv.className = 'linv'; inv.innerHTML = '';
+      $$('.fly', plan).forEach((f) => f.remove());
+      moveCursor(plan.clientWidth * 0.82, plan.clientHeight * 0.9, true);
     }
-  };
-  // Band läuft nach links: rechts der Mitte Papier (Alltag), links davon digital (Roger)
-  let convVisible = false;
-  new IntersectionObserver(([e]) => { convVisible = e.isIntersecting; }, { rootMargin: '100px' }).observe(conv);
-  const loopClip = () => { if (convVisible) clip(); requestAnimationFrame(loopClip); };
-  clip(); requestAnimationFrame(loopClip);
-  $('.conv-note').textContent = 'Rechts der Alltag ohne Roger, links mit Roger. Fahr mit der Maus drüber zum Anhalten.';
+    const rel = (el) => { const a = el.getBoundingClientRect(), p = plan.getBoundingClientRect(); return { x: a.left - p.left, y: a.top - p.top, w: a.width, h: a.height }; };
+    function moveCursor(x, y, instant) {
+      if (instant || reduce) { cursor.style.transition = 'none'; requestAnimationFrame(() => (cursor.style.transition = '')); }
+      cursor.style.transform = `translate(${x}px,${y}px)`;
+    }
+    async function clickAt(el, my) {
+      const r = rel(el); const x = r.x + r.w * 0.55, y = r.y + r.h * 0.5;
+      moveCursor(x, y); await sleep(950); if (my !== token) return false;
+      const rp = document.createElement('span'); rp.className = 'ripple'; rp.style.left = x + 'px'; rp.style.top = y + 'px';
+      plan.appendChild(rp); setTimeout(() => rp.remove(), 650);
+      return true;
+    }
+    const cellAt = (d, t) => grid.querySelector(`.cell[style*="grid-column:${d + 2};grid-row:${t + 2}"]`);
+    const slotAt = (d, t) => [...grid.querySelectorAll('.lslot')].find((s) => s.style.gridColumn.startsWith(String(d + 2)) && s.style.gridRow.startsWith(String(t + 2)));
+    const euro = (n) => n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
+
+    // Zustand einer Szene sofort herstellen (für Klick auf einen Schritt)
+    function stateUpTo(n) {
+      build();
+      if (n >= 1) { const s = slotEl(NEW[0], NEW[1], 'Offen', 'Lisa', 0, 4); s.id = 'lnew'; grid.appendChild(s); }
+      if (n >= 2) { setCount($('#lnew'), 3); $('#lnew .g').textContent = 'U12 Mixed'; }
+      if (n >= 3) { applySub(true); applyOff(true); }
+    }
+    function applySub(instant) {
+      const s = slotAt(3, 3); if (!s) return;
+      s.dataset.tr = 'Lisa'; s.style.setProperty('--tc', T.Lisa);
+      s.querySelector('.t').insertAdjacentHTML('beforeend', '<span class="bd">Vertr.</span>'); setCount(s, +s.dataset.n);
+      if (!instant) { s.classList.add('flash'); setTimeout(() => s.classList.remove('flash'), 900); }
+    }
+    function applyOff(instant) {
+      const s = slotAt(2, 1); if (!s) return; s.classList.add('off');
+      if (!instant) { s.classList.add('flash'); setTimeout(() => s.classList.remove('flash'), 900); }
+    }
+
+    const SCENES = [
+      async (my) => {
+        const c = cellAt(...NEW); if (!(await clickAt(c, my))) return;
+        const s = slotEl(NEW[0], NEW[1], 'Offen', 'Lisa', 0, 4); s.id = 'lnew'; s.classList.add('new'); grid.appendChild(s);
+        await sleep(40); s.classList.add('pop', 'flash'); await sleep(900); s.classList.remove('new', 'flash');
+      },
+      async (my) => {
+        const s = $('#lnew'); if (!(await clickAt(s, my))) return;
+        const r = rel(s); const left = Math.min(Math.max(8, r.x - 30), plan.clientWidth - pick.offsetWidth - 8);
+        pick.style.left = left + 'px'; pick.style.top = Math.max(8, r.y - 150) + 'px';
+        pick.innerHTML = '<div class="q">Schüler suchen …</div>' + PEOPLE.map(([n, ini, c]) => `<div class="p"><span class="av2" style="background:${c}">${ini}</span>${n}</div>`).join('');
+        pick.classList.add('show'); await sleep(500);
+        const rows = $$('.p', pick);
+        for (let i = 0; i < rows.length; i++) {
+          if (my !== token) return;
+          rows[i].classList.add('go'); await sleep(260);
+          const av = rows[i].querySelector('.av2'); const a = rel(av); const t = rel(s);
+          const f = av.cloneNode(true); f.classList.add('fly'); f.style.left = a.x + 'px'; f.style.top = a.y + 'px'; plan.appendChild(f);
+          await sleep(30); f.style.transform = `translate(${t.x + t.w - 28 - a.x - i * 8}px,${t.y + t.h - 26 - a.y}px) scale(.85)`;
+          await sleep(720); f.style.opacity = '0'; rows[i].classList.add('gone');
+          setCount(s, i + 1); if (i === 0) s.querySelector('.g').textContent = 'U12 w'; if (i === 1) s.querySelector('.g').textContent = 'U12 Mixed'; s.classList.add('flash'); setTimeout(() => s.classList.remove('flash'), 300);
+          await sleep(180);
+        }
+        await sleep(400); pick.classList.remove('show'); $$('.fly', plan).forEach((f) => f.remove());
+      },
+      async (my) => {
+        if (!(await clickAt(slotAt(3, 3), my))) return; applySub(false); await sleep(1100);
+        if (!(await clickAt(slotAt(2, 1), my))) return; applyOff(false); await sleep(900);
+      },
+      async (my) => {
+        moveCursor(plan.clientWidth * 0.86, plan.clientHeight * 0.92); await sleep(300);
+        inv.innerHTML = `<div class="h"><b>Rechnung</b><span>0189-2026</span></div><div class="who">Mia Schneider · Di 17:00 · ab Einheit 7</div>
+          <div class="ln"><div>Wintersaison 2026/27 · 3er-Gruppe · Einheiten 7–23<small>17 × 19,00 €</small></div><div>323,00 €</div></div>
+          <div class="ln"><div>Hallenkosten · 3er-Gruppe · Einheiten 7–23<small>17 × 4,00 €</small></div><div>68,00 €</div></div>
+          <div class="tot"><span>Gesamtbetrag</span><b id="ltot">0,00 €</b></div>
+          <div class="sent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>PDF per E-Mail an Familie Schneider</div>`;
+        inv.classList.add('show'); await sleep(700);
+        for (const ln of $$('.ln', inv)) { if (my !== token) return; ln.classList.add('show'); await sleep(420); }
+        const tot = $('#ltot'); const target = 391; const t0 = performance.now();
+        await new Promise((res) => { const step = (now) => { const p = Math.min(1, (now - t0) / (reduce ? 1 : 900)); tot.textContent = euro(target * (1 - Math.pow(1 - p, 3))); if (p < 1 && my === token) requestAnimationFrame(step); else res(); }; requestAnimationFrame(step); });
+        await sleep(300); $('.sent', inv).classList.add('show'); await sleep(1800);
+      },
+    ];
+
+    function mark(n, ms) {
+      steps.forEach((b, i) => { b.classList.toggle('on', i === n); const bar = b.querySelector('.pb i'); bar.style.transition = 'none'; bar.style.width = '0'; });
+      const bar = steps[n].querySelector('.pb i'); requestAnimationFrame(() => { bar.style.transition = `width ${ms}ms linear`; bar.style.width = '100%'; });
+      cap.textContent = CAPS[n];
+    }
+    async function runFrom(n) {
+      const my = ++token; running = true;
+      stateUpTo(n);
+      for (let i = n; ; i++) {
+        const k = i % 4;
+        if (k === 0 && i !== n) { await sleep(400); if (my !== token) return; build(); await sleep(500); }
+        while (!visible && my === token) await sleep(400);
+        if (my !== token) return;
+        mark(k, DUR[k]); const t0 = performance.now();
+        await SCENES[k](my); if (my !== token) return;
+        const rest = DUR[k] - (performance.now() - t0); if (rest > 0) await sleep(rest);
+        if (my !== token) return;
+      }
+    }
+    steps.forEach((b) => b.addEventListener('click', () => runFrom(+b.dataset.s)));
+    build();
+    if (reduce) { stateUpTo(3); mark(3, 0); SCENES[3](++token); }
+    else new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) runFrom(0); }, { threshold: 0.35 }).observe(plan);
+    let lastW = innerWidth;
+    addEventListener('resize', () => { if (Math.abs(innerWidth - lastW) < 40) return; lastW = innerWidth; if (!reduce && running) runFrom(0); });
+  })();
 
   // Momente: Tabs + isometrischer Platz
   const MOM = [
