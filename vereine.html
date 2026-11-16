@@ -968,6 +968,12 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   const ibIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { setTimeout(hide, reduce ? 0 : 700); ibIO.disconnect(); } }, { threshold: .6 });
   ibIO.observe(mask);
 
+  // Sprungmarke aus dem Link (z. B. #demo) nach dem Laden sauber anspringen
+  if (/^#[a-z][\w-]*$/i.test(location.hash)) {
+    const target = document.querySelector(location.hash);
+    if (target) addEventListener('load', () => setTimeout(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }), 60));
+  }
+
   // ---------- Demo starten ----------
   const form = $('#dform'), msg = $('#dmsg'), btnTxt = $('#dbtn');
   const startedAt = Date.now();
