@@ -362,6 +362,31 @@ section{padding-block:clamp(80px,10vw,128px)}
 .final .btn-ghost:hover{border-color:#fff}
 .final small{color:#A9CBB8;font-size:13.5px}
 
+/* ---------- Demo-Formular ---------- */
+.demo-wrap{display:grid;grid-template-columns:1fr 480px;gap:clamp(30px,5vw,64px);align-items:center}
+@media (max-width:980px){.demo-wrap{grid-template-columns:1fr}}
+.demo-list{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px}
+.demo-list li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.demo-list svg{flex:none;width:20px;height:20px;margin-top:3px;color:var(--green)}
+.dform{background:var(--surface);border:1px solid var(--rule);border-radius:22px;padding:28px;box-shadow:var(--shadow-lg);display:grid;gap:14px}
+.dform h3{font-size:22px}
+.dform label{display:grid;gap:6px;font-size:14px;font-weight:600}
+.dform label small{font-weight:400;color:var(--muted)}
+.dform input,.dform select{font:inherit;font-size:16px;font-weight:400;border:1px solid var(--rule);border-radius:10px;padding:11px 13px;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+.dform input:focus,.dform select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(31,122,77,.15)}
+.dform .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){.dform .two{grid-template-columns:1fr}}
+.dform .consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:13.5px;color:var(--muted);line-height:1.5}
+.dform .consent input{width:18px;height:18px;margin-top:2px;accent-color:var(--green);flex:none}
+.dform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.dform .btn{width:100%}
+.dform .msg{font-size:14px;color:var(--red);min-height:1em}
+.dform .fine{font-size:12.5px;color:var(--muted);text-align:center}
+.dform.busy .btn{opacity:.75;pointer-events:none}
+.spin{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:none}
+.dform.busy .spin{display:inline-block}.dform.busy .arr{display:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+
 /* ---------- Footer ---------- */
 footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--rule);background:var(--surface)}
 .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
@@ -394,13 +419,13 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </nav>
     <div class="nav-cta">
       <a class="btn btn-ghost" href="https://verein.roger-verwaltung.de">Anmelden</a>
-      <a class="btn btn-primary" href="#kontakt">Gespräch anfragen</a>
+      <a class="btn btn-primary" href="#demo">Demo starten</a>
       <button class="burger" type="button" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menü">
-  <a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a><a href="#sicherheit">Sicherheit</a><a href="#fragen">Fragen</a>
+  <a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a><a href="#sicherheit">Sicherheit</a><a href="#fragen">Fragen</a><a href="#demo">Demo starten</a>
   <a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a><a href="/">Zu Roger für Tennisschulen</a>
 </nav>
 
@@ -416,8 +441,8 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <h1 id="hero-h" class="in d1">Euer Verein. Eure Beiträge. <em>Ohne Zettelwirtschaft.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></h1>
         <p class="lead in d2">Mitglieder, Familien, Beitragsklassen und SEPA-Lastschrift an einem Ort. Vom handschriftlichen Aufnahmeantrag bis zur fertigen Bankdatei – mit Kontoabgleich, Arbeitsstunden, LSB-Statistik und Platzbuchung.</p>
         <div class="cta-row in d3">
-          <a class="btn btn-primary btn-lg" href="#kontakt">Gespräch anfragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-ghost btn-lg" href="#beitraege">So läuft der Beitragseinzug</a>
+          <a class="btn btn-primary btn-lg" href="#demo">Demo sofort starten<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost btn-lg" href="#kontakt">Gespräch anfragen</a>
         </div>
         <div class="hero-facts in d4">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Lastschrift ohne Zahlungsdienstleister</span>
@@ -684,8 +709,43 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <details><summary>Gilt ein Online-Mandat ohne Unterschrift?</summary><p>Viele Banken akzeptieren elektronisch erteilte Mandate mit nachvollziehbarer Zustimmung. Ob das für euch passt, regelt die Inkassovereinbarung mit eurer Bank – fragt dort kurz nach. Papiermandate mit Scan funktionieren in jedem Fall.</p></details>
         <details><summary>Ist das dasselbe Programm wie Roger für Tennisschulen?</summary><p>Nein. Roger für Vereine ist ein eigenes System mit eigener Datenbank und eigener Anmeldung unter verein.roger-verwaltung.de. Es ist auf Mitgliederverwaltung und Beitragseinzug ausgelegt, nicht auf Trainingspläne.</p></details>
         <details><summary>Gibt es auch eine Hallenbuchung?</summary><p>Die Platzbuchung ist aktuell für Außenplätze gedacht. Eine Hallenbuchung planen wir als nächsten Schritt – sprecht uns an, wenn ihr sie braucht.</p></details>
+        <details><summary>Was passiert mit meinen Daten in der Demo?</summary><p>Du bekommst einen eigenen Demo-Verein mit erfundenen Mitgliedern. Niemand sonst sieht ihn, es werden keine E-Mails verschickt und kein Geld bewegt. Nach 48 Stunden wird der Demo-Verein samt Zugang automatisch gelöscht.</p></details>
         <details><summary>Was kostet Roger für Vereine?</summary><p>Das klären wir im Gespräch, abhängig von der Größe eures Vereins. Schreibt uns kurz, wie viele Mitglieder ihr habt.</p></details>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="band" id="demo" aria-labelledby="demo-h">
+    <div class="wrap demo-wrap">
+      <div class="reveal">
+        <span class="label">Demo</span>
+        <h2 id="demo-h" style="margin-top:16px">Probier Roger mit einem eigenen Demo-Verein.</h2>
+        <p class="lead" style="margin-top:18px">In einer Minute bist du drin: ein kompletter Beispielverein mit rund 150 Mitgliedern, Familien, Mandaten, einem abgeschlossenen Beitragslauf, offenen Forderungen und Platzbuchungen. Alles erfunden, alles zum Ausprobieren.</p>
+        <ul class="demo-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Beitragslauf 2027 anlegen und die SEPA-Datei erzeugen</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Online-Anträge übernehmen und einen Papierantrag per Foto auslesen</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Kontoabgleich, Arbeitsstunden, LSB-Statistik und Platzbuchung</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Nur für dich – nach 48 Stunden wird der Demo-Verein gelöscht</li>
+        </ul>
+      </div>
+      <form class="dform reveal d1" id="dform" novalidate>
+        <h3>Demo-Verein öffnen</h3>
+        <label>Name eures Vereins <small>(optional)</small><input name="club_name" maxlength="160" autocomplete="organization" placeholder="z. B. TC Grün-Weiß"></label>
+        <div class="two">
+          <label>Dein Name <small>(optional)</small><input name="contact_name" maxlength="120" autocomplete="name"></label>
+          <label>E-Mail<input name="email" type="email" maxlength="200" autocomplete="email" inputmode="email" required placeholder="vorstand@verein.de"></label>
+        </div>
+        <div class="two">
+          <label>Telefon <small>(optional)</small><input name="phone" type="tel" maxlength="60" autocomplete="tel"></label>
+          <label>Mitglieder <small>(ungefähr)</small><select name="members_estimate"><option value="">Bitte wählen</option><option>unter 150</option><option>150–300</option><option>300–600</option><option>über 600</option></select></label>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label class="consent"><input type="checkbox" name="consent"><span>Ich bin einverstanden, dass Roger meine Angaben speichert, um mir den Demo-Zugang einzurichten und mich dazu einmal persönlich zu kontaktieren. Details in der <a href="datenschutz.html#demo-verein" target="_blank" rel="noopener">Datenschutzerklärung</a>. Widerruf jederzeit per E-Mail.</span></label>
+        <p class="msg" id="dmsg" role="status" aria-live="polite"></p>
+        <button class="btn btn-primary btn-lg" type="submit"><span class="spin" aria-hidden="true"></span><span id="dbtn">Demo-Verein öffnen</span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="fine">Kostenlos und unverbindlich. Kein Newsletter.</p>
+      </form>
     </div>
   </section>
 
@@ -714,7 +774,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <a class="brand" href="/vereine"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1F7A4D"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Roger</a>
         <p>Roger für Vereine: Mitglieder, Beiträge und SEPA-Lastschrift für Tennisvereine. Aus Bochum.</p>
       </div>
-      <div><h4>Vereine</h4><nav><a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge & SEPA</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a></nav></div>
+      <div><h4>Vereine</h4><nav><a href="#demo">Demo starten</a><a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge & SEPA</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a></nav></div>
       <div><h4>Produkte</h4><nav><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a></nav></div>
       <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutzerklärung</a></nav></div>
     </div>
@@ -907,6 +967,35 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   });
   const ibIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { setTimeout(hide, reduce ? 0 : 700); ibIO.disconnect(); } }, { threshold: .6 });
   ibIO.observe(mask);
+
+  // ---------- Demo starten ----------
+  const form = $('#dform'), msg = $('#dmsg'), btnTxt = $('#dbtn');
+  const startedAt = Date.now();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    const fd = new FormData(form);
+    const email = String(fd.get('email') || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'Bitte gib eine gültige E-Mail-Adresse an.'; form.email.focus(); return; }
+    if (!form.consent.checked) { msg.textContent = 'Bitte stimme der Speicherung deiner Angaben zu.'; return; }
+    form.classList.add('busy'); btnTxt.textContent = 'Demo-Verein wird eingerichtet …';
+    try {
+      const res = await fetch('https://xuoivvpgesaizahvvnbz.supabase.co/functions/v1/demo-start', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          club_name: fd.get('club_name'), contact_name: fd.get('contact_name'), email, phone: fd.get('phone'),
+          members_estimate: fd.get('members_estimate'), website: fd.get('website'), consent: true, started_at: startedAt,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.redirect) throw new Error(data.error || 'Das hat gerade nicht geklappt. Bitte versuch es noch einmal.');
+      btnTxt.textContent = 'Wird geöffnet …';
+      location.href = data.redirect;
+    } catch (err) {
+      msg.textContent = err.message;
+      form.classList.remove('busy'); btnTxt.textContent = 'Demo-Verein öffnen';
+    }
+  });
 })();
 </script>
 </body>
