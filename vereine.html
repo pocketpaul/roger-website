@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Roger für Vereine – Mitgliederverwaltung und SEPA-Beitragseinzug für Tennisvereine</title>
+<meta name="description" content="Roger für Vereine: Mitglieder, Beiträge und SEPA-Lastschrift für Tennisvereine. Import aus Excel, Mitgliedsanträge per Foto, Online-Mandat für die Vereinswebsite, Kontoabgleich, Arbeitsstunden, LSB-Statistik und Platzbuchung.">
+<meta property="og:title" content="Roger für Vereine – Verwaltung für Tennisvereine">
+<meta property="og:description" content="Mitglieder, Beiträge und SEPA-Lastschrift an einem Ort. Vom Papierantrag bis zur Bankdatei.">
+<meta property="og:url" content="https://roger-verwaltung.de/vereine">
+<meta name="theme-color" content="#F4F7F5">
+<link rel="canonical" href="https://roger-verwaltung.de/vereine">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --bg:#F4F7F5; --surface:#FFFFFF; --ink:#0F1D36; --muted:#56657C; --rule:#E1E8E4;
+  --green:#1F7A4D; --green-2:#28915D; --green-soft:#E5F3EB; --green-mid:#BFE2CD; --green-deep:#0E3B27;
+  --blue:#2252CC; --blue-soft:#EAF0FD;
+  --clay:#B5532E; --clay-soft:#F8E9E1;
+  --red:#C2362F; --red-soft:#FBE9E8;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;
+  --shadow:0 1px 2px rgba(15,29,54,.06),0 12px 32px -12px rgba(15,29,54,.18);
+  --shadow-lg:0 2px 4px rgba(15,29,54,.05),0 40px 80px -30px rgba(15,29,54,.35);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.label{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;color:var(--green);text-transform:uppercase}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:-.025em;line-height:1.05;margin:0;text-wrap:balance}
+h2{font-size:clamp(34px,4.6vw,56px)}
+h3{font-size:21px;letter-spacing:-.01em;line-height:1.2}
+p{margin:0}
+.lead{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 16px/1 var(--f-body);text-decoration:none;border-radius:12px;padding:15px 22px;border:1px solid transparent;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s,border-color .2s;white-space:nowrap}
+.btn svg{width:17px;height:17px;flex:none}
+.btn-primary{background:var(--green);color:#fff;box-shadow:0 8px 20px -8px rgba(31,122,77,.65)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 26px -10px rgba(31,122,77,.7);background:var(--green-2)}
+.btn-ghost{background:var(--surface);border-color:var(--rule);color:var(--ink)}
+.btn-ghost:hover{border-color:#C6D2CB;transform:translateY(-1px)}
+.btn-lg{padding:18px 26px;font-size:17px;border-radius:14px}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
+section{padding-block:clamp(80px,10vw,128px)}
+.sec-head{display:grid;gap:18px;margin-bottom:52px;max-width:780px}
+.sec-head.center{margin-inline:auto;text-align:center;justify-items:center}
+.band{background:var(--surface);border-block:1px solid var(--rule)}
+
+/* ---------- Navigation mit Produktwahl ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(244,247,245,.8);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+.nav.scrolled{border-bottom-color:var(--rule);background:rgba(255,255,255,.88)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:18px}
+.nav-left{display:flex;align-items:center;gap:18px;min-width:0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:24px;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px}
+.pswitch{position:relative;display:flex;padding:4px;border-radius:999px;background:rgba(15,29,54,.06);border:1px solid rgba(15,29,54,.06)}
+.pswitch a{position:relative;z-index:1;text-decoration:none;font:600 14px/1 var(--f-body);padding:9px 14px;border-radius:999px;color:var(--muted);transition:color .25s;white-space:nowrap}
+.pswitch a[aria-current="page"]{color:#fff}
+.pswitch a:not([aria-current]):hover{color:var(--ink)}
+.pswitch .thumb{position:absolute;top:4px;bottom:4px;border-radius:999px;background:var(--green);box-shadow:0 6px 14px -6px rgba(31,122,77,.7);transition:left .45s var(--ease),width .45s var(--ease)}
+.nav-links{display:flex;gap:24px;font-size:15px;color:var(--muted);white-space:nowrap}
+.nav-links a{text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav .btn{padding:11px 18px;font-size:15px}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--rule);background:var(--surface);cursor:pointer;place-items:center}
+.burger svg{width:20px;height:20px}
+.mnav{display:none}
+.mnav.open{display:grid;position:fixed;inset:72px 0 auto 0;z-index:49;background:#fff;border-bottom:1px solid var(--rule);padding:12px 20px 22px;gap:4px;box-shadow:var(--shadow-lg)}
+.mnav a{padding:12px 4px;text-decoration:none;font-weight:500;border-bottom:1px solid var(--rule)}
+.mnav a:last-child{border:0}
+@media (max-width:1080px){.nav-links{display:none}.burger{display:grid}}
+@media (max-width:640px){.nav .btn-ghost{display:none}.brand span{display:none}.pswitch a{padding:9px 11px;font-size:13px}}
+@media (max-width:420px){.nav .btn-primary{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding-block:clamp(52px,7vw,96px) clamp(64px,8vw,110px);overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(55% 60% at 15% 10%,#DDF0E4 0%,rgba(244,247,245,0) 70%),radial-gradient(45% 50% at 95% 30%,rgba(34,82,204,.08),transparent 70%)}
+.court-lines{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55}
+.court-lines path{fill:none;stroke:#CFE3D7;stroke-width:1.5;stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 2.6s .2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+.hero-grid>*{min-width:0}
+@media (max-width:560px){.hero .wrap h1{font-size:clamp(28px,8.4vw,44px)}.hero .wrap h1 em{white-space:normal}.hero h1 em svg{display:none}.run .window{transform:none}.bank{right:8px}.file{right:12px}}
+.pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.85);border:1px solid var(--rule);border-radius:999px;padding:7px 15px 7px 9px;font-size:14px;color:var(--muted);box-shadow:var(--shadow)}
+.pill b{font-weight:600;color:var(--green);background:var(--green-soft);border-radius:999px;padding:2px 9px;font-size:12px;letter-spacing:.02em}
+.hero h1{font-size:clamp(40px,5.6vw,74px);margin-top:22px;line-height:1}
+.hero h1 em{font-style:normal;color:var(--green);position:relative;white-space:nowrap}
+.hero h1 em svg{position:absolute;left:-2%;bottom:-.1em;width:104%;height:.3em;overflow:visible}
+.hero h1 em path{fill:none;stroke:var(--blue);stroke-width:5;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.2s .8s var(--ease) forwards}
+.hero .lead{margin-top:24px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:30px;font-size:14.5px;color:var(--muted)}
+.hero-facts span{display:inline-flex;align-items:center;gap:8px}
+.hero-facts svg{width:16px;height:16px;color:var(--green)}
+.in{opacity:0;transform:translateY(16px);animation:in .8s var(--ease) forwards}
+.in.d1{animation-delay:.08s}.in.d2{animation-delay:.18s}.in.d3{animation-delay:.28s}.in.d4{animation-delay:.38s}.in.d5{animation-delay:.5s}
+@keyframes in{to{opacity:1;transform:none}}
+
+/* Fenster */
+.window{background:var(--surface);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow-lg);overflow:hidden}
+.bar{display:flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-bottom:1px solid var(--rule);background:#FAFCFB}
+.bar i{width:10px;height:10px;border-radius:50%;background:#E3E8E5}
+.bar span{margin-left:10px;font:500 12px var(--f-mono);color:var(--muted)}
+
+/* Hero-Animation: Beitragslauf */
+.run{position:relative;perspective:1600px}
+.run .window{transform:rotateY(-7deg) rotateX(3deg);transform-origin:center;transition:transform .8s var(--ease)}
+.run:hover .window{transform:none}
+.run-head{display:flex;justify-content:space-between;align-items:center;padding:16px 18px 10px;gap:10px}
+.run-head h4{margin:0;font:700 17px var(--f-display);letter-spacing:-.01em}
+.run-head small{display:block;color:var(--muted);font-size:12.5px;font-weight:400;font-family:var(--f-body)}
+.badge{display:inline-flex;align-items:center;gap:6px;font:600 12px var(--f-body);border-radius:999px;padding:4px 10px;background:var(--green-soft);color:var(--green);white-space:nowrap}
+.badge.blue{background:var(--blue-soft);color:var(--blue)}
+.badge.red{background:var(--red-soft);color:var(--red)}
+.rows{padding:0 10px}
+.row{display:grid;grid-template-columns:28px 1fr auto 108px;align-items:center;gap:10px;padding:9px 8px;border-radius:10px;font-size:14px;transition:background .35s}
+.row .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 11px var(--f-body);color:#fff}
+.row .nm{min-width:0}.row .nm b{display:block;font-weight:600;line-height:1.2;white-space:nowrap}
+.row .nm span{display:block;font-size:12px;color:var(--muted);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .tag{font-size:11.5px;color:var(--muted);text-align:right;white-space:nowrap}
+.row .tag em{font-style:normal;color:var(--green);font-weight:600}
+.row .amt{white-space:nowrap;text-align:right;font:600 14px var(--f-mono);font-variant-numeric:tabular-nums;opacity:.25;transition:opacity .3s}
+.row.on{background:var(--green-soft)}
+.row.done .amt{opacity:1}
+.row .chk{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px;color:var(--green);transform:scale(0);transition:transform .35s var(--ease)}
+.row.done .chk{transform:scale(1)}
+.run-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px 18px;border-top:1px solid var(--rule);margin-top:8px}
+.total small{display:block;color:var(--muted);font-size:12px}
+.total b{font:700 24px var(--f-display);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.xbtn{position:relative;display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);color:#fff;background:var(--ink);border-radius:10px;padding:11px 14px;transition:transform .15s,background .3s}
+.xbtn.press{transform:scale(.94);background:var(--green)}
+.xbtn svg{width:15px;height:15px}
+.file{position:absolute;right:26px;bottom:72px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow-lg);font-size:13px;opacity:0;transform:translateY(10px) scale(.9);pointer-events:none}
+.file .ic{width:34px;height:40px;border-radius:6px;background:var(--green-soft);display:grid;place-items:center;font:700 9px var(--f-mono);color:var(--green)}
+.file b{display:block;font-family:var(--f-mono);font-size:12.5px}
+.file span{color:var(--muted);font-size:12px}
+.file.show{animation:fileFly 2.4s var(--ease) forwards}
+@keyframes fileFly{0%{opacity:0;transform:translateY(10px) scale(.9)}18%{opacity:1;transform:translateY(-14px) scale(1)}70%{opacity:1;transform:translateY(-14px) scale(1)}100%{opacity:0;transform:translate(60px,-90px) scale(.7)}}
+.bank{position:absolute;right:-12px;top:-26px;display:flex;align-items:center;gap:8px;background:var(--green-deep);color:#fff;border-radius:12px;padding:10px 14px;font-size:13px;box-shadow:var(--shadow-lg)}
+.bank svg{width:18px;height:18px}
+.bank.ping{animation:ping .6s var(--ease)}
+@keyframes ping{40%{transform:scale(1.08)}}
+@media (max-width:560px){.row{grid-template-columns:28px 1fr 96px}.row .tag{display:none}.bank{right:6px;top:-30px}}
+
+/* Trustbar */
+.trustbar{border-block:1px solid var(--rule);background:var(--surface)}
+.trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 34px;padding-block:20px;font-size:15px;color:var(--muted)}
+.trustbar span{display:inline-flex;align-items:center;gap:9px}
+.trustbar svg{width:17px;height:17px;color:var(--green)}
+
+/* Einblenden beim Scrollen */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+/* ---------- Problem / vorher-nachher ---------- */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:860px){.vs{grid-template-columns:1fr}}
+.vs-card{border-radius:20px;padding:30px;border:1px solid var(--rule);background:var(--surface);position:relative;overflow:hidden}
+.vs-card.before{background:#FBFAF7}
+.vs-card.after{background:linear-gradient(160deg,#fff 0%,var(--green-soft) 120%);border-color:var(--green-mid)}
+.vs-card h3{margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.vs-card ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.vs-card li{display:flex;gap:12px;align-items:flex-start;font-size:16px}
+.vs-card li svg{flex:none;width:20px;height:20px;margin-top:3px}
+.before li svg{color:#A3ADBD}.after li svg{color:var(--green)}
+.before li{color:var(--muted)}
+.paper{position:absolute;right:-30px;top:-20px;width:150px;height:190px;background:#fff;border:1px solid #E6E2D6;border-radius:6px;transform:rotate(9deg);box-shadow:var(--shadow);opacity:.55}
+.paper::before{content:"";position:absolute;inset:22px 18px;background:repeating-linear-gradient(#EEE9DC 0 2px,transparent 2px 16px)}
+
+/* ---------- Drei Wege rein ---------- */
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:980px){.ways{grid-template-columns:1fr}}
+.way{background:var(--surface);border:1px solid var(--rule);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
+.way:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.way-vis{height:220px;background:#F6FAF7;border-bottom:1px solid var(--rule);position:relative;overflow:hidden}
+.way-txt{padding:24px 24px 28px;display:grid;gap:10px}
+.way-txt p{color:var(--muted);font-size:15.5px}
+.way-n{font:600 12px var(--f-mono);color:var(--green);letter-spacing:.08em}
+/* 1: CSV-Import */
+.csv{position:absolute;left:22px;top:28px;width:150px;background:#fff;border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow);font:500 10.5px var(--f-mono);overflow:hidden}
+.csv div{padding:6px 9px;border-top:1px solid #EEF2EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.csv div:first-child{border:0;background:#EFF5F1;color:var(--green);font-weight:600}
+.map{position:absolute;right:22px;top:28px;display:grid;gap:8px}
+.map span{display:block;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:6px 10px;font-size:12px;width:120px;opacity:.35;transform:translateX(8px);transition:all .5s var(--ease)}
+.map span.ok{opacity:1;transform:none;border-color:var(--green-mid);background:var(--green-soft);color:var(--green);font-weight:600}
+.arrows{position:absolute;inset:0;pointer-events:none}
+.arrows path{fill:none;stroke:var(--green);stroke-width:1.6;stroke-dasharray:4 5;opacity:0;transition:opacity .4s}
+.arrows path.ok{opacity:.8;animation:march 1s linear infinite}
+@keyframes march{to{stroke-dashoffset:-18}}
+/* 2: Antrag scannen */
+.scanpaper{position:absolute;left:50%;top:22px;width:170px;height:176px;margin-left:-85px;background:#fff;border:1px solid #E6E2D6;border-radius:6px;box-shadow:var(--shadow);transform:rotate(-3deg);padding:16px 14px;font-size:9.5px;color:#7C8494;overflow:hidden}
+.scanpaper h5{margin:0 0 8px;font:700 10px var(--f-body);color:var(--ink);letter-spacing:.02em}
+.scanpaper .ln{display:flex;gap:6px;align-items:baseline;margin-bottom:6px}
+.scanpaper .ln i{font-style:normal;flex:none;width:44px}
+.scanpaper .ln u{flex:1;text-decoration:none;border-bottom:1px solid #D9D3C3;font-family:"Segoe Print","Bradley Hand",cursive;color:#2E3A57;font-size:10.5px;line-height:1.2;white-space:nowrap;overflow:hidden}
+.scanline{position:absolute;left:0;right:0;height:42px;top:-42px;background:linear-gradient(180deg,rgba(31,122,77,0),rgba(31,122,77,.22) 80%,rgba(31,122,77,.9));animation:scan 3.2s ease-in-out infinite}
+@keyframes scan{0%{top:-42px}60%{top:176px}100%{top:176px}}
+.fields{position:absolute;right:14px;bottom:14px;display:grid;gap:5px}
+.fields span{background:#fff;border:1px solid var(--rule);border-radius:7px;padding:4px 8px;font-size:11px;box-shadow:var(--shadow);display:flex;gap:6px;align-items:center;opacity:0;transform:translateY(6px);animation:pop 3.2s var(--ease) infinite}
+.fields span:nth-child(2){animation-delay:.25s}.fields span:nth-child(3){animation-delay:.5s}
+.fields i{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
+.fields span.warn i{background:#D08A1A}
+@keyframes pop{0%,45%{opacity:0;transform:translateY(6px)}55%,92%{opacity:1;transform:none}100%{opacity:0}}
+/* 3: Online-Mandat */
+.site{position:absolute;inset:20px 22px;background:#fff;border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.site-top{height:26px;background:var(--green-deep);display:flex;align-items:center;padding:0 10px;color:#fff;font:600 10.5px var(--f-body);gap:6px}
+.site-top b{width:12px;height:12px;border-radius:50%;background:#fff;opacity:.85}
+.site-body{padding:12px 14px;display:grid;gap:7px}
+.inp{height:24px;border:1px solid var(--rule);border-radius:6px;font:500 11px var(--f-mono);padding:4px 8px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.inp .typed{display:inline-block;overflow:hidden;vertical-align:bottom;width:0;animation:type 5s steps(22) infinite}
+.inp:nth-child(2) .typed{animation-delay:.6s}
+@keyframes type{0%,8%{width:0}40%,92%{width:100%}100%{width:0}}
+.consent-row{display:flex;gap:6px;align-items:center;font-size:10px;color:var(--muted)}
+.consent-row i{width:12px;height:12px;border:1.5px solid var(--green);border-radius:3px;position:relative}
+.consent-row i::after{content:"";position:absolute;inset:2px;background:var(--green);border-radius:1px;transform:scale(0);animation:tick 5s infinite}
+@keyframes tick{0%,55%{transform:scale(0)}60%,95%{transform:scale(1)}100%{transform:scale(0)}}
+.sendb{justify-self:start;background:var(--green);color:#fff;border-radius:6px;font:600 10.5px var(--f-body);padding:6px 10px;animation:press 5s infinite}
+@keyframes press{0%,66%{transform:none}69%{transform:scale(.92)}72%,100%{transform:none}}
+.inbox{position:absolute;right:30px;bottom:26px;background:var(--ink);color:#fff;border-radius:10px;padding:8px 12px;font-size:11.5px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);opacity:0;animation:inbox 5s var(--ease) infinite}
+.inbox b{background:var(--green);border-radius:999px;padding:1px 7px;font-size:10.5px}
+@keyframes inbox{0%,72%{opacity:0;transform:translateY(10px)}78%,95%{opacity:1;transform:none}100%{opacity:0}}
+
+/* ---------- Ablauf Beitragslauf ---------- */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;position:relative;counter-reset:st}
+@media (max-width:980px){.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.flow{grid-template-columns:1fr}}
+.flow-line{position:absolute;left:0;right:0;top:31px;height:2px;background:var(--rule);overflow:hidden}
+.flow-line::after{content:"";position:absolute;inset:0;background:var(--green);transform:scaleX(var(--p,0));transform-origin:left;transition:transform .2s linear}
+@media (max-width:980px){.flow-line{display:none}}
+.step{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:18px;padding:22px;display:grid;gap:10px;align-content:start}
+.step .no{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:700 16px var(--f-display);background:var(--green-soft);color:var(--green);transition:background .4s,color .4s}
+.step.lit .no{background:var(--green);color:#fff}
+.step p{color:var(--muted);font-size:15px}
+.step small{font:500 12px var(--f-mono);color:var(--green)}
+.calc{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:860px){.calc{grid-template-columns:1fr 1fr}}
+.calc div{border-radius:16px;padding:18px;background:linear-gradient(160deg,#fff,#F3F8F5);border:1px solid var(--rule)}
+.calc b{display:block;font:700 26px var(--f-display);letter-spacing:-.02em;color:var(--green)}
+.calc span{display:block;margin-top:6px;font-size:14px;line-height:1.5;color:var(--muted)}
+
+/* ---------- Kontoabgleich ---------- */
+.match{display:grid;grid-template-columns:1fr 140px 1fr;align-items:end;gap:0;position:relative;max-width:1000px;margin:0 auto}
+#bankCol{grid-column:1;grid-row:1}#memCol{grid-column:3;grid-row:1}
+@media (max-width:860px){.match{grid-template-columns:1fr 50px 1fr}}
+@media (max-width:640px){.match{grid-template-columns:1fr;gap:26px}#bankCol,#memCol{grid-column:1;grid-row:auto}.links{display:none}}
+.mcol{display:grid;gap:10px}
+.mcol h4{margin:0 0 4px;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mitem{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:11px 14px;font-size:14px;display:flex;justify-content:space-between;gap:10px;align-items:center;transition:border-color .4s,background .4s,transform .4s var(--ease)}
+.mitem small{display:block;color:var(--muted);font-size:12px}
+.mitem b{font:600 14px var(--f-mono);white-space:nowrap}
+.mitem.m{border-color:var(--green-mid);background:#F7FCF9}
+.mitem.r{border-color:#F0C4C1;background:var(--red-soft)}
+.mitem.new{animation:newc .8s var(--ease)}
+@keyframes newc{from{opacity:0;transform:translateY(-8px)}}
+.links{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.links path{fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round}
+.links path.r{stroke:var(--red);stroke-dasharray:5 5}
+.match-note{margin:22px auto 0;max-width:1000px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* ---------- Funktionen-Raster ---------- */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1060px){.bento{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.bento{grid-template-columns:1fr}}
+.tile{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:18px;padding:22px;display:grid;gap:10px;align-content:start;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(240px 160px at var(--mx,50%) var(--my,0%),rgba(31,122,77,.10),transparent 70%);opacity:0;transition:opacity .3s}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--green-mid)}
+.tile:hover::before{opacity:1}
+.tile .ic{width:42px;height:42px;border-radius:12px;background:var(--green-soft);color:var(--green);display:grid;place-items:center}
+.tile .ic svg{width:21px;height:21px}
+.tile h3{font-size:18px}
+.tile p{color:var(--muted);font-size:14.5px;line-height:1.55}
+.tile.wide{grid-column:span 2}
+@media (max-width:560px){.tile.wide{grid-column:auto}}
+
+/* ---------- Platzbuchung ---------- */
+.book-grid{display:grid;grid-template-columns:1fr 360px;gap:clamp(30px,5vw,70px);align-items:center}
+@media (max-width:980px){.book-grid{grid-template-columns:1fr}}
+.phone{justify-self:center;width:330px;max-width:100%;border-radius:42px;background:var(--ink);padding:12px;box-shadow:var(--shadow-lg),inset 0 0 0 2px #2A3954}
+.phone-in{background:#F6F8F7;border-radius:32px;overflow:hidden;min-height:500px;padding-bottom:16px}
+.ph-top{background:var(--green-deep);color:#fff;padding:22px 18px 14px}
+.ph-top b{font:700 16px var(--f-display);display:block}
+.ph-top span{font-size:12px;opacity:.75}
+.days{display:flex;gap:6px;padding:12px 12px 4px;overflow:hidden}
+.days button{flex:none;border:1px solid var(--rule);background:#fff;border-radius:9px;padding:7px 10px;font:600 12px var(--f-body);color:var(--ink);cursor:pointer}
+.days button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.courts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 12px 14px}
+.courts h6{margin:0;text-align:center;font:600 11.5px var(--f-body)}
+.slot{border:1px solid var(--rule);background:#fff;border-radius:8px;padding:5px 6px;font-size:10.5px;line-height:1.2;text-align:left;cursor:pointer;transition:all .25s var(--ease);font-family:var(--f-body);color:var(--ink)}
+.slot b{display:block;font-size:11px}
+.slot:hover:not(:disabled){border-color:var(--green);background:var(--green-soft)}
+.slot:disabled{cursor:default}
+.slot.bk{background:#E3E8EF;color:#55627A;border-color:#D5DCE6}
+.slot.bl{background:repeating-linear-gradient(45deg,#F1F3F2,#F1F3F2 5px,#E9ECEA 5px,#E9ECEA 10px);color:#7D8796}
+.slot.mine,.slot.mine:hover:not(:disabled){background:var(--green);color:#fff;border-color:var(--green)}
+.slot.mine{animation:booked .5s var(--ease)}
+@keyframes booked{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:none}}
+.ph-toast{margin:0 12px;border-radius:10px;background:var(--ink);color:#fff;font-size:12px;padding:9px 12px;opacity:0;transform:translateY(8px);transition:all .35s var(--ease)}
+.ph-toast.on{opacity:1;transform:none}
+.blist{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px}
+.blist li{display:flex;gap:14px;align-items:flex-start}
+.blist li span.n{flex:none;width:30px;height:30px;border-radius:9px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font:700 14px var(--f-display)}
+.blist li p{color:var(--muted);font-size:15.5px}
+.blist li b{color:var(--ink);display:block;font-size:16px}
+
+/* ---------- Sicherheit (dunkel) ---------- */
+.dark{background:var(--green-deep);color:#E8F2EC;position:relative;overflow:hidden}
+.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 85% 0%,rgba(40,145,93,.35),transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(34,82,204,.25),transparent 70%)}
+.dark .wrap{position:relative}
+.dark .label{color:#8FD3AE}
+.dark .lead{color:#B9D3C4}
+.sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.sec-grid{grid-template-columns:1fr}}
+.sec-card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:18px;padding:24px;display:grid;gap:10px;backdrop-filter:blur(4px)}
+.sec-card h3{color:#fff;font-size:19px}
+.sec-card p{color:#B9D3C4;font-size:15px}
+.sec-card .ic{width:40px;height:40px;border-radius:11px;background:rgba(143,211,174,.14);display:grid;place-items:center;color:#8FD3AE}
+.sec-card .ic svg{width:20px;height:20px}
+.iban{margin-top:36px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;font:500 clamp(15px,2vw,22px) var(--f-mono);color:#fff}
+.iban .mask{letter-spacing:.06em}
+.iban .mask i{font-style:normal;display:inline-block;transition:color .3s}
+.iban small{font:500 13px var(--f-body);color:#8FD3AE;display:inline-flex;align-items:center;gap:6px}
+
+/* ---------- Rollen ---------- */
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.roles{grid-template-columns:1fr}}
+.role{border-radius:18px;border:1px solid var(--rule);background:var(--surface);padding:24px}
+.role h3{font-size:20px;margin-bottom:12px}
+.role ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px;color:var(--muted)}
+.role li{display:flex;gap:9px}
+.role li svg{flex:none;width:17px;height:17px;margin-top:4px;color:var(--green)}
+.role li.no svg{color:#B4BCC9}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:860px;margin:0 auto;display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:0 22px;transition:border-color .3s}
+.faq details[open]{border-color:var(--green-mid)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:12px;height:12px;flex:none;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg) translateY(-3px);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(225deg) translateY(-3px)}
+.faq details p{padding-bottom:18px;color:var(--muted)}
+
+/* ---------- Abschluss ---------- */
+.final{border-radius:28px;padding:clamp(34px,5vw,64px);background:linear-gradient(135deg,var(--green-deep) 0%,#145A39 60%,#1F7A4D 100%);color:#fff;position:relative;overflow:hidden;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+@media (max-width:860px){.final{grid-template-columns:1fr}}
+.final::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:2px solid rgba(255,255,255,.12);box-shadow:0 0 0 60px rgba(255,255,255,.03),0 0 0 120px rgba(255,255,255,.02)}
+.final h2{color:#fff}
+.final .lead{color:#C8E2D3;margin-top:16px}
+.final .actions{display:grid;gap:12px;position:relative;z-index:1}
+.final .btn-primary{background:#fff;color:var(--green-deep);box-shadow:none}
+.final .btn-primary:hover{background:#F0F7F3}
+.final .btn-ghost{background:transparent;border-color:rgba(255,255,255,.35);color:#fff}
+.final .btn-ghost:hover{border-color:#fff}
+.final small{color:#A9CBB8;font-size:13.5px}
+
+/* ---------- Footer ---------- */
+footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1px solid var(--rule);background:var(--surface)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.foot h4{margin:0 0 12px;font:600 13px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.foot nav{display:grid;gap:8px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink)}
+.foot p{max-width:34ch;margin-top:12px}
+.copy{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:820px){.foot{grid-template-columns:1fr 1fr}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.in,.reveal{opacity:1;transform:none}html{scroll-behavior:auto}.run .window{transform:none}.court-lines path{stroke-dashoffset:0}.map span,.fields span,.inbox{opacity:1;transform:none}.inp .typed{width:100%}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-left">
+      <a class="brand" href="/vereine" aria-label="Roger für Vereine – zum Seitenanfang">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1F7A4D"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <span>Roger</span>
+      </a>
+      <nav class="pswitch" aria-label="Produkt wählen">
+        <a href="/">Tennisschulen</a><a href="/vereine" aria-current="page">Vereine</a><i class="thumb" aria-hidden="true"></i>
+      </nav>
+    </div>
+    <nav class="nav-links" aria-label="Abschnitte">
+      <a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://verein.roger-verwaltung.de">Anmelden</a>
+      <a class="btn btn-primary" href="#kontakt">Gespräch anfragen</a>
+      <button class="burger" type="button" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Menü">
+  <a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a><a href="#sicherheit">Sicherheit</a><a href="#fragen">Fragen</a>
+  <a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a><a href="/">Zu Roger für Tennisschulen</a>
+</nav>
+
+<main id="top">
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <svg class="court-lines" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path d="M120 690 L420 70 L1020 70 L1320 690 Z"/><path d="M220 690 L470 70 M1220 690 L970 70"/><path d="M300 330 L1140 330"/><path d="M720 330 L720 690"/><path d="M60 690 L1380 690"/>
+    </svg>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill in"><b>Neu</b>Roger für Tennisvereine</span>
+        <h1 id="hero-h" class="in d1">Euer Verein. Eure Beiträge. <em>Ohne Zettelwirtschaft.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></h1>
+        <p class="lead in d2">Mitglieder, Familien, Beitragsklassen und SEPA-Lastschrift an einem Ort. Vom handschriftlichen Aufnahmeantrag bis zur fertigen Bankdatei – mit Kontoabgleich, Arbeitsstunden, LSB-Statistik und Platzbuchung.</p>
+        <div class="cta-row in d3">
+          <a class="btn btn-primary btn-lg" href="#kontakt">Gespräch anfragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost btn-lg" href="#beitraege">So läuft der Beitragseinzug</a>
+        </div>
+        <div class="hero-facts in d4">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Lastschrift ohne Zahlungsdienstleister</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>IBAN verschlüsselt gespeichert</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Server in Frankfurt</span>
+        </div>
+      </div>
+
+      <div class="run in d5" aria-label="Beispiel: Beitragslauf eines Vereins (Illustration mit erfundenen Daten)">
+        <div class="bank" id="bank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/></svg>Online-Banking</div>
+        <div class="window">
+          <div class="bar"><i></i><i></i><i></i><span>verein.roger-verwaltung.de</span></div>
+          <div class="run-head">
+            <h4>Jahresbeitrag 2027<small>TC Musterstadt · fällig 15.02.2027</small></h4>
+            <span class="badge" id="runBadge">Wird berechnet</span>
+          </div>
+          <div class="rows" id="rows"></div>
+          <div class="run-foot">
+            <div class="total"><small>Summe Lastschriften</small><b id="sum">0,00 €</b></div>
+            <span class="xbtn" id="xbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>SEPA-Datei</span>
+          </div>
+        </div>
+        <div class="file" id="file"><span class="ic">XML</span><div><b>Lastschrift_2027.xml</b><span>pain.008 · 6 Lastschriften</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trustbar" aria-label="Das Wichtigste in Kürze">
+    <div class="wrap">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Eigenes System, getrennt vom Tennisschul-Tool</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Import aus Excel und CSV</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Rollen für Vorstand, Kasse, Mitgliederwart</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Zwei-Faktor-Anmeldung für Bankdaten</span>
+    </div>
+  </div>
+
+  <!-- ============ VORHER / NACHHER ============ -->
+  <section aria-labelledby="vs-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Kennt jeder Kassenwart</span>
+        <h2 id="vs-h">Ein Ordner voller Anträge. Eine Excel-Liste. Und jedes Jahr dieselbe Bankdatei.</h2>
+      </div>
+      <div class="vs">
+        <div class="vs-card before reveal">
+          <i class="paper" aria-hidden="true"></i>
+          <h3>Heute im Verein</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Aufnahmeanträge und SEPA-Mandate auf Papier, abgetippt in Excel</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Beiträge von Hand rechnen: Eintritt im Juli, Familien, Jugendliche, die 19 werden</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Rücklastschriften mit dem Kontoauszug abgleichen und hinterhertelefonieren</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Arbeitsstunden auf einer Liste am Clubhaus, Bestandserhebung per Strichliste</li>
+          </ul>
+        </div>
+        <div class="vs-card after reveal d1">
+          <h3>Mit Roger</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Antrag fotografieren oder online ausfüllen lassen – Mitglied und Mandat sind angelegt</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Beitragslauf rechnet anteilig, mit Aufnahmegebühr, Familienrabatt und Alterswechsel</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Kontoauszug hochladen: Zahlungen und Rücklastschriften ordnen sich selbst zu</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Arbeitsstunden, LSB-Statistik und Platzbuchung im selben System</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DREI WEGE ============ -->
+  <section class="band" id="wege" aria-labelledby="wege-h">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="label">Mitglieder</span>
+        <h2 id="wege-h">Drei Wege, wie eure Mitglieder ins System kommen.</h2>
+        <p class="lead">Ganz egal, ob ihr mit einer Excel-Liste startet, einen Stapel Papieranträge habt oder neue Mitglieder sich online anmelden.</p>
+      </div>
+      <div class="ways">
+        <article class="way reveal">
+          <div class="way-vis" aria-hidden="true">
+            <div class="csv"><div>Mitglieder.xlsx</div><div>Name;Geb.;IBAN</div><div>Müller, Anna;…</div><div>Kaya, Deniz;…</div><div>Schmidt, Jan;…</div><div>Weber, Lea;…</div></div>
+            <svg class="arrows" id="csvArrows"></svg>
+            <div class="map" id="map"><span>Nachname</span><span>Vorname</span><span>Geburtsdatum</span><span>IBAN</span></div>
+          </div>
+          <div class="way-txt"><span class="way-n">01 · IMPORT</span><h3>Excel oder CSV übernehmen</h3><p>Spalten werden automatisch erkannt, auch mit Titelzeilen, Umlauten oder „Nachname, Vorname“ in einer Spalte. Doppelte Mitglieder fallen auf, bevor etwas gespeichert wird.</p></div>
+        </article>
+        <article class="way reveal d1">
+          <div class="way-vis" aria-hidden="true">
+            <div class="scanpaper"><h5>Aufnahmeantrag</h5>
+              <div class="ln"><i>Name</i><u>Jonas Becker</u></div><div class="ln"><i>Geboren</i><u>14.03.2011</u></div><div class="ln"><i>Anschrift</i><u>Lindenweg 4</u></div><div class="ln"><i>IBAN</i><u>DE12 3456 …</u></div><div class="ln"><i>Unterschrift</i><u>J. Becker</u></div>
+              <span class="scanline"></span>
+            </div>
+            <div class="fields"><span><i></i>Jonas Becker</span><span><i></i>14.03.2011</span><span class="warn"><i></i>IBAN prüfen</span></div>
+          </div>
+          <div class="way-txt"><span class="way-n">02 · FOTO</span><h3>Papierantrag fotografieren</h3><p>Roger liest Mitglied, Familienangehörige und SEPA-Mandat aus dem Foto. Unsichere Stellen sind markiert – ihr prüft nur noch und speichert. Der Scan bleibt als Nachweis am Mandat.</p></div>
+        </article>
+        <article class="way reveal d2">
+          <div class="way-vis" aria-hidden="true">
+            <div class="site"><div class="site-top"><b></b>tc-musterstadt.de/mitglied-werden</div>
+              <div class="site-body">
+                <div class="inp"><span class="typed">Clara Hoffmann</span></div>
+                <div class="inp"><span class="typed">DE89 3704 0044 0532 01</span></div>
+                <div class="consent-row"><i></i>Ich erteile das SEPA-Lastschriftmandat</div>
+                <span class="sendb">Absenden</span>
+              </div>
+            </div>
+            <div class="inbox">Neu im Eingang <b>1</b></div>
+          </div>
+          <div class="way-txt"><span class="way-n">03 · ONLINE</span><h3>Online-Mandat auf eurer Website</h3><p>Ein Formular zum Einbinden auf der Vereinsseite: Mitgliedsantrag oder neues Mandat für bestehende Mitglieder. Zustimmung, Zeitpunkt und Mandatstext werden als Nachweis gespeichert.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEITRAGSLAUF ============ -->
+  <section id="beitraege" aria-labelledby="flow-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Beiträge & SEPA</span>
+        <h2 id="flow-h">Vom Beitragslauf zur Bankdatei in vier Schritten.</h2>
+        <p class="lead">Roger zieht kein Geld selbst ein und kassiert keine Gebühren je Lastschrift. Ihr ladet die fertige SEPA-Datei im Online-Banking des Vereins hoch – wie bisher, nur ohne Rechnerei.</p>
+      </div>
+      <div class="flow" id="flow">
+        <div class="flow-line" id="flowLine"></div>
+        <div class="step reveal"><span class="no">1</span><h3>Lauf anlegen</h3><p>Roger sammelt alle fälligen Beiträge, offenen Forderungen und Aufnahmegebühren.</p><small>Jahr · Halbjahr · Quartal · Monat</small></div>
+        <div class="step reveal d1"><span class="no">2</span><h3>Vorab informieren</h3><p>Jedes Mitglied bekommt die Ankündigung mit Betrag, Datum, Mandatsreferenz und Gläubiger-ID per E-Mail.</p><small>Pflicht-Vorabinformation</small></div>
+        <div class="step reveal d2"><span class="no">3</span><h3>Datei hochladen</h3><p>SEPA-XML im Format pain.008 herunterladen und im Online-Banking einreichen. Nur mit Zwei-Faktor-Anmeldung.</p><small>Erst- und Folgelastschrift automatisch</small></div>
+        <div class="step reveal d3"><span class="no">4</span><h3>Abgleichen</h3><p>Kontoauszug hochladen. Rücklastschriften werden zur neuen Forderung, samt Bankgebühr.</p><small>CAMT.053 · CSV · Excel</small></div>
+      </div>
+      <div class="calc">
+        <div class="reveal"><b>anteilig</b><span>Eintritt im Juli? Beitrag monatsgenau ab Eintritt.</span></div>
+        <div class="reveal d1"><b>−20 %</b><span>Familienrabatt für jedes weitere Haushaltsmitglied – den Satz legt ihr fest.</span></div>
+        <div class="reveal d2"><b>18 → 19</b><span>Jugend wechselt zum Stichtag automatisch in den Erwachsenenbeitrag.</span></div>
+        <div class="reveal d3"><b>+ Umlagen</b><span>Hallenumlage, Arbeitsstunden-Ersatz und Co. laufen in dieselbe Lastschrift.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KONTOABGLEICH ============ -->
+  <section class="band" id="konto" aria-labelledby="konto-h">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="label">Kontoabgleich</span>
+        <h2 id="konto-h">Kontoauszug rein. Zuordnung fertig.</h2>
+        <p class="lead">Rücklastschriften erkennt Roger an der Referenz der Lastschrift, Überweisungen an Mitgliedsnummer oder Namen. Was nicht eindeutig ist, ordnet ihr mit einem Klick selbst zu.</p>
+      </div>
+      <div class="match reveal" id="match" aria-label="Beispiel: Kontoabgleich (Illustration)">
+        <div class="mcol" id="bankCol">
+          <h4>Kontoauszug</h4>
+          <div class="mitem" data-k="a"><span>Anna Müller<small>Beitrag 2027 Nr. 00012</small></span><b>+240,00</b></div>
+          <div class="mitem" data-k="b"><span>Rückbuchung SEPA<small>AM04 · keine Deckung</small></span><b>−192,00</b></div>
+          <div class="mitem" data-k="c"><span>D. Kaya<small>Hallenumlage Winter</small></span><b>+40,00</b></div>
+        </div>
+        <svg class="links" id="links"></svg>
+        <div class="mcol" id="memCol">
+          <h4>Offene Posten</h4>
+          <div class="mitem" data-k="a"><span>Anna Müller<small>Forderung Jahresbeitrag</small></span><b>240,00</b></div>
+          <div class="mitem" data-k="b"><span>Max Weber<small>Lastschrift Jahresbeitrag</small></span><b>192,00</b></div>
+          <div class="mitem" data-k="c"><span>Deniz Kaya<small>Hallenumlage Winter</small></span><b>40,00</b></div>
+        </div>
+      </div>
+      <div class="match-note reveal">
+        <span class="badge" id="mStat1">Warte auf Kontoauszug</span>
+        <span class="badge red" id="mStat2" hidden>Max Weber: neue Forderung 192,00 € + 3,50 € Gebühr</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUNKTIONEN ============ -->
+  <section aria-labelledby="fn-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Alles drin</span>
+        <h2 id="fn-h">Was ein Vorstand im Jahr so braucht.</h2>
+      </div>
+      <div class="bento" id="bento">
+        <div class="tile wide reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><h3>Mitglieder & Familien</h3><p>Aktive, passive und ausgetretene Mitglieder, Haushalte für Familienrabatt, Beitragsklassen mit Altersgrenzen, Eintritt und Austritt mit Datum.</p></div>
+        <div class="tile reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><h3>SEPA-Mandate</h3><p>Papier oder online, mit Scan, Widerruf und automatischem Verfall nach 36 Monaten ohne Nutzung.</p></div>
+        <div class="tile reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span><h3>Einzelforderungen</h3><p>Hallenumlage oder Getränkekasse für einzelne oder viele Mitglieder – bar, per Überweisung oder im nächsten Lauf.</p></div>
+        <div class="tile reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"/></svg></span><h3>Arbeitsstunden</h3><p>Soll je Jahr mit Altersgrenzen und Befreiungen. Fehlende Stunden werden per Klick zur Ersatzforderung.</p></div>
+        <div class="tile reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></svg></span><h3>LSB-Bestandserhebung</h3><p>Mitglieder nach Altersgruppe und Geschlecht zum Stichtag – fertig zum Abtippen oder als CSV.</p></div>
+        <div class="tile reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></span><h3>E-Mails aus Roger</h3><p>Vorabankündigung, Mandatsbestätigung, Willkommensmail und Rundmails mit Versandprotokoll.</p></div>
+        <div class="tile reveal d3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Datenschutz-Werkzeuge</h3><p>Datenauskunft je Mitglied auf Knopfdruck. Ehemalige werden nach Ablauf der Aufbewahrungsfrist anonymisiert.</p></div>
+        <div class="tile wide reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></span><h3>Protokoll & Rollen</h3><p>Jede Aktion mit Bankdaten wird protokolliert: wer hat wann eine IBAN angesehen, eine Datei erzeugt oder ein Mandat widerrufen. Jede Person sieht nur, was ihre Rolle braucht.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLATZBUCHUNG ============ -->
+  <section class="band" id="plaetze" aria-labelledby="book-h">
+    <div class="wrap book-grid">
+      <div class="reveal">
+        <span class="label">Platzbuchung Außenplätze</span>
+        <h2 id="book-h" style="margin-top:16px">Plätze buchen ohne Magnettafel.</h2>
+        <p class="lead" style="margin-top:18px">Mitglieder buchen ihre Aschenplätze am Handy – mit Mitgliedsnummer und persönlicher PIN, ohne eigenes Konto. Ihr legt fest, wie weit im Voraus und wie oft gebucht werden darf.</p>
+        <ul class="blist">
+          <li><span class="n">1</span><p><b>Sperren für Training und Medenspiele</b>Wiederkehrend je Wochentag oder kurzfristig, wenn die Plätze nach Regen unbespielbar sind.</p></li>
+          <li><span class="n">2</span><p><b>Faire Regeln</b>Tage im Voraus, offene Buchungen je Mitglied und Buchungen pro Tag stellt ihr selbst ein.</p></li>
+          <li><span class="n">3</span><p><b>Namen zeigen oder nicht</b>Im öffentlichen Plan steht „belegt“ – oder Vorname und Initial, wenn ihr das wollt.</p></li>
+        </ul>
+        <p style="margin-top:22px;font-size:14px;color:var(--muted)">Probier es aus: Tipp im Handy auf ein freies Feld.</p>
+      </div>
+      <div class="phone reveal d1">
+        <div class="phone-in">
+          <div class="ph-top"><b>TC Musterstadt</b><span>Platzbuchung · angemeldet als Anna</span></div>
+          <div class="days" id="days"></div>
+          <div class="courts" id="courts"></div>
+          <div class="ph-toast" id="phToast" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SICHERHEIT ============ -->
+  <section class="dark" id="sicherheit" aria-labelledby="sec-h">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="label">Sicherheit</span>
+        <h2 id="sec-h" style="color:#fff">Bankdaten von Mitgliedern sind kein Excel-Anhang.</h2>
+        <p class="lead">Wer Lastschriften einzieht, hat die IBAN von hunderten Menschen. Deshalb ist Roger für Vereine von Anfang an auf diesen Fall gebaut.</p>
+      </div>
+      <div class="sec-grid">
+        <div class="sec-card reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><h3>Verschlüsselte IBAN</h3><p>Gespeichert wird die IBAN verschlüsselt. Im Alltag seht ihr nur Land und letzte vier Stellen.</p></div>
+        <div class="sec-card reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><h3>Zwei-Faktor für die Kasse</h3><p>Volle IBAN und SEPA-Datei gibt es nur für den Kassenwart – und nur mit Code aus der Authenticator-App.</p></div>
+        <div class="sec-card reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg></span><h3>Getrennt je Verein</h3><p>Jeder Verein ist auf Datenbankebene abgeschottet. Server in Frankfurt, Mitglieder und Mandate werden nie still gelöscht.</p></div>
+      </div>
+      <div class="iban reveal" aria-label="Beispiel einer gekürzten IBAN">
+        <span class="mask" id="mask"></span>
+        <small><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>so sieht der Mitgliederwart eine IBAN</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROLLEN ============ -->
+  <section aria-labelledby="roles-h">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="label">Rollen</span>
+        <h2 id="roles-h">Jeder sieht, was er für sein Amt braucht.</h2>
+      </div>
+      <div class="roles">
+        <div class="role reveal"><h3>Vorstand</h3><ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Alle Mitglieder, Beiträge und Einstellungen</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Team einladen und Rollen vergeben</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Datenschutz: Auskunft und Löschen</li></ul></div>
+        <div class="role reveal d1"><h3>Kassenwart</h3><ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Mandate, Beitragsläufe, Forderungen</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Volle IBAN und SEPA-Datei mit 2FA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Kontoabgleich und Rücklastschriften</li></ul></div>
+        <div class="role reveal d2"><h3>Mitgliederwart</h3><ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Mitglieder, Import und Anträge</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Arbeitsstunden, Statistik, Platzbuchung</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Keine Bankdaten</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="band" id="fragen" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="sec-head center reveal"><span class="label">Fragen</span><h2 id="faq-h">Gut zu wissen.</h2></div>
+      <div class="faq reveal">
+        <details><summary>Zieht Roger das Geld selbst ein?</summary><p>Nein. Roger erstellt die SEPA-Datei, ihr ladet sie im Online-Banking des Vereins hoch. Das Geld geht direkt auf euer Vereinskonto, ohne Zahlungsdienstleister dazwischen und ohne Gebühr je Lastschrift von uns.</p></details>
+        <details><summary>Was brauchen wir für den Lastschrifteinzug?</summary><p>Eine Gläubiger-Identifikationsnummer (kostenlos bei der Deutschen Bundesbank) und eine Inkassovereinbarung mit eurer Bank. Beides haben die meisten Vereine, die heute schon Beiträge einziehen.</p></details>
+        <details><summary>Können wir unsere bestehende Excel-Liste übernehmen?</summary><p>Ja. Excel, CSV und ODS werden eingelesen, auch mit vorhandenen Mandatsreferenzen. Ihr seht vor dem Speichern eine Vorschau mit allen Hinweisen und Dubletten.</p></details>
+        <details><summary>Gilt ein Online-Mandat ohne Unterschrift?</summary><p>Viele Banken akzeptieren elektronisch erteilte Mandate mit nachvollziehbarer Zustimmung. Ob das für euch passt, regelt die Inkassovereinbarung mit eurer Bank – fragt dort kurz nach. Papiermandate mit Scan funktionieren in jedem Fall.</p></details>
+        <details><summary>Ist das dasselbe Programm wie Roger für Tennisschulen?</summary><p>Nein. Roger für Vereine ist ein eigenes System mit eigener Datenbank und eigener Anmeldung unter verein.roger-verwaltung.de. Es ist auf Mitgliederverwaltung und Beitragseinzug ausgelegt, nicht auf Trainingspläne.</p></details>
+        <details><summary>Gibt es auch eine Hallenbuchung?</summary><p>Die Platzbuchung ist aktuell für Außenplätze gedacht. Eine Hallenbuchung planen wir als nächsten Schritt – sprecht uns an, wenn ihr sie braucht.</p></details>
+        <details><summary>Was kostet Roger für Vereine?</summary><p>Das klären wir im Gespräch, abhängig von der Größe eures Vereins. Schreibt uns kurz, wie viele Mitglieder ihr habt.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABSCHLUSS ============ -->
+  <section id="kontakt" aria-labelledby="final-h">
+    <div class="wrap">
+      <div class="final reveal">
+        <div>
+          <h2 id="final-h">Lasst uns über euren Verein sprechen.</h2>
+          <p class="lead">Schreibt uns, wie viele Mitglieder ihr habt und wie ihr Beiträge heute einzieht. Wir zeigen euch Roger am Beispiel eures Vereins und übernehmen auf Wunsch eure Liste.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary btn-lg" href="mailto:info@roger-verwaltung.de?subject=Roger%20f%C3%BCr%20Vereine&body=Verein%3A%20%0AMitglieder%20(ungef%C3%A4hr)%3A%20%0ABeitragseinzug%20heute%3A%20%0ATelefon%3A%20">E-Mail an Roger<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost btn-lg" href="https://verein.roger-verwaltung.de">Anmelden für Vereine</a>
+          <small>info@roger-verwaltung.de · Antwort persönlich, kein Newsletter</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="/vereine"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#1F7A4D"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Roger</a>
+        <p>Roger für Vereine: Mitglieder, Beiträge und SEPA-Lastschrift für Tennisvereine. Aus Bochum.</p>
+      </div>
+      <div><h4>Vereine</h4><nav><a href="#wege">Mitglieder</a><a href="#beitraege">Beiträge & SEPA</a><a href="#konto">Kontoabgleich</a><a href="#plaetze">Platzbuchung</a></nav></div>
+      <div><h4>Produkte</h4><nav><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a></nav></div>
+      <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutzerklärung</a></nav></div>
+    </div>
+    <div class="copy"><span>© 2026 Roger · roger-verwaltung.de</span><span>Server in Frankfurt · DSGVO</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const euro = (c) => (c / 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  // Navigation
+  const nav = $('#nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  const burger = $('#burger'), mnav = $('#mnav');
+  burger.addEventListener('click', () => { const o = mnav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  $$('a', mnav).forEach((a) => a.addEventListener('click', () => { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', false); }));
+
+  // Produktwahl: Daumen unter dem aktiven Eintrag, gleitet beim Überfahren mit
+  const sw = $('.pswitch'), thumb = $('.thumb', sw), cur = $('[aria-current]', sw);
+  const place = (el) => { thumb.style.left = el.offsetLeft + 'px'; thumb.style.width = el.offsetWidth + 'px'; };
+  const settle = () => place(cur);
+  settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
+  $$('a', sw).forEach((a) => a.addEventListener('mouseenter', () => place(a)));
+  sw.addEventListener('mouseleave', settle);
+
+  // Einblenden beim Scrollen
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } }), { threshold: .14, rootMargin: '0px 0px -40px 0px' });
+  $$('.reveal').forEach((el) => io.observe(el));
+
+  // Lichtschein auf den Kacheln
+  $$('.tile').forEach((t) => t.addEventListener('pointermove', (e) => {
+    const r = t.getBoundingClientRect();
+    t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+
+  // ---------- Hero: Beitragslauf ----------
+  const members = [
+    { n: 'Anna Müller', c: 'Erwachsene', t: '', a: 24000, col: '#1F7A4D' },
+    { n: 'Max Müller', c: 'Erwachsene', t: '<em>Familie −20 %</em>', a: 19200, col: '#2252CC' },
+    { n: 'Lea Müller', c: 'Jugend', t: '<em>Familie −20 %</em>', a: 7680, col: '#B5532E' },
+    { n: 'Deniz Kaya', c: 'Erwachsene', t: '+ Hallenumlage', a: 28000, col: '#5B4BC4' },
+    { n: 'Jonas Becker', c: 'Jugend · Eintritt 07/2027', t: '<em>anteilig</em> + Aufnahme', a: 9800, col: '#0E7490' },
+    { n: 'Clara Hoffmann', c: 'Passiv', t: '', a: 6000, col: '#7C3A5B' },
+  ];
+  const rowsEl = $('#rows');
+  rowsEl.innerHTML = members.map((m) => `<div class="row"><span class="av" style="background:${m.col}">${m.n.split(' ').map((x) => x[0]).join('')}</span>
+    <span class="nm"><b>${m.n}</b><span>${m.c}</span></span><span class="tag">${m.t}</span>
+    <span class="amt"><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>${euro(m.a)}</span></div>`).join('');
+  const rows = $$('.row', rowsEl), sum = $('#sum'), badge = $('#runBadge'), xbtn = $('#xbtn'), file = $('#file'), bank = $('#bank');
+  const total = members.reduce((s, m) => s + m.a, 0);
+  const showTotal = (v) => (sum.textContent = euro(v));
+  async function countTo(from, to, ms) {
+    const t0 = performance.now();
+    return new Promise((res) => { const f = (t) => { const p = Math.min(1, (t - t0) / ms); showTotal(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3)))); p < 1 ? requestAnimationFrame(f) : res(); }; requestAnimationFrame(f); });
+  }
+  async function heroLoop() {
+    if (reduce) { rows.forEach((r) => r.classList.add('done')); showTotal(total); badge.textContent = 'Bereit für die Bank'; return; }
+    for (;;) {
+      rows.forEach((r) => r.classList.remove('done', 'on')); showTotal(0);
+      badge.className = 'badge blue'; badge.textContent = 'Wird berechnet';
+      await sleep(700);
+      let acc = 0;
+      for (let i = 0; i < rows.length; i++) {
+        rows[i].classList.add('on'); await sleep(260);
+        rows[i].classList.add('done');
+        await countTo(acc, acc + members[i].a, 420); acc += members[i].a;
+        rows[i].classList.remove('on');
+      }
+      badge.className = 'badge'; badge.textContent = 'Bereit für die Bank';
+      await sleep(700);
+      xbtn.classList.add('press'); await sleep(240); xbtn.classList.remove('press');
+      file.classList.remove('show'); void file.offsetWidth; file.classList.add('show');
+      await sleep(1900); bank.classList.remove('ping'); void bank.offsetWidth; bank.classList.add('ping');
+      await sleep(2600);
+    }
+  }
+  heroLoop();
+
+  // ---------- CSV-Zuordnung ----------
+  const map = $('#map'), arrows = $('#csvArrows');
+  async function csvLoop() {
+    const spans = $$('span', map);
+    const draw = () => {
+      const box = arrows.getBoundingClientRect(), csv = $('.csv').getBoundingClientRect();
+      arrows.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      arrows.innerHTML = spans.map((s, i) => {
+        const r = s.getBoundingClientRect();
+        const y1 = csv.top - box.top + 30 + i * 6, x1 = csv.right - box.left, x2 = r.left - box.left, y2 = r.top - box.top + r.height / 2;
+        return `<path d="M${x1} ${y1} C ${x1 + 30} ${y1}, ${x2 - 30} ${y2}, ${x2} ${y2}" class="${s.classList.contains('ok') ? 'ok' : ''}"/>`;
+      }).join('');
+    };
+    if (reduce) { spans.forEach((s) => s.classList.add('ok')); draw(); return; }
+    for (;;) {
+      spans.forEach((s) => s.classList.remove('ok')); draw(); await sleep(900);
+      for (const s of spans) { s.classList.add('ok'); draw(); await sleep(550); }
+      await sleep(2400);
+    }
+  }
+  const wayIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { csvLoop(); wayIO.disconnect(); } }, { threshold: .3 });
+  wayIO.observe(map);
+
+  // ---------- Ablauf: Linie füllt sich beim Scrollen ----------
+  const flow = $('#flow'), line = $('#flowLine'), steps = $$('.step', flow);
+  const onFlow = () => {
+    const r = flow.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.max(0, Math.min(1, (vh * .8 - r.top) / (r.height + vh * .3)));
+    line.style.setProperty('--p', p.toFixed(3));
+    steps.forEach((s, i) => s.classList.toggle('lit', p >= (i + .3) / steps.length));
+  };
+  addEventListener('scroll', onFlow, { passive: true }); onFlow();
+
+  // ---------- Kontoabgleich ----------
+  const matchEl = $('#match'), links = $('#links');
+  const pair = (k) => [$(`#bankCol [data-k="${k}"]`), $(`#memCol [data-k="${k}"]`)];
+  function drawLinks(keys) {
+    const box = matchEl.getBoundingClientRect();
+    links.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    links.innerHTML = keys.map((k) => {
+      const [a, b] = pair(k), ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+      const x1 = ra.right - box.left, y1 = ra.top - box.top + ra.height / 2, x2 = rb.left - box.left, y2 = rb.top - box.top + rb.height / 2;
+      const len = Math.hypot(x2 - x1, y2 - y1) + 40;
+      return `<path class="${k === 'b' ? 'r' : ''}" d="M${x1} ${y1} C ${x1 + 50} ${y1}, ${x2 - 50} ${y2}, ${x2} ${y2}" style="stroke-dasharray:${k === 'b' ? '5 5' : len};stroke-dashoffset:${k === 'b' ? 0 : len};${k === 'b' ? 'opacity:0;transition:opacity .5s' : 'transition:stroke-dashoffset .9s cubic-bezier(.2,.7,.2,1)'}"/>`;
+    }).join('');
+    requestAnimationFrame(() => $$('path', links).forEach((p) => { p.style.strokeDashoffset = 0; p.style.opacity = 1; }));
+  }
+  let matched = [];
+  async function runMatch() {
+    const s1 = $('#mStat1'), s2 = $('#mStat2');
+    s1.textContent = 'Kontoauszug wird gelesen …';
+    for (const k of ['a', 'c', 'b']) {
+      await sleep(reduce ? 0 : 650);
+      const [a, b] = pair(k);
+      a.classList.add(k === 'b' ? 'r' : 'm'); b.classList.add(k === 'b' ? 'r' : 'm');
+      matched.push(k); drawLinks(matched);
+    }
+    s1.textContent = '2 Zahlungen zugeordnet · 1 Rücklastschrift erkannt';
+    await sleep(reduce ? 0 : 500);
+    s2.hidden = false; s2.classList.add('new');
+  }
+  const mIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { runMatch(); mIO.disconnect(); } }, { threshold: .45 });
+  mIO.observe(matchEl);
+  addEventListener('resize', () => matched.length && drawLinks(matched));
+
+  // ---------- Platzbuchung (Spielwiese, nichts wird gespeichert) ----------
+  const daysEl = $('#days'), courtsEl = $('#courts'), toast = $('#phToast');
+  const dayNames = ['Heute', 'Morgen', 'Mi 18.', 'Do 19.', 'Fr 20.'];
+  const times = ['16:00', '17:00', '18:00', '19:00', '20:00'];
+  const state = {};
+  let day = 0, toastT;
+  const seed = (d, c, t) => {
+    if (c === 0 && (t === 1 || t === 2)) return { k: 'bl', l: 'Training' };
+    const h = (d * 7 + c * 3 + t * 5) % 9;
+    return h < 3 ? { k: 'bk', l: 'belegt' } : { k: '', l: 'frei' };
+  };
+  function render() {
+    daysEl.innerHTML = dayNames.map((d, i) => `<button type="button" class="${i === day ? 'on' : ''}" data-d="${i}">${d}</button>`).join('');
+    let html = ['Platz 1', 'Platz 2', 'Platz 3'].map((c) => `<h6>${c}</h6>`).join('');
+    times.forEach((t, ti) => [0, 1, 2].forEach((c) => {
+      const key = `${day}-${c}-${ti}`, s = state[key] ?? seed(day, c, ti);
+      html += `<button type="button" class="slot ${s.k}" data-k="${key}" ${s.k && s.k !== 'mine' ? 'disabled' : ''} aria-label="Platz ${c + 1}, ${t} Uhr, ${s.l}"><b>${t}</b>${s.l}</button>`;
+    }));
+    courtsEl.innerHTML = html;
+  }
+  daysEl.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; day = +b.dataset.d; render(); });
+  courtsEl.addEventListener('click', (e) => {
+    const b = e.target.closest('.slot'); if (!b || b.disabled) return;
+    const k = b.dataset.k, [, c, ti] = k.split('-').map(Number);
+    const mine = state[k]?.k === 'mine';
+    const already = Object.values(state).some((s) => s.k === 'mine');
+    if (!mine && already) { say('Maximal 1 offene Buchung – erst die andere stornieren.'); return; }
+    state[k] = mine ? { k: '', l: 'frei' } : { k: 'mine', l: 'deine Buchung' };
+    render();
+    say(mine ? 'Buchung storniert.' : `Gebucht: Platz ${c + 1}, ${dayNames[day]} ${times[ti]} Uhr`);
+  });
+  function say(t) { toast.textContent = t; toast.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => toast.classList.remove('on'), 2600); }
+  render();
+
+  // ---------- IBAN-Maske ----------
+  const mask = $('#mask'), full = 'DE89 3704 0044 0532 0130 00';
+  mask.innerHTML = [...full].map((ch) => `<i>${ch}</i>`).join('');
+  const chars = $$('i', mask);
+  const hide = () => chars.forEach((c, i) => {
+    const keep = i < 2 || i >= full.length - 5 || full[i] === ' ';
+    setTimeout(() => { if (!keep) { c.textContent = '•'; c.style.color = '#8FD3AE'; } }, reduce ? 0 : 60 * i);
+  });
+  const ibIO = new IntersectionObserver((es) => { if (es[0].isIntersecting) { setTimeout(hide, reduce ? 0 : 700); ibIO.disconnect(); } }, { threshold: .6 });
+  ibIO.observe(mask);
+})();
+</script>
+</body>
+</html>
