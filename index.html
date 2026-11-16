@@ -575,6 +575,53 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .rise{animation:rise .9s var(--ease) both;animation-timeline:view();animation-range:entry 0% entry 35%}
 @keyframes rise{from{opacity:.25;transform:translateY(34px)}to{opacity:1;transform:none}}
 @supports not (animation-timeline:view()){.rise{animation:none}}
+
+/* ---------- Websites ---------- */
+.web-show{position:relative;display:grid;grid-template-columns:1fr;gap:0;margin-top:8px}
+.web-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0 auto 26px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:6px;width:fit-content;max-width:100%}
+.web-tab{position:relative;overflow:hidden;font:500 15px/1 var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:10px;padding:12px 16px;cursor:pointer}
+.web-tab:hover{color:var(--ink)}
+.web-tab[aria-selected="true"]{color:#fff;background:var(--ink)}
+.web-tab .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:#E26C9A}
+.web-stage{position:relative;perspective:2000px;max-width:1040px;margin:0 auto;width:100%}
+.web-win{position:relative;transform:rotateX(var(--wx,6deg)) rotateY(var(--wy,-4deg));transform-style:preserve-3d;transition:transform .8s var(--ease);will-change:transform}
+.web-win .window{box-shadow:0 70px 120px -50px rgba(15,29,54,.55),0 0 0 1px rgba(15,29,54,.06)}
+.web-view{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0B2A5B}
+.web-view img{position:absolute;left:0;top:0;width:100%;height:auto;opacity:0;transition:opacity .6s ease;will-change:transform}
+.web-view img.on{opacity:1}
+.web-phone{position:absolute;right:-3%;bottom:-8%;width:clamp(150px,18%,200px);border-radius:30px;padding:8px;background:#0F1D36;box-shadow:0 50px 80px -30px rgba(15,29,54,.6),inset 0 0 0 1.5px #2B3A55;transform:translateZ(90px) rotateY(-10deg)}
+.web-phone .scr{position:relative;aspect-ratio:9/19.5;overflow:hidden;border-radius:23px;background:#0B2A5B}
+.web-phone .scr img{position:absolute;left:0;top:0;width:100%;height:auto;will-change:transform}
+.web-cap{text-align:center;margin-top:44px;color:var(--muted);font-size:15px;min-height:1.6em}
+.web-cap a{color:var(--blue)}
+.web-flow{display:grid;grid-template-columns:1fr auto 1fr;gap:26px;align-items:center;margin-top:clamp(70px,8vw,110px)}
+.web-flow .card{background:var(--surface);border:1px solid var(--rule);border-radius:20px;padding:26px;box-shadow:var(--shadow)}
+.web-flow h3{font-size:22px;margin-bottom:10px}
+.web-flow p{color:var(--muted)}
+.fields{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.fields span{font-size:13px;padding:6px 11px;border-radius:999px;background:var(--blue-soft);color:var(--blue);border:1px solid #D7E2FA}
+.fields span.c{background:#FCE9F1;color:#B83A6C;border-color:#F6CFE0}
+.pipe{display:grid;justify-items:center;gap:10px;color:var(--muted);font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.pipe .line{position:relative;width:110px;height:4px;border-radius:4px;background:var(--blue-mid);overflow:hidden}
+.pipe .line i{position:absolute;top:0;left:-30%;width:30%;height:100%;border-radius:4px;background:var(--blue);animation:pipe 1.6s ease-in-out infinite}
+@keyframes pipe{to{left:100%}}
+.pipe .env{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--blue);color:#fff;box-shadow:0 14px 30px -12px rgba(34,82,204,.7)}
+.pipe .env svg{width:22px;height:22px}
+.roger-mini{position:relative;margin-top:18px;border-radius:12px;overflow:hidden;border:1px solid var(--rule);box-shadow:var(--shadow)}
+.roger-mini img{display:block;width:100%;height:auto}
+.roger-mini .ping{position:absolute;right:12px;top:12px;background:var(--grass);color:#fff;font:600 12.5px var(--f-body);padding:7px 11px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(46,125,88,.8);animation:pingIn 3.2s var(--ease) infinite}
+@keyframes pingIn{0%,20%{opacity:0;transform:translateY(-6px) scale(.9)}30%,85%{opacity:1;transform:none}100%{opacity:0}}
+.web-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(56px,7vw,90px)}
+.wp{background:var(--surface);border:1px solid var(--rule);border-radius:20px;padding:26px;display:grid;gap:10px;align-content:start;transition:transform .35s var(--ease),box-shadow .35s}
+.wp:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.wp .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#fff,var(--blue-soft));border:1px solid #DCE5F7;color:var(--blue)}
+.wp .ic svg{width:22px;height:22px}
+.wp p{color:var(--muted)}
+.wp.hl{background:var(--ink);color:#fff;border-color:var(--ink)}
+.wp.hl p{color:#B9C5DC}.wp.hl .ic{background:#1C2E52;border-color:#2B3F66;color:#9DB8F5}
+@media (max-width:980px){.web-flow{grid-template-columns:1fr}.pipe{transform:rotate(90deg);margin:6px 0}.web-points{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.web-points{grid-template-columns:1fr}.web-phone{display:none}.web-win{transform:none}.web-tab{padding:10px 12px;font-size:14px}}
+@media (prefers-reduced-motion:reduce){.web-win{transform:none}.pipe .line i,.roger-mini .ping{animation:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.toast,.sc,.iso-card{opacity:1;transform:none}.stage .window{transform:none}}
 </style>
 </head>
@@ -592,7 +639,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       </nav>
     </div>
     <nav class="nav-links" aria-label="Hauptnavigation">
-      <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#faq">Fragen</a>
+      <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#websites">Websites</a><a href="#faq">Fragen</a>
     </nav>
     <div class="nav-cta">
       <details class="login-menu">
@@ -608,7 +655,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menü">
-  <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#start">Einstieg</a><a href="#datenschutz">Datenschutz</a><a href="#faq">Fragen</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a><a href="/vereine">Roger für Vereine ansehen</a>
+  <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#websites">Websites</a><a href="#start">Einstieg</a><a href="#datenschutz">Datenschutz</a><a href="#faq">Fragen</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a><a href="/vereine">Roger für Vereine ansehen</a>
 </nav>
 
 <main id="top">
@@ -820,6 +867,57 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </div>
   </section>
 
+  <!-- ============ WEBSITES ============ -->
+  <section class="band" id="websites" aria-labelledby="web-h">
+    <div class="wrap">
+      <div class="sec-head center rise">
+        <span class="label">Websites</span>
+        <h2 id="web-h">Eure Website. Individuell gestaltet, direkt mit Roger verbunden.</h2>
+        <p class="lead">Wir bauen Tennisschulen eine eigene Website, im eigenen Design und genau nach euren Wünschen: Kurse, Camps, News und Online-Anmeldung. Jede Anmeldung landet sofort in Roger. So sieht unsere eigene Website aus:</p>
+      </div>
+      <div class="web-show">
+        <div class="web-tabs" role="tablist" aria-label="Seite der Beispiel-Website wählen" id="webTabs"></div>
+        <div class="web-stage rise" id="webStage">
+          <div class="web-win" id="webWin">
+            <div class="window">
+              <div class="bar"><i></i><i></i><i></i><span id="webUrl">tennisschulesimanek.de</span></div>
+              <div class="web-view" id="webView"></div>
+            </div>
+            <div class="web-phone" aria-hidden="true"><div class="scr"><img id="webPhone" src="img/web-anmeldung-handy.webp" width="600" height="3026" alt="" loading="lazy"></div></div>
+          </div>
+        </div>
+        <p class="web-cap" id="webCap"></p>
+      </div>
+
+      <div class="web-flow">
+        <div class="card rise">
+          <span class="label">Anmeldung auf der Website</span>
+          <h3 style="margin-top:12px">Alle Angaben, die ihr braucht.</h3>
+          <p>Eltern und Spieler füllen ein klares Formular aus, ohne Konto und ohne App. Welche Felder es gibt, legt ihr fest.</p>
+          <div class="fields">
+            <span>Standort / Verein</span><span>Vorname</span><span>Nachname</span><span>Straße &amp; Nr.</span><span>PLZ</span><span>Stadt</span><span>Land</span><span>Telefon</span><span>E-Mail</span><span>Bis zu 3 Wunschtermine</span><span>Alter</span><span>Geschlecht</span><span>Spielstärke (5 Stufen)</span><span>Nachricht</span><span class="c">Camps: Tarif wählen</span><span class="c">Schnuppertraining</span>
+          </div>
+        </div>
+        <div class="pipe" aria-hidden="true"><span class="env"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span class="line"><i></i></span>sofort</div>
+        <div class="card rise d1">
+          <span class="label">In Roger</span>
+          <h3 style="margin-top:12px">Ein Klick, und das Kind ist in der Gruppe.</h3>
+          <p>Die Anmeldung erscheint direkt unter „Anmeldungen“. Roger erkennt bekannte Schüler und schlägt beim Schnuppertraining passende Gruppen mit freiem Platz vor.</p>
+          <div class="roger-mini"><img src="img/anmeldungen.webp" width="2400" height="1500" alt="Anmeldungen in Roger" loading="lazy"><span class="ping">Neue Anmeldung</span></div>
+        </div>
+      </div>
+
+      <div class="web-points">
+        <div class="wp hl rise"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><h3>Individuell bis ins kleinste Detail</h3><p>Farben, Schriften, Bilder, Texte und Aufbau nach euren Vorstellungen. Wir gehen auf jeden Wunsch ein, auch auf Kleinigkeiten, bis die Seite wirklich zu euch passt.</p></div>
+        <div class="wp rise d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><h3>Direkt mit Roger verbunden</h3><p>Anmeldungen zu Kursen, Camps und Schnuppertraining landen ohne Abtippen in Roger. Nichts geht verloren, nichts wird doppelt erfasst.</p></div>
+        <div class="wp rise d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><h3>News, Camps &amp; Events selbst pflegen</h3><p>Über einen eigenen Admin-Bereich stellt ihr News mit Bildern, Camps mit Preisstufen und Kurse selbst online, ganz ohne Programmierkenntnisse.</p></div>
+        <div class="wp rise"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3>Für das Handy gemacht</h3><p>Die meisten Eltern melden ihr Kind am Handy an. Jede Seite und das Formular sind dafür gebaut.</p></div>
+        <div class="wp rise d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Rechtlich sauber</h3><p>Impressum, Datenschutzerklärung und Cookie-Hinweis gehören dazu. Einwilligungen im Formular werden mitgespeichert.</p></div>
+        <div class="wp rise d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M21 3v6h-6"/></svg></span><h3>Umzug von eurer alten Seite</h3><p>Ihr habt schon eine Website, zum Beispiel bei Jimdo oder Wix? Wir übernehmen Inhalte und Domain und schalten die neue Seite ohne Ausfall um.</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ WAS IST ROGER ============ -->
   <section class="band" id="ueberblick" aria-labelledby="what-h">
     <div class="wrap">
@@ -886,7 +984,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       </div>
       <div class="webopts">
         <div class="webopt rise"><span class="meta">Deine Website bleibt</span><h3>Wir bauen die Anmeldung ein</h3><p>Wir setzen ein kleines Stück Code in deine bestehende Website. Dort erscheint das Anmeldeformular, und jede Anmeldung landet direkt in Roger. Du siehst, wer sich wann für welche Gruppe angemeldet hat. In den meisten Website-Baukästen geht das ohne Umbau.</p></div>
-        <div class="webopt rise"><span class="meta">Website in die Jahre gekommen?</span><h3>Neue Website, Anmeldung inklusive</h3><p>Für einen kleinen Aufpreis bauen wir dir eine neue, moderne Website für deine Tennisschule: Trainingsangebot, Trainer, Kontakt und Online-Anmeldung, direkt mit Roger verbunden.</p></div>
+        <div class="webopt rise"><span class="meta">Website in die Jahre gekommen?</span><h3>Neue Website, Anmeldung inklusive</h3><p>Für einen kleinen Aufpreis bauen wir dir eine neue, moderne Website für deine Tennisschule, individuell nach deinen Wünschen gestaltet: Trainingsangebot, Camps, News, Kontakt und Online-Anmeldung, direkt mit Roger verbunden. <a href="#websites" style="color:var(--blue)">Beispiel ansehen</a></p></div>
       </div>
       <div class="fit">
         <div class="fitbox yes rise">
@@ -1849,6 +1947,64 @@ if (supportsGL) {
   settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
   sw.querySelectorAll('a').forEach((a) => a.addEventListener('mouseenter', () => place(a)));
   sw.addEventListener('mouseleave', settle);
+})();
+</script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PAGES = [
+    ['web-start', 'Startseite', '', 'Startseite mit eurem Logo, euren Farben und euren Bildern.', 2400, 1500],
+    ['web-anmeldung', 'Anmeldung', '/probetraining', 'Das Anmeldeformular: Standort, Kontakt, Adresse, bis zu drei Wunschtermine, Alter, Geschlecht und Spielstärke.', 1600, 2933],
+    ['web-camp', 'Camp-Anmeldung', '/events/tennis-ferien-camp-1', 'Camp-Seite mit Beschreibung, Terminen und Tarifauswahl direkt im Formular.', 1600, 2367],
+    ['web-events', 'Camps & Events', '/events', 'Alle Camps und Events mit Datum, Ort, Preis und Anmeldung.', 1600, 2467],
+    ['web-news', 'News', '/news', 'News mit Bildern, die ihr selbst über den Admin-Bereich einstellt.', 1600, 1900],
+  ];
+  const tabs = document.getElementById('webTabs'), view = document.getElementById('webView'), url = document.getElementById('webUrl'), cap = document.getElementById('webCap');
+  const win = document.getElementById('webWin'), stage = document.getElementById('webStage'), phoneImg = document.getElementById('webPhone');
+  const imgs = PAGES.map(([f, t], i) => {
+    const im = document.createElement('img'); im.src = `img/${f}.webp`; im.alt = `${t} der Website tennisschulesimanek.de`; im.loading = 'lazy'; im.decoding = 'async'; im.width = PAGES[i][4]; im.height = PAGES[i][5]; view.appendChild(im); return im;
+  });
+  const btns = PAGES.map(([, t], i) => {
+    const b = document.createElement('button'); b.className = 'web-tab'; b.type = 'button'; b.setAttribute('role', 'tab'); b.innerHTML = `${t}<span class="prog"></span>`;
+    b.addEventListener('click', () => { auto = false; show(i); }); tabs.appendChild(b); return b;
+  });
+  let cur = -1, t0 = 0, auto = true, visible = false, hover = false;
+  const DUR = 9000;
+  const show = (i) => {
+    cur = i; t0 = performance.now();
+    imgs.forEach((im, j) => { im.classList.toggle('on', j === i); im.style.transform = 'translateY(0)'; });
+    btns.forEach((b, j) => { b.setAttribute('aria-selected', j === i); b.querySelector('.prog').style.width = '0'; });
+    url.textContent = 'tennisschulesimanek.de' + PAGES[i][2];
+    cap.innerHTML = PAGES[i][3] + ' <a href="https://tennisschulesimanek.de" target="_blank" rel="noopener">Live ansehen</a>';
+  };
+  show(0);
+  stage.addEventListener('mouseenter', () => hover = true); stage.addEventListener('mouseleave', () => hover = false);
+  if (!reduce && matchMedia('(pointer:fine)').matches) stage.addEventListener('pointermove', (e) => {
+    const r = stage.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    win.style.setProperty('--wy', (-4 + x * 8).toFixed(2) + 'deg'); win.style.setProperty('--wx', (6 - y * 6).toFixed(2) + 'deg');
+  });
+  stage.addEventListener('pointerleave', () => { win.style.removeProperty('--wy'); win.style.removeProperty('--wx'); });
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { threshold: .25 }).observe(stage);
+  let pt = 0;
+  const step = (now) => {
+    requestAnimationFrame(step);
+    if (!visible || reduce) return;
+    if (hover) { t0 += 16; }
+    const p = Math.min(1, (now - t0) / DUR);
+    // Seite scrollt langsam nach unten (nach kurzer Pause), dann nächster Reiter
+    const im = imgs[cur], vh = view.clientHeight, ih = im.clientHeight || 0, max = Math.max(0, ih - vh);
+    const k = Math.min(1, Math.max(0, (p - .12) / .76)), ease = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    im.style.transform = `translateY(${-max * ease}px)`;
+    btns[cur].querySelector('.prog').style.width = (p * 100) + '%';
+    if (p >= 1 && auto) show((cur + 1) % PAGES.length);
+    else if (p >= 1) t0 = now - DUR;
+    // Handy: Formular scrollt durchgehend
+    if (!hover) pt += 1;
+    const sh = phoneImg.parentElement.clientHeight, ph = phoneImg.clientHeight, pm = Math.max(0, ph - sh);
+    const cyc = 16000 / 16, q = (pt % (cyc * 2)) / cyc, f = q <= 1 ? q : 2 - q;
+    phoneImg.style.transform = `translateY(${-pm * (f < .08 ? 0 : f > .92 ? 1 : (f - .08) / .84)}px)`;
+  };
+  requestAnimationFrame(step);
 })();
 </script>
 </body>
