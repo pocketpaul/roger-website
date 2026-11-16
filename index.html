@@ -437,6 +437,15 @@ section{padding-block:clamp(80px,10vw,130px)}
 .step p{color:var(--muted);font-size:15.5px}
 .step .meta{font:500 12.5px var(--f-mono);color:var(--blue);letter-spacing:.04em;text-transform:uppercase}
 .steps-line{position:absolute;left:12%;right:12%;top:53px;height:2px;background:repeating-linear-gradient(90deg,#C9D4E8 0 8px,transparent 8px 16px);z-index:-1}
+.webopts-h{margin-top:46px;text-align:center}
+.webopts-h h3{font-size:clamp(24px,2.6vw,32px)}
+.webopts-h p{color:var(--muted);margin-top:8px}
+.webopts{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.webopt{border-radius:22px;padding:28px;border:1px solid var(--rule);background:var(--surface);display:grid;gap:10px;align-content:start}
+.webopt .meta{font:500 12.5px var(--f-mono);color:var(--blue);letter-spacing:.04em;text-transform:uppercase}
+.webopt h3{font-size:21px}
+.webopt p{color:var(--muted);font-size:15.5px}
+@media (max-width:760px){.webopts{grid-template-columns:1fr}}
 .fit{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .fitbox{border-radius:22px;padding:28px;border:1px solid var(--rule);background:var(--surface)}
 .fitbox.yes{background:linear-gradient(160deg,#fff,var(--grass-soft))}
@@ -847,6 +856,14 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <div class="step rise"><span class="n">2</span><span class="meta">Persönlich · 30 Minuten</span><h3>Gespräch mit Paul</h3><p>Wir schauen gemeinsam auf deine Vereine, Preise und Trainer und klären, wie deine Schülerlisten umziehen.</p><a class="step-link" href="#rueckruf" data-call>Rückruf vereinbaren →</a></div>
         <div class="step rise"><span class="n">3</span><span class="meta">Startklar · in wenigen Tagen</span><h3>Loslegen</h3><p>Deine Daten sind drin, Preise und Hallenkosten eingestellt, das Anmeldeformular ist auf deiner Website eingebunden. Die erste Abrechnung machst du schon mit Roger.</p></div>
       </div>
+      <div class="webopts-h rise" id="website">
+        <h3>Anmeldungen über deine Website: zwei Wege.</h3>
+        <p>Eltern melden ihre Kinder dort an, wo sie dich ohnehin suchen. Du entscheidest, wie.</p>
+      </div>
+      <div class="webopts">
+        <div class="webopt rise"><span class="meta">Deine Website bleibt</span><h3>Wir bauen die Anmeldung ein</h3><p>Wir setzen ein kleines Stück Code in deine bestehende Website. Dort erscheint das Anmeldeformular, und jede Anmeldung landet direkt in Roger. Du siehst, wer sich wann für welche Gruppe angemeldet hat. In den meisten Website-Baukästen geht das ohne Umbau.</p></div>
+        <div class="webopt rise"><span class="meta">Website in die Jahre gekommen?</span><h3>Neue Website, Anmeldung inklusive</h3><p>Für einen kleinen Aufpreis bauen wir dir eine neue, moderne Website für deine Tennisschule: Trainingsangebot, Trainer, Kontakt und Online-Anmeldung, direkt mit Roger verbunden.</p></div>
+      </div>
       <div class="fit">
         <div class="fitbox yes rise">
           <h3>Roger passt zu dir, wenn …</h3>
@@ -911,6 +928,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <details><summary>Was passiert, wenn ich die Demo starte?</summary><p>Du trägst den Namen deiner Tennisschule und deine E-Mail ein und landest sofort in einer Beispiel-Tennisschule mit erfundenen Daten. Du kannst alles ausprobieren, nichts davon ist echt. Paul meldet sich danach persönlich bei dir.</p></details>
         <details><summary>Wie kommen meine bisherigen Daten in Roger?</summary><p>Schülerlisten lädst du als Excel- oder CSV-Datei hoch oder Roger liest sie aus deinen alten PDF-Rechnungen. Deinen Trainingsplan kopierst du einfach aus Excel und fügst ihn ein: Roger erkennt Tage, Uhrzeiten, Trainer und Schüler, ordnet bekannte Schüler zu und legt fehlende mit Alter an. Vor dem Übernehmen siehst du jede Stunde und jeden Schüler, doppelte Einträge entstehen nicht.</p></details>
         <details><summary>Brauchen Eltern ein eigenes Konto?</summary><p>Nein. Wir binden das Anmeldeformular für dich auf deiner Website ein, die Anmeldungen landen direkt in Roger. Eltern müssen sich nirgends registrieren und keine App installieren.</p></details>
+        <details><summary>Meine Website ist veraltet. Geht Roger trotzdem?</summary><p>Ja. Entweder bauen wir das Anmeldeformular in deine bestehende Website ein, oder wir erstellen dir für einen kleinen Aufpreis eine neue Website, in der die Anmeldung schon eingebaut ist. Beides besprechen wir im ersten Gespräch.</p></details>
         <details><summary>Funktioniert Roger mit mehreren Vereinen und Hallen?</summary><p>Ja. Du verwaltest beliebig viele Vereine und Hallen in einem Trainingsplan, mit eigenen Hallenkosten pro Verein. Für einzelne Gruppen, etwa Mannschaftstraining für einen Verein, legst du einen individuellen Preis fest.</p></details>
         <details><summary>Unsere Halle kostet abends mehr als vormittags. Geht das?</summary><p>Ja. Pro Verein trägst du einen Grundpreis ein und hakst nur an, was du brauchst: andere Preise nach Uhrzeit, eigene Preise am Wochenende, Hallenkosten nur in bestimmten Monaten (z. B. Oktober bis April) und eigene Preise für Erwachsene. Pro Gruppe kannst du zwei oder mehr Plätze angeben oder einen Sonderpreis setzen. Roger teilt die Hallenkosten durch die Teilnehmer und rechnet neu, sobald jemand dazukommt oder geht. Überschneidet eine Stunde zwei Preise, wird minutengenau anteilig gerechnet.</p></details>
         <details><summary>Wie rechnet Roger einen Einstieg mitten in der Saison ab?</summary><p>Roger zählt die Trainingstermine ab dem Einstiegsdatum, berücksichtigt Ferien und trainingsfreie Tage und teilt den Gruppenpreis durch die tatsächliche Teilnehmerzahl. Ausgefallene Stunden werden abgezogen. Wechselt ein Schüler die Gruppe, zahlt er bis zum Wechsel den alten und danach den neuen Gruppenpreis, und die Preise der beiden Gruppen passen sich automatisch an. Die Saison kannst du auch in zwei Hälften abrechnen.</p></details>
