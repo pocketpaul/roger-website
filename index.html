@@ -83,12 +83,17 @@ section{padding-block:clamp(80px,10vw,130px)}
 .nav-links a{text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--ink)}
 .nav-cta{display:flex;gap:10px;align-items:center}
+.login-menu{position:relative}.login-menu>summary{list-style:none}.login-menu>summary::-webkit-details-marker{display:none}
+.login-menu[open]>summary svg{transform:rotate(180deg)}
+.login-pop{position:absolute;right:0;top:calc(100% + 8px);min-width:250px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:0 18px 40px -18px rgba(15,29,54,.35);padding:6px;z-index:60}
+.login-pop a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink)}
+.login-pop a:hover{background:var(--blue-soft)}.login-pop strong{display:block;font-size:15px}.login-pop span{display:block;font-size:13px;color:var(--muted)}
 .nav .btn{padding:11px 18px;font-size:15px}
 .burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--rule);background:var(--surface);cursor:pointer;place-items:center}
 .burger svg{width:20px;height:20px}
 .mnav{display:none}
 @media (max-width:980px){.nav-links{display:none}.burger{display:grid}}
-@media (max-width:560px){.nav .btn-ghost{display:none}.nav .btn-primary{padding:11px 14px}}
+@media (max-width:560px){.nav .btn-ghost,.nav .login-menu{display:none}.nav .btn-primary{padding:11px 14px}}
 .mnav.open{display:grid;position:fixed;inset:72px 0 auto 0;z-index:49;background:#fff;border-bottom:1px solid var(--rule);padding:12px 20px 22px;gap:4px;box-shadow:var(--shadow-lg)}
 .mnav a{padding:12px 4px;text-decoration:none;font-weight:500;border-bottom:1px solid var(--rule)}
 .mnav a:last-child{border:0}
@@ -577,14 +582,20 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#start">Einstieg</a><a href="#datenschutz">Datenschutz</a><a href="#faq">Fragen</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-ghost" href="https://app.roger-verwaltung.de">Anmelden</a>
+      <details class="login-menu">
+        <summary class="btn btn-ghost">Anmelden <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="login-pop" role="menu">
+          <a role="menuitem" href="https://app.roger-verwaltung.de"><strong>Tennisschule</strong><span>Trainingsplan, Schüler, Abrechnung</span></a>
+          <a role="menuitem" href="https://verein.roger-verwaltung.de"><strong>Tennisverein</strong><span>Mitglieder, Beiträge, SEPA</span></a>
+        </div>
+      </details>
       <button class="btn btn-primary" type="button" data-demo>Demo starten</button>
       <button class="burger" type="button" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menü">
-  <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#start">Einstieg</a><a href="#datenschutz">Datenschutz</a><a href="#faq">Fragen</a><a href="https://app.roger-verwaltung.de">Anmelden</a>
+  <a href="#produkt">Produkt</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#start">Einstieg</a><a href="#datenschutz">Datenschutz</a><a href="#faq">Fragen</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a>
 </nav>
 
 <main id="top">
@@ -1010,7 +1021,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <p>Verwaltung für Tennisschulen. Gebaut in der Tennisschule Simanek, Bochum.</p>
       </div>
       <div><h4>Produkt</h4><nav><a href="#ueberblick">Was ist Roger?</a><a href="#aktion">In Aktion</a><a href="#module">Module</a><a href="#assistent">Assistent</a></nav></div>
-      <div><h4>Einstieg</h4><nav><a href="#kontakt" data-demo>Demo starten</a><a href="#start">So läuft der Start</a><a href="#umzug">Datenübernahme</a><a href="https://app.roger-verwaltung.de">Anmelden</a></nav></div>
+      <div><h4>Einstieg</h4><nav><a href="#kontakt" data-demo>Demo starten</a><a href="#start">So läuft der Start</a><a href="#umzug">Datenübernahme</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a></nav></div>
       <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutzerklärung</a></nav></div>
     </div>
     <div class="copy"><span>© 2026 Roger · roger-verwaltung.de</span><span>Server in Frankfurt · DSGVO</span></div>
@@ -1815,5 +1826,6 @@ if (supportsGL) {
   if (document.readyState === 'complete') setTimeout(go, 120); else addEventListener('load', () => setTimeout(go, 120));
 }
 </script>
+<script>document.addEventListener('click',function(e){var m=document.querySelector('.login-menu');if(m&&m.open&&!m.contains(e.target))m.open=false});</script>
 </body>
 </html>
