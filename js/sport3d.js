@@ -357,3 +357,58 @@ export function mountOrbit(back, front, items) {
   requestAnimationFrame(frame);
   back.classList.add('ready'); front.classList.add('ready');
 }
+
+// Startseite: Sportsymbole schweben im Hintergrund des Kopfbereichs.
+// items: [kind, accent, x, y, size, depth] mit x/y als Anteil der Fläche, size in px, depth 0..1 (1 = vorn, scharf)
+export function mountFloat(canvas, items, mobileItems) {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+  renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  const scene = new THREE.Scene(); scene.environment = studioEnv(renderer);
+  const camera = new THREE.PerspectiveCamera(30, 1, 10, 6000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xC2CCE0, 0.9));
+  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(-300, 500, 600); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xDDE7FF, 1.1); rim.position.set(400, 100, -400); scene.add(rim);
+  const host = canvas.parentElement;
+  let W = 0, H = 0, set = null, objs = [];
+  const build = (list) => {
+    objs.forEach((O) => scene.remove(O.pivot));
+    objs = list.map(([kind, accent, x, y, size, depth], i) => {
+      const o = BUILD[kind](new THREE.Color(accent)); const pivot = new THREE.Group(); pivot.add(o); scene.add(pivot);
+      if (depth < 0.6) o.traverse((m) => { if (!m.isMesh) return; (Array.isArray(m.material) ? m.material : [m.material]).forEach((mt) => { mt.transparent = true; mt.opacity = 0.25 + depth * 0.6; mt.depthWrite = false; }); });
+      o.traverse((m) => { if (m.isLight) m.intensity = 0; });
+      return { o, pivot, x, y, size, depth, ph: i * 1.7, sway: !!o.userData.sway };
+    });
+  };
+  const size = () => {
+    W = host.clientWidth; H = host.clientHeight; if (!W) return;
+    renderer.setSize(W, H, false);
+    const dist = 1200; camera.position.set(0, 0, dist); camera.fov = 2 * Math.atan(H / 2 / dist) * 180 / Math.PI; camera.aspect = W / H; camera.updateProjectionMatrix();
+    const want = W < 700 ? 'm' : 'd';
+    if (want !== set) { set = want; build(want === 'm' && mobileItems ? mobileItems : items); }
+  };
+  new ResizeObserver(size).observe(host); size();
+  let vis = true; new IntersectionObserver(([en]) => { vis = en.isIntersecting; }).observe(host);
+  let mx = 0, my = 0, tx = 0, ty = 0;
+  addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; }, { passive: true });
+  const t0 = performance.now();
+  const frame = (now) => {
+    requestAnimationFrame(frame); if (!vis) return;
+    const t = reduce ? 3 : (now - t0) / 1000;
+    mx += (tx - mx) * 0.04; my += (ty - my) * 0.04;
+    const sy = reduce ? 0 : scrollY;
+    objs.forEach((O) => {
+      const amp = (14 + O.depth * 22) * (W < 700 ? 0.5 : 1);
+      const px = (O.x - 0.5) * W + Math.sin(t * 0.35 + O.ph) * amp - mx * 40 * O.depth;
+      const py = (0.5 - O.y) * H + Math.cos(t * 0.28 + O.ph * 1.3) * amp + sy * (0.08 + 0.22 * O.depth) * (W < 700 ? 0.4 : 1) - my * 30 * O.depth;
+      O.pivot.position.set(px, py, (O.depth - 0.5) * 200);
+      O.pivot.scale.setScalar(O.size / 2);
+      O.o.rotation.y = O.sway ? Math.sin(t * 0.6 + O.ph) * 0.7 + 0.3 : t * 0.35 + O.ph;
+      O.o.rotation.x = Math.sin(t * 0.4 + O.ph) * 0.15;
+      tickObj(O.o.userData, t + O.ph);
+    });
+    renderer.render(scene, camera);
+  };
+  requestAnimationFrame(frame);
+  canvas.classList.add('ready');
+}
