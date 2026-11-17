@@ -640,7 +640,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 @media (max-width:980px){.wstage .build{margin-top:clamp(70px,16vw,120px)}.whero{text-align:center}.whero-grid{grid-template-columns:1fr}.whero h1,.whero .lead{margin-inline:auto}.whero .cta-row,.whero .facts{justify-content:center}}
 
 .build{position:relative;max-width:1060px;margin:clamp(36px,5vw,64px) auto 0;perspective:2400px;perspective-origin:50% 30%}
-.bstack{position:relative;width:100%;aspect-ratio:16/10;transform-style:preserve-3d;transform:rotateX(var(--rx,58deg)) rotateZ(var(--rz,-32deg)) scale(var(--sc,.74));transform-origin:50% 50%;will-change:transform}
+.bstack{container-type:inline-size;position:relative;width:100%;aspect-ratio:16/10;transform-style:preserve-3d;transform:rotateX(var(--rx,58deg)) rotateZ(var(--rz,-32deg)) scale(var(--sc,.74));transform-origin:50% 50%;will-change:transform}
 .bl{position:absolute;inset:0;border-radius:14px;transform-style:preserve-3d;transform:translateZ(calc(var(--gap,80px) * var(--i) + var(--drop,0px) + var(--lift,0px)));opacity:var(--op,0);transition:opacity .7s var(--ease),--drop .9s var(--ease),--lift .6s var(--ease);will-change:transform,opacity}
 .bl .tag{position:absolute;left:-3px;top:-34px;display:inline-flex;align-items:center;gap:8px;font:600 13px/1 var(--f-body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:7px 12px 7px 8px;box-shadow:var(--shadow);opacity:var(--tagop,1);transition:opacity .4s;white-space:nowrap}
 .bl .tag b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px}
@@ -658,6 +658,27 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .blabel{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:var(--muted)}
 .blabel span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--rule);transition:background .4s,color .4s,border-color .4s}
 .blabel span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* Schichten im Look der echten Startseite */
+.l1{background:transparent!important;border:1.5px dashed rgba(122,145,190,.9)!important;box-shadow:none!important}
+.l1 .wf{border-color:rgba(122,145,190,.9)}
+.dbg{position:absolute;inset:0;border-radius:14px;background:#0B2A5B url(img/simanek-court.webp) center/cover;box-shadow:0 40px 80px -30px rgba(15,29,54,.55)}
+.dbg::after{content:"";position:absolute;inset:0;border-radius:14px;background:rgba(5,20,50,.25)}
+.dlogo{position:absolute;left:3%;top:3%;width:9%;height:13%;border-radius:10px;background:radial-gradient(circle at 50% 40%,#E5679C 0 30%,transparent 31%)}
+.dbtn{position:absolute;border-radius:8px;background:#C55C84;box-shadow:0 8px 20px -8px rgba(197,92,132,.8)}
+.dbtn.ghost{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.75);box-shadow:none}
+.dpink{position:absolute;border-radius:8px;background:linear-gradient(90deg,rgba(197,92,132,.55),rgba(197,92,132,.15))}
+.ct{position:absolute;font:900 1em/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;transition:color .6s}
+.ct.pk{color:#C55C84}
+.cl{position:absolute;height:2.4%;border-radius:4px;background:var(--ink);opacity:.55;transition:background .6s}
+.cs{position:absolute;font:700 1.25cqw/1 var(--f-body);color:var(--ink);white-space:nowrap;transition:color .6s}
+.cn{position:absolute;font:600 1.1cqw/1 var(--f-body);color:var(--ink);white-space:nowrap;letter-spacing:.01em;transition:color .6s}
+.ci{position:absolute;left:3.5%;top:2.5%;width:8%}
+.ci .slogo{display:block;width:100%;height:auto}
+.bstack.merged .ct:not(.pk),.bstack.merged .cs,.bstack.merged .cn{color:#fff}
+.bstack.merged .cl{background:#fff}
+.l4{opacity:var(--op4,0)!important;transition:opacity .9s var(--ease)!important}
+
 @property --drop{syntax:'<length>';inherits:false;initial-value:0px}
 @property --lift{syntax:'<length>';inherits:false;initial-value:0px}
 .bl.act .tag{background:var(--ink);color:#fff;border-color:var(--ink)}.bl.act .tag b{background:#C2457A}
@@ -702,6 +723,36 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .ecur.click::after{content:"";position:absolute;left:-10px;top:-10px;width:40px;height:40px;border-radius:50%;border:2px solid var(--blue);animation:clk .5s ease-out}
 @keyframes clk{from{transform:scale(.3);opacity:1}to{transform:scale(1.2);opacity:0}}
 .edit-note{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* Nachbau der Startseite von tennisschulesimanek.de */
+.sim{--c:#C55C84;--r:10px;--bgf:none;--lf:none;--hf:"Helvetica Neue",Arial,sans-serif;--hw:900;--hs:normal;--ht:none;position:relative;overflow:hidden;color:#fff;background:#0B2A5B;font-family:var(--f-body)}
+.sim *{transition:background-color .6s,color .6s,border-radius .5s,border-color .6s}
+.sbg{position:absolute;inset:0;background:url(img/simanek-court.webp) center 30%/cover;filter:var(--bgf);transition:filter .9s}
+.sbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,45,.15),rgba(5,18,45,.35) 60%,rgba(5,18,45,.75))}
+.stop,.snav,.shero,.snews{position:relative}
+.stop{display:flex;justify-content:flex-end;gap:14px;padding:8px 14px 0;font-size:9.5px;opacity:.85}
+.snav{display:flex;align-items:center;gap:12px;padding:4px 14px 8px}
+.slg{width:52px;height:auto;filter:var(--lf);transition:filter .8s}
+.slk{display:flex;gap:11px;font-size:10.5px;font-weight:600;margin-left:6px}
+.slk .on{color:var(--c)}
+.sbt{margin-left:auto;background:var(--c);font-size:10.5px;font-weight:700;padding:8px 12px;border-radius:var(--r)}
+.shero{padding:22px 22px 26px}
+.shero h3{margin:0;font-family:var(--hf);font-weight:var(--hw);font-style:var(--hs);text-transform:var(--ht);font-size:clamp(28px,3.6vw,46px);line-height:1;letter-spacing:-.02em;max-width:11ch}
+.shero h3 em{display:block;font-style:inherit;color:var(--c)}
+.shero p{font-size:12px;opacity:.85;max-width:34ch;margin:12px 0 16px;line-height:1.5}
+.sbs{display:flex;gap:8px;flex-wrap:wrap}
+.sb1{background:var(--c);font-size:11px;font-weight:700;padding:9px 13px;border-radius:var(--r)}
+.sb2{border:1.5px solid rgba(255,255,255,.8);background:rgba(255,255,255,.08);font-size:11px;font-weight:700;padding:8px 12px;border-radius:var(--r)}
+.snews{margin:0 14px 14px;padding:12px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px)}
+.sh{display:block;font:var(--hw) 12px var(--hf);font-style:var(--hs);text-transform:var(--ht);margin-bottom:8px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sgrid div{display:grid;gap:5px;font-size:10px}
+.sgrid i{display:block;height:44px;border-radius:8px;background:url(img/simanek-court.webp) center/cover;filter:var(--bgf)}
+.sgrid div:nth-child(2) i{background-image:url(img/web-events.webp);background-position:top;filter:none}
+.sgrid div:nth-child(3) i{background-image:url(img/web-news.webp);background-position:center 30%;filter:none}
+@media (max-width:980px){.mini-wrap{order:-1}}
+@media (max-width:560px){.slk{display:none}.stop span:not(:first-child){display:none}}
+
 @media (max-width:980px){.edit{grid-template-columns:1fr}.mini-win{transform:none}}
 @media (max-width:560px){.mn .lk{display:none}.mc{grid-template-columns:1fr 1fr}.mc div:nth-child(3){display:none}.mf{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.bstack{transform:none}.bl{transition:none}.ecur{display:none}}
@@ -755,20 +806,31 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <div class="wstage">
       <div class="build" id="build" aria-label="Illustration: Eine Website entsteht aus Struktur, Inhalten und Design">
           <div class="bstack" id="bstack">
-            <div class="bl l1" style="--i:0"><span class="tag"><b>1</b>Struktur</span><div class="wf" style="left:3%;top:4%;width:94%;height:9%"></div><div class="wf" style="left:3%;top:16%;width:94%;height:44%"></div><div class="wf" style="left:3%;top:64%;width:29%;height:30%"></div><div class="wf" style="left:35.5%;top:64%;width:29%;height:30%"></div><div class="wf" style="left:68%;top:64%;width:29%;height:30%"></div></div>
-            <div class="bl l2" style="--i:1"><span class="tag"><b>2</b>Inhalte</span><div class="tx" style="left:6%;top:7%;width:12%"></div><div class="tx lt" style="left:40%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:49%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:58%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:67%;top:7.5%;width:6%;height:2.4%"></div>
-<div class="tx" style="left:7%;top:26%;width:34%;height:6%"></div><div class="tx" style="left:7%;top:34%;width:28%;height:6%"></div><div class="tx lt" style="left:7%;top:44%;width:36%"></div><div class="tx lt" style="left:7%;top:49%;width:30%"></div>
-<div class="ph" style="left:55%;top:20%;width:38%;height:36%"></div>
-<div class="ph" style="left:5%;top:67%;width:25%;height:14%"></div><div class="ph" style="left:37.5%;top:67%;width:25%;height:14%"></div><div class="ph" style="left:70%;top:67%;width:25%;height:14%"></div>
-<div class="tx" style="left:5%;top:84%;width:16%;height:2.6%"></div><div class="tx" style="left:37.5%;top:84%;width:16%;height:2.6%"></div><div class="tx" style="left:70%;top:84%;width:16%;height:2.6%"></div></div>
-            <div class="bl l3" style="--i:2"><span class="tag"><b>3</b>Euer Design</span><div class="ds" style="left:0;top:0;width:100%;height:60%;border-radius:14px 14px 0 0;background:linear-gradient(160deg,#0B2A5B,#123E7C);opacity:.88"></div>
-<div class="ds" style="left:5%;top:5.5%;width:4%;height:6.5%;border-radius:50%;background:#E26C9A"></div><div class="ds" style="left:83%;top:5%;width:12%;height:7%;background:#C2457A"></div>
-<div class="ds" style="left:7%;top:51%;width:12%;height:6%;background:#C2457A"></div><div class="ds" style="left:21%;top:51%;width:14%;height:6%;border:2px solid #fff"></div>
-<div class="ds" style="left:3%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div><div class="ds" style="left:35.5%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div><div class="ds" style="left:68%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div></div>
+            <div class="bl l3" style="--i:0"><span class="tag"><b>3</b>Euer Design</span>
+              <div class="dbg"></div>
+              <div class="dlogo"></div><div class="dbtn" style="left:79%;top:5.5%;width:15%;height:6.5%"></div>
+              <div class="dbtn" style="left:6%;top:66%;width:16%;height:7.5%"></div><div class="dbtn ghost" style="left:24%;top:66%;width:21%;height:7.5%"></div>
+              <div class="dpink" style="left:6%;top:40.5%;width:42%;height:10.5%"></div>
+            </div>
+            <div class="bl l2" style="--i:1"><span class="tag"><b>2</b>Inhalte</span>
+              <div class="ct" style="left:6%;top:24%;font-size:6cqw">Tennis mit</div>
+              <div class="ct pk" style="left:6%;top:38%;font-size:6cqw">Leidenschaft</div>
+              <div class="cl" style="left:6%;top:55%;width:40%"></div><div class="cl" style="left:6%;top:59%;width:36%"></div>
+              <div class="cs" style="left:7.5%;top:68.2%">Kurse entdecken</div><div class="cs" style="left:26%;top:68.2%">Probetraining</div>
+              <div class="cn" style="left:22%;top:7.5%">Start · Kurse · Camps · Kids Club · Standorte · News · Kontakt</div>
+              <div class="ci"><img class="slogo" src="img/simanek-logo.png" width="303" height="248" alt=""></div>
+            </div>
+            <div class="bl l1" style="--i:2"><span class="tag"><b>1</b>Struktur</span>
+              <div class="wf" style="left:3%;top:2%;width:94%;height:12%"></div>
+              <div class="wf" style="left:4%;top:21%;width:46%;height:32%"></div>
+              <div class="wf" style="left:4%;top:54%;width:42%;height:9%"></div>
+              <div class="wf" style="left:4%;top:64%;width:44%;height:11%"></div>
+              <div class="wf" style="left:54%;top:21%;width:42%;height:54%"></div>
+            </div>
             <div class="bl l4" style="--i:3"><span class="tag"><b>4</b>Eure Website</span><img src="img/web-start.webp" width="2400" height="1500" alt="" fetchpriority="high"></div>
           </div>
         </div>
-        <div class="blabel" id="blabel" aria-hidden="true"><span>Struktur</span><span>Inhalte</span><span>Euer Design</span><span>Online &amp; mit Roger verbunden</span></div>
+        <div class="blabel" id="blabel" aria-hidden="true"><span>1 Struktur</span><span>2 Inhalte</span><span>3 Euer Design</span><span>Eure Website, mit Roger verbunden</span></div>
     </div>
       </div>
     </div>
@@ -799,35 +861,40 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <div class="rise">
         <span class="label">Individuell</span>
         <h2 id="det-h" style="margin-top:14px">Bis ins kleinste Detail.</h2>
-        <p class="lead" style="margin-top:16px">Farbe, Schrift, Ecken, hell oder dunkel: Ihr sagt, wie es aussehen soll, wir setzen es um. Und wenn euch nach dem Start noch etwas auffällt, ändern wir auch das.</p>
+        <p class="lead" style="margin-top:16px">So haben wir unsere eigene Website gebaut: Farben, Schrift, Hintergrund, jedes Detail nach Wunsch. Probiert es hier an tennisschulesimanek.de aus. Bei euch passen wir genauso alles an, auch nach dem Start.</p>
         <div class="panel" id="panel">
-          <div><h4>Farbe</h4><div class="sw" data-k="c">
-            <button type="button" aria-label="Pink" data-v="#C2457A" style="background:#C2457A" aria-pressed="true"></button>
-            <button type="button" aria-label="Vereinsgrün" data-v="#1F7A4D" style="background:#1F7A4D" aria-pressed="false"></button>
-            <button type="button" aria-label="Blau" data-v="#2252CC" style="background:#2252CC" aria-pressed="false"></button>
-            <button type="button" aria-label="Asche" data-v="#B5532E" style="background:#B5532E" aria-pressed="false"></button>
-            <button type="button" aria-label="Weinrot" data-v="#8E2440" style="background:#8E2440" aria-pressed="false"></button>
+          <div><h4>Akzentfarbe</h4><div class="sw" data-k="c">
+            <button type="button" aria-label="Pink (Original)" data-v="#C55C84" data-lf="none" style="background:#C55C84" aria-pressed="true"></button>
+            <button type="button" aria-label="Vereinsgrün" data-v="#1F7A4D" data-lf="hue-rotate(165deg) saturate(.8) brightness(.8)" style="background:#1F7A4D" aria-pressed="false"></button>
+            <button type="button" aria-label="Türkis" data-v="#0E8C8C" data-lf="hue-rotate(200deg) saturate(.9) brightness(.85)" style="background:#0E8C8C" aria-pressed="false"></button>
+            <button type="button" aria-label="Asche" data-v="#B5532E" data-lf="hue-rotate(45deg) saturate(.9) brightness(.85)" style="background:#B5532E" aria-pressed="false"></button>
+            <button type="button" aria-label="Weinrot" data-v="#8E2440" data-lf="hue-rotate(8deg) brightness(.62) saturate(1.1)" style="background:#8E2440" aria-pressed="false"></button>
           </div></div>
-          <div><h4>Schrift</h4><div class="seg2" data-k="ff">
-            <button type="button" data-v='"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif' aria-pressed="true">Modern</button>
-            <button type="button" data-v='Georgia,"Times New Roman",serif' aria-pressed="false">Klassisch</button>
-            <button type="button" data-v='"Geist Mono",ui-monospace,monospace' aria-pressed="false">Technisch</button>
+          <div><h4>Platzbelag im Hintergrund</h4><div class="seg2" data-k="court">
+            <button type="button" data-v="none" aria-pressed="true">Hartplatz</button>
+            <button type="button" data-v="hue-rotate(168deg) saturate(1.15) brightness(1.05)" aria-pressed="false">Asche</button>
+            <button type="button" data-v="hue-rotate(-92deg) saturate(.85) brightness(.95)" aria-pressed="false">Rasen</button>
           </div></div>
           <div style="display:flex;gap:26px;flex-wrap:wrap">
-            <div><h4>Ecken</h4><div class="seg2" data-k="r"><button type="button" data-v="12px" aria-pressed="true">Rund</button><button type="button" data-v="2px" aria-pressed="false">Eckig</button><button type="button" data-v="999px" aria-pressed="false">Pille</button></div></div>
-            <div><h4>Kopfbereich</h4><div class="seg2" data-k="mode"><button type="button" data-v="dark" aria-pressed="true">Dunkel</button><button type="button" data-v="light" aria-pressed="false">Hell</button></div></div>
+            <div><h4>Schrift</h4><div class="seg2" data-k="ff">
+              <button type="button" data-v="modern" aria-pressed="true">Modern</button>
+              <button type="button" data-v="klassisch" aria-pressed="false">Klassisch</button>
+              <button type="button" data-v="sportlich" aria-pressed="false">Sportlich</button>
+            </div></div>
+            <div><h4>Knöpfe</h4><div class="seg2" data-k="r"><button type="button" data-v="10px" aria-pressed="true">Rund</button><button type="button" data-v="2px" aria-pressed="false">Eckig</button><button type="button" data-v="999px" aria-pressed="false">Pille</button></div></div>
           </div>
         </div>
-        <p class="edit-note">Probiert es aus. Bei euch passen wir zusätzlich Logo, Bilder, Texte und den Aufbau jeder Seite an.</p>
+        <p class="edit-note">Dazu kommen euer Logo, eure Bilder, eure Texte und der Aufbau jeder Seite.</p>
       </div>
       <div class="mini-wrap rise d1" aria-hidden="true">
         <div class="mini-win"><div class="window">
-          <div class="bar"><i></i><i></i><i></i><span>eure-tennisschule.de</span></div>
-          <div class="mini" id="mini">
-            <div class="mn"><span class="lg">T</span><b id="miniName">Tennisschule Sonnenhang</b><span class="lk"><span>Kurse</span><span>Camps</span><span>News</span><span>Kontakt</span></span><span class="bt">Jetzt buchen</span></div>
-            <div class="mh"><h3>Tennis mit <em>Leidenschaft</em></h3><p>Training für Kinder und Erwachsene an drei Standorten, mit Online-Anmeldung in zwei Minuten.</p><div class="bs"><span class="b1">Kurse entdecken</span><span class="b2">Probetraining</span></div></div>
-            <div class="mc"><div><i></i><b>Kinder &amp; Jugend</b><span>Spielerisch lernen</span></div><div><i></i><b>Erwachsene</b><span>In festen Gruppen</span></div><div><i></i><b>Camps</b><span>In den Ferien</span></div></div>
-            <div class="mf"><label>Vorname<i></i></label><label>E-Mail<i></i></label><span class="send">Anmelden</span></div>
+          <div class="bar"><i></i><i></i><i></i><span>tennisschulesimanek.de</span></div>
+          <div class="mini sim" id="mini">
+            <div class="sbg"></div>
+            <div class="stop"><span>0176 10381340</span><span>WhatsApp</span><span>info@tennisschulesimanek.de</span></div>
+            <div class="snav"><img class="slg" src="img/simanek-logo.png" width="303" height="248" alt=""><span class="slk"><span class="on">Start</span><span>Kurse</span><span>Camps</span><span>Kids Club</span><span>News</span><span>Kontakt</span></span><span class="sbt">Jetzt buchen</span></div>
+            <div class="shero"><h3>Tennis mit <em>Leidenschaft</em></h3><p>Seit über 30 Jahren begleiten wir Spielerinnen und Spieler in Bochum und Hattingen.</p><div class="sbs"><span class="sb1">Kurse entdecken</span><span class="sb2">Probetraining vereinbaren</span></div></div>
+            <div class="snews"><b class="sh">News &amp; Neuigkeiten</b><div class="sgrid"><div><i></i><span>Shanghai Open</span></div><div><i></i><span>Camps &amp; Events</span></div><div><i></i><span>Ready for Clay</span></div></div></div>
           </div>
         </div></div>
       </div>
@@ -1033,53 +1100,51 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // ---------- Schichten: fallen nacheinander ein, verschmelzen beim Scrollen zur fertigen Website ----------
+  // ---------- Schichten: Aufbau -> Zusammenfügen -> fertige Website -> wieder auseinander (Schleife) ----------
   const build = document.getElementById('build'), stack = document.getElementById('bstack');
   const layers = [...stack.querySelectorAll('.bl')], chips = [...document.querySelectorAll('#blabel span')];
-  layers.forEach((l) => { l.style.setProperty('--drop', '420px'); });
-  const intro = () => layers.forEach((l, i) => setTimeout(() => { l.style.setProperty('--op', i === 3 ? '.94' : '1'); l.style.setProperty('--drop', '0px'); chips[i] && chips.forEach((c, j) => c.classList.toggle('on', j === i)); }, reduce ? 0 : 350 + i * 520));
-  let p = 0, t0 = performance.now(), introDone = false, lastA = -1;
-  setTimeout(() => { introDone = true; }, reduce ? 0 : 350 + 4 * 520);
-  intro();
-  const lerp = (a, b, k) => a + (b - a) * k;
+  const byStep = [layers[2], layers[1], layers[0]];
+  const lerp = (a, b, k) => a + (b - a) * k, clamp = (v) => Math.min(1, Math.max(0, v)), ease = (k) => k * k * (3 - 2 * k);
+  const CYC = 12.5;
+  let hvis = true, t0 = performance.now();
+  new IntersectionObserver(([en]) => { hvis = en.isIntersecting; }, { threshold: 0 }).observe(build);
+  const setChip = (a) => chips.forEach((c, j) => c.classList.toggle('on', j === a));
   const frame = (now) => {
-    const r = build.getBoundingClientRect(), vh = innerHeight;
-    const narrow = innerWidth <= 980;
-    const target = reduce ? 1 : Math.min(1, Math.max(0, narrow ? (vh * .3 - r.top) / (vh * .45) : scrollY / (vh * .55)));
-    p += (target - p) * .12;
-    const e = p * p * (3 - 2 * p), t = (now - t0) / 1000;
-    const idle = (1 - e) * Math.sin(t * .6) * 2.2;
-    stack.style.setProperty('--rx', lerp(56, 0, e).toFixed(2) + 'deg');
-    stack.style.setProperty('--rz', (lerp(-30, 0, e) + idle).toFixed(2) + 'deg');
-    stack.style.setProperty('--sc', lerp(innerWidth <= 980 ? .86 : .8, 1, e).toFixed(3));
-    stack.style.setProperty('--gap', lerp(build.clientWidth * .13, 0, e).toFixed(1) + 'px');
-    if (introDone) {
-      layers.forEach((l, i) => { l.style.setProperty('--op', i === 3 ? (lerp(.94, 1, e)).toFixed(3) : (e > .86 ? Math.max(0, 1 - (e - .86) / .12) : 1).toFixed(3)); l.style.setProperty('--tagop', (1 - Math.min(1, e * 1.6)).toFixed(2)); });
-      const a = e > .85 ? 3 : Math.floor(t / 1.6) % 4;
-      if (a !== lastA) { lastA = a; chips.forEach((c, j) => c.classList.toggle('on', j === a)); layers.forEach((l, j) => { l.classList.toggle('act', j === a && e < .85); l.style.setProperty('--lift', j === a && e < .85 ? (build.clientWidth * .05).toFixed(0) + 'px' : '0px'); }); }
-    }
     requestAnimationFrame(frame);
+    if (!hvis && !reduce) return;
+    const t = reduce ? 9 : ((now - t0) / 1000) % CYC;
+    byStep.forEach((l, k) => { const d = clamp((t - .2 - k * .7) / .7); l.style.setProperty('--op', ease(d).toFixed(3)); l.style.setProperty('--drop', ((1 - ease(d)) * 380).toFixed(1) + 'px'); });
+    const m = t < 5 ? 0 : t < 6.6 ? ease((t - 5) / 1.6) : t < 10.6 ? 1 : 1 - ease((t - 10.6) / 1.4);
+    stack.style.setProperty('--rx', lerp(56, 0, m).toFixed(2) + 'deg');
+    stack.style.setProperty('--rz', lerp(-30 + Math.sin(t * .7) * 2, 0, m).toFixed(2) + 'deg');
+    stack.style.setProperty('--sc', lerp(innerWidth <= 980 ? .84 : .8, 1, m).toFixed(3));
+    stack.style.setProperty('--gap', lerp(build.clientWidth * .13, 0, m).toFixed(1) + 'px');
+    stack.classList.toggle('merged', m > .9);
+    stack.style.setProperty('--op4', t > 6.9 && t < 10.9 ? 1 : 0);
+    if (t > 6.6 && t < 10.9) layers[2].style.setProperty('--op', 0);
+    layers.forEach((l) => l.style.setProperty('--tagop', (1 - m).toFixed(2)));
+    let a = t < 2.6 ? Math.min(2, Math.max(0, Math.floor((t - .2) / .7))) : t < 5 ? Math.floor((t - 2.6) / .8) % 3 : 3;
+    if (t > 10.6) a = -1;
+    byStep.forEach((l, k) => { const on = a === k && m < .5; l.classList.toggle('act', on); l.style.setProperty('--lift', on ? (build.clientWidth * .045).toFixed(0) + 'px' : '0px'); });
+    setChip(a);
   };
   requestAnimationFrame(frame);
 
   // ---------- Live-Editor ----------
   const mini = document.getElementById('mini'), panel = document.getElementById('panel'), cur = document.getElementById('ecur'), sec = document.getElementById('detail');
-  const names = { '#C2457A': 'Tennisschule Sonnenhang', '#1F7A4D': 'TC Grün-Weiß', '#2252CC': 'Tennisakademie Blau', '#B5532E': 'Aschenplatz Club', '#8E2440': 'TC Rot-Weiß' };
-  const apply = (k, v) => {
-    if (k === 'c') { mini.style.setProperty('--c', v); document.getElementById('miniName').textContent = names[v] || 'Eure Tennisschule'; mini.querySelector('.lg').textContent = (names[v] || 'T').split(' ').pop()[0]; }
-    if (k === 'ff') mini.style.setProperty('--ff', v);
+  const FONTS = { modern: ['"Helvetica Neue",Arial,sans-serif', 900, 'normal', 'none'], klassisch: ['Georgia,"Times New Roman",serif', 700, 'normal', 'none'], sportlich: ['"Helvetica Neue",Arial,sans-serif', 900, 'italic', 'uppercase'] };
+  const apply = (k, v, b) => {
+    if (k === 'c') { mini.style.setProperty('--c', v); mini.style.setProperty('--lf', b.dataset.lf || 'none'); }
+    if (k === 'court') mini.style.setProperty('--bgf', v);
     if (k === 'r') mini.style.setProperty('--r', v);
-    if (k === 'mode') {
-      const dark = v === 'dark', c = getComputedStyle(mini).getPropertyValue('--c').trim();
-      mini.style.setProperty('--hbg', dark ? '#0B2A5B' : '#F3F6FA'); mini.style.setProperty('--htx', dark ? '#fff' : '#0F1D36');
-    }
+    if (k === 'ff') { const f = FONTS[v]; mini.style.setProperty('--hf', f[0]); mini.style.setProperty('--hw', f[1]); mini.style.setProperty('--hs', f[2]); mini.style.setProperty('--ht', f[3]); }
   };
   let auto = true;
   panel.querySelectorAll('[data-k]').forEach((g) => g.querySelectorAll('button').forEach((b) => b.addEventListener('click', (ev) => {
     if (ev.isTrusted) auto = false;
-    g.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(g.dataset.k, b.dataset.v);
+    g.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(g.dataset.k, b.dataset.v, b);
   })));
-  const seq = [['c', 1], ['ff', 1], ['mode', 1], ['r', 1], ['c', 3], ['mode', 0], ['ff', 0], ['r', 2], ['c', 4], ['ff', 2], ['r', 0], ['c', 2], ['mode', 1], ['ff', 0], ['c', 0], ['mode', 0]];
+  const seq = [['court', 1], ['c', 3], ['ff', 2], ['r', 1], ['court', 2], ['c', 1], ['ff', 1], ['r', 2], ['c', 2], ['court', 0], ['c', 4], ['ff', 0], ['r', 0], ['c', 0]];
   let si = 0, vis = false;
   new IntersectionObserver(([en]) => { vis = en.isIntersecting; }, { threshold: .35 }).observe(sec);
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
