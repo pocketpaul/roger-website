@@ -153,7 +153,7 @@ section{padding-block:clamp(80px,10vw,130px)}
 .stat b{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(30px,3.4vw,42px);letter-spacing:-.03em;line-height:1}
 .stat span{display:block;margin-top:6px;color:var(--muted);font-size:14.5px}
 .stage{position:relative;margin-top:clamp(48px,6vw,80px);perspective:1800px}
-.stage .window{transform:rotateX(var(--tilt,22deg)) scale(var(--sc,.94));transform-origin:50% 0;transition:transform .1s linear;margin:0 auto;max-width:1080px}
+.stage .window{transform:rotateX(var(--tilt,22deg)) scale(var(--sc,.94));transform-origin:50% 0;transition:transform .1s linear;margin:0 auto;max-width:1180px}
 .window{position:relative;border-radius:16px;overflow:hidden;background:#F8FAFC;box-shadow:var(--shadow-lg),0 0 0 1px rgba(15,29,54,.07)}
 .window .bar{height:34px;background:#EEF1F6;border-bottom:1px solid #E1E6EE;display:flex;align-items:center;gap:6px;padding:0 13px}
 .window .bar i{width:10px;height:10px;border-radius:50%;background:#CDD4DF}
@@ -650,6 +650,16 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .praxis .c2{display:none}.praxis .cchip{font-size:12.5px;padding:8px 11px}.praxis .c1{right:0;top:2%}.praxis .c3{right:2%;bottom:2%}
 @media (max-width:860px){.praxis{grid-template-columns:1fr}.praxis .court-stage{max-width:460px;width:100%;margin:0 auto}}
 @media (max-width:560px){.praxis blockquote{font-size:18.5px}.praxis{padding:24px 20px 24px 24px}}
+.hl{position:absolute;z-index:3;border:2px solid var(--blue);border-radius:12px;box-shadow:0 0 0 6px rgba(34,82,204,.12);opacity:0;transition:opacity .4s;pointer-events:none}
+.hl.on{opacity:1}
+.lens{position:absolute;z-index:4;background:#fff;border-radius:16px;padding:8px;box-shadow:0 2px 6px rgba(15,29,54,.08),0 40px 80px -30px rgba(15,29,54,.55),0 0 0 1px rgba(15,29,54,.08);opacity:0;transform:translateY(14px) scale(.92);transition:opacity .45s var(--ease),transform .6s var(--ease);pointer-events:none}
+.lens.on{opacity:1;transform:none}
+.lens .lz{position:relative;overflow:hidden;border-radius:10px;background:#F8FAFC}
+.lens .lz img{position:absolute;max-width:none;height:auto}
+.lens{padding-top:40px!important}
+.lens .lcap{position:absolute;left:10px;top:9px;background:var(--blue);color:#fff;font:600 12px/1 var(--f-body);padding:7px 11px;border-radius:999px;box-shadow:0 8px 18px -8px rgba(34,82,204,.7)}
+.stage .window{max-width:1180px}
+@media (max-width:700px){.stage{margin-left:-12px;margin-right:-12px}.stage-fade{height:70px}}
 </style>
 <style id="navfix">html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}.pswitch:not(:has([aria-current])) .thumb{opacity:0;transition:left .45s var(--ease),width .45s var(--ease),opacity .3s}.pswitch.hov .thumb{opacity:1}@media (max-width:1080px){html{scroll-padding-top:128px}.nav .wrap{flex-wrap:wrap;height:auto!important;padding-top:10px;padding-bottom:10px;row-gap:10px}.nav-left{display:contents!important}.nav .brand{order:1}.nav .brand .bt,.nav .brand>span{display:inline!important}.nav-cta{order:2;margin-left:auto}.nav .wrap::after{content:"";order:3;flex-basis:100%;height:0}.pswitch{order:4;overflow-x:auto;scrollbar-width:none;max-width:100%}.pswitch::-webkit-scrollbar{display:none}.mnav.open{inset:118px 0 auto 0!important}}@media (max-width:600px){.pswitch{flex:1 1 100%;justify-content:space-between}.pswitch a{padding:9px 10px!important;font-size:13px!important;flex:1 1 auto;text-align:center}}@media (min-width:1081px){.mnav.open{left:auto!important;right:max(20px,calc((100vw - 1200px) / 2 + 20px))!important;top:78px!important;width:320px;border:1px solid var(--rule);border-radius:16px}}@media (max-width:440px){.sw-l{display:none}.sw-s{display:inline}.pswitch a{padding:9px 6px!important;font-size:12.5px!important}}</style>
 </head>
@@ -716,9 +726,8 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
           <div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div>
           <img src="img/dashboard.webp" width="2400" height="1500" alt="Roger-Dashboard mit Schülerzahl, Wochenstunden, Saison-Umsatz, offenen Posten und Diagrammen" fetchpriority="high">
         </div>
-        <div class="toast t1 on" id="t1"></div>
-        <div class="toast t2 on" id="t2"></div>
-        <div class="toast t3 on" id="t3"></div>
+        <div class="hl" id="dashHl" aria-hidden="true"></div>
+        <div class="lens" id="dashLens" aria-hidden="true"><div class="lz"><img src="img/dashboard.webp" alt="" width="2400" height="1500"></div><span class="lcap"></span></div>
         <div class="stage-fade"></div>
       </div>
     </div>
@@ -1247,24 +1256,38 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     spark: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg>',
   };
 
-  // Hinweise neben dem Dashboard
-  const NOTES = [
-    ['blue', 'user', 'Neue Anmeldung', 'Mia Schneider · U12 · TC Musterstadt'],
-    ['green', 'swap', 'Vertretung eingetragen', 'Lisa übernimmt heute 17–20 Uhr'],
-    ['blue', 'doc', '49 Rechnungen erstellt', 'Nr. 0188 bis 0236-2026'],
-    ['green', 'euro', 'Zahlung verbucht', '521,18 € · Rechnung 0006-2026'],
-  ];
-  const slots = [$('#t1'), $('#t2'), $('#t3')];
-  const fill = (el, [c, i, b, s]) => { el.innerHTML = `<span class="ic ${c}">${IC[i]}</span><div><b>${b}</b><span>${s}</span></div>`; };
-  slots.forEach((el, i) => fill(el, NOTES[i]));
-  if (!reduce) {
-    let n = 3, k = 0;
-    setInterval(() => {
-      const el = slots[k % 3]; el.classList.remove('on');
-      setTimeout(() => { fill(el, NOTES[n % NOTES.length]); el.classList.add('on'); n++; }, 550);
-      k++;
-    }, 2600);
-  }
+  // Dashboard: wichtige Bereiche nacheinander vergrößern
+  (() => {
+    const stage = $('#stage'), win = stage.querySelector('.window'), img = win.querySelector('img'), hl = $('#dashHl'), lens = $('#dashLens');
+    const lz = lens.querySelector('.lz'), limg = lz.querySelector('img'), cap = lens.querySelector('.lcap');
+    const R = [
+      [.19, .117, .39, .13, 'Schüler und Wochenstunden'],
+      [.597, .117, .39, .13, 'Saison-Umsatz und offene Posten'],
+      [.19, .262, .398, .305, 'Altersverteilung'],
+      [.598, .262, .398, .305, 'Schüler pro Verein'],
+      [.19, .583, .398, .298, 'Saisonumsatz und Zahlungsquote'],
+      [.598, .583, .398, .298, 'Wochenstunden pro Tag'],
+    ];
+    let k = 0, vis = false, timer = null;
+    const show = () => {
+      const [x, y, w, h, t] = R[k % R.length]; k++;
+      const s = stage.getBoundingClientRect(), r = img.getBoundingClientRect();
+      // Markierung im Dashboard (relativ zur Bühne)
+      Object.assign(hl.style, { left: (r.left - s.left + x * r.width) + 'px', top: (r.top - s.top + y * r.height) + 'px', width: w * r.width + 'px', height: h * r.height + 'px' });
+      const lw = Math.min(s.width * (s.width < 700 ? .94 : .56), 660), iw = lw / w, ih = iw * 1500 / 2400, lh = h * ih;
+      Object.assign(limg.style, { width: iw + 'px', left: -x * iw + 'px', top: -y * ih + 'px' });
+      lz.style.height = lh + 'px'; lens.style.width = lw + 'px';
+      const cx = r.left - s.left + (x + w / 2) * r.width, cy = r.top - s.top + (y + h / 2) * r.height;
+      const left = Math.max(8, Math.min(s.width - lw - 8, cx - lw / 2)), top = Math.max(8, cy - lh / 2 - 32);
+      Object.assign(lens.style, { left: left + 'px', top: top + 'px' });
+      cap.textContent = t;
+      hl.classList.add('on'); lens.classList.add('on');
+      setTimeout(() => { lens.classList.remove('on'); hl.classList.remove('on'); }, 2900);
+    };
+    const run = () => { if (timer) return; setTimeout(show, 600); timer = setInterval(show, 3600); };
+    const stop = () => { clearInterval(timer); timer = null; lens.classList.remove('on'); hl.classList.remove('on'); };
+    if (!reduce) new IntersectionObserver(([e]) => { vis = e.isIntersecting; vis ? run() : stop(); }, { threshold: .45 }).observe(stage);
+  })();
 
   // ---------- Lebendiger Trainingsplan ----------
   (() => {
