@@ -640,16 +640,15 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .c1{right:2%;top:8%}.c2{left:0;bottom:14%}.c3{right:6%;bottom:2%}
 @media (max-width:980px){.court-stage{max-width:620px;margin:8px auto 0}}
 @media (max-width:560px){.court-stage{aspect-ratio:1/0.9}.c2{display:none}.cchip{font-size:12.5px;padding:8px 11px}.c1{right:0;top:2%}.c3{right:0;bottom:0}}
-/* Kopfbereich: 3D-Aschenplatz unter den Knöpfen */
-.hero-top{display:block}
-.hero-top .court-stage{max-width:720px;margin:clamp(20px,3vw,36px) auto 0;aspect-ratio:1.6/1}
-@media (max-width:560px){.hero-top .court-stage{aspect-ratio:1/0.85}}
-.praxis{max-width:860px;margin:-6px auto 56px;padding:30px clamp(22px,4vw,44px);background:#fff;border:1px solid var(--rule);border-radius:22px;box-shadow:var(--shadow);text-align:left;position:relative;overflow:hidden}
+.praxis{max-width:1080px;margin:-6px auto 56px;padding:30px clamp(22px,4vw,44px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center;background:#fff;border:1px solid var(--rule);border-radius:22px;box-shadow:var(--shadow);text-align:left;position:relative;overflow:hidden}
 .praxis::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--grass),var(--blue))}
 .praxis blockquote{margin:14px 0 0;font-family:var(--f-display);font-weight:600;font-size:clamp(20px,2.1vw,26px);line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
 .praxis p{margin-top:14px;color:var(--muted);font-size:17px}
-.praxis figcaption{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:14px;color:var(--muted)}
+.praxis .pcap{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:14px;color:var(--muted)}
 .pf-dot{width:8px;height:8px;border-radius:50%;background:var(--grass);box-shadow:0 0 0 4px var(--grass-soft)}
+.praxis .court-stage{aspect-ratio:1.15/1;max-height:none}
+.praxis .c2{display:none}.praxis .cchip{font-size:12.5px;padding:8px 11px}.praxis .c1{right:0;top:2%}.praxis .c3{right:2%;bottom:2%}
+@media (max-width:860px){.praxis{grid-template-columns:1fr}.praxis .court-stage{max-width:460px;width:100%;margin:0 auto}}
 @media (max-width:560px){.praxis blockquote{font-size:18.5px}.praxis{padding:24px 20px 24px 24px}}
 </style>
 <style id="navfix">html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}.pswitch:not(:has([aria-current])) .thumb{opacity:0;transition:left .45s var(--ease),width .45s var(--ease),opacity .3s}.pswitch.hov .thumb{opacity:1}@media (max-width:1080px){html{scroll-padding-top:128px}.nav .wrap{flex-wrap:wrap;height:auto!important;padding-top:10px;padding-bottom:10px;row-gap:10px}.nav-left{display:contents!important}.nav .brand{order:1}.nav .brand .bt,.nav .brand>span{display:inline!important}.nav-cta{order:2;margin-left:auto}.nav .wrap::after{content:"";order:3;flex-basis:100%;height:0}.pswitch{order:4;overflow-x:auto;scrollbar-width:none;max-width:100%}.pswitch::-webkit-scrollbar{display:none}.mnav.open{inset:118px 0 auto 0!important}}@media (max-width:600px){.pswitch{flex:1 1 100%;justify-content:space-between}.pswitch a{padding:9px 10px!important;font-size:13px!important;flex:1 1 auto;text-align:center}}@media (min-width:1081px){.mnav.open{left:auto!important;right:max(20px,calc((100vw - 1200px) / 2 + 20px))!important;top:78px!important;width:320px;border:1px solid var(--rule);border-radius:16px}}@media (max-width:440px){.sw-l{display:none}.sw-s{display:inline}.pswitch a{padding:9px 6px!important;font-size:12.5px!important}}</style>
@@ -701,13 +700,6 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <a class="btn btn-ghost btn-lg" href="#aktion"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Roger in Aktion</a>
       </div>
         </div>
-      <div class="court-stage" id="courtStage" aria-label="Illustration: Aschenplatz mit Ballwechsel">
-          <canvas id="court3d" aria-hidden="true"></canvas>
-          <div class="court-fallback" aria-hidden="true"><div class="cf-court"><i></i></div></div>
-          <div class="cchip c1" aria-hidden="true"><span class="cdot"></span><div><b>Neue Anmeldung</b><span>Kids-Training · Mo 16:00</span></div></div>
-          <div class="cchip c2" aria-hidden="true"><span class="cdot clay"></span><div><b>Vertretung eingetragen</b><span>Do 18:00 · Jonas übernimmt</span></div></div>
-          <div class="cchip c3" aria-hidden="true"><span class="cdot blue"></span><div><b>Rechnung bezahlt</b><span>Familie Müller · 240,00 €</span></div></div>
-        </div>
       </div>
       <div class="claim" id="claim">
         <p class="claim-line">Von Tennistrainern. <span>Für Tennistrainer.</span></p>
@@ -749,12 +741,21 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <h2 id="live-h">Ein Klick im Plan. Den Rest rechnet Roger.</h2>
         <p class="lead">Stunde anlegen, Schüler eintragen, Vertretung regeln. Roger merkt sich alles und macht daraus am Ende die Rechnung, ohne dass du etwas doppelt eintippst.</p>
       </div>
-      <figure class="praxis rise">
+      <div class="praxis rise">
+        <div class="ptxt">
         <span class="label">Vom Tennisplatz, nicht aus dem Büro</span>
         <blockquote>Wir führen seit 30 Jahren eine Tennisschule, mit mehreren Vereinen, wechselnden Hallenzeiten, Vertretungen und über 600 Schülern. Jedes Problem, das Roger löst, hatten wir selbst: doppelte Listen, falsch abgerechnete Hallenstunden, offene Rechnungen am Saisonende.</blockquote>
         <p>Deshalb arbeitet Roger so, wie eine Tennisschule wirklich arbeitet. Entwickelt von Tennistrainern, die wissen, worauf es ankommt.</p>
-        <figcaption><span class="pf-dot" aria-hidden="true"></span>Tennisschule Simanek · Bochum und Hattingen · seit 1996</figcaption>
-      </figure>
+        <p class="pcap"><span class="pf-dot" aria-hidden="true"></span>Tennisschule Simanek · Bochum und Hattingen · seit 1996</p>
+        </div>
+      <div class="court-stage" id="courtStage" aria-label="Illustration: Aschenplatz mit Ballwechsel">
+          <canvas id="court3d" aria-hidden="true"></canvas>
+          <div class="court-fallback" aria-hidden="true"><div class="cf-court"><i></i></div></div>
+          <div class="cchip c1" aria-hidden="true"><span class="cdot"></span><div><b>Neue Anmeldung</b><span>Kids-Training · Mo 16:00</span></div></div>
+          <div class="cchip c2" aria-hidden="true"><span class="cdot clay"></span><div><b>Vertretung eingetragen</b><span>Do 18:00 · Jonas übernimmt</span></div></div>
+          <div class="cchip c3" aria-hidden="true"><span class="cdot blue"></span><div><b>Rechnung bezahlt</b><span>Familie Müller · 240,00 €</span></div></div>
+        </div>
+      </div>
       <div class="live">
         <ol class="lsteps" id="lsteps">
           <li><button class="lstep" type="button" data-s="0"><span class="num">1</span><span><h3>Stunde anlegen</h3><p>Freien Platz anklicken, Verein, Trainer und Gruppe wählen. Die Termine für die ganze Saison entstehen sofort.</p></span><span class="pb"><i></i></span></button></li>
