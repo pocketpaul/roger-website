@@ -830,6 +830,23 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </div>
   </section>
 
+  <!-- ============ ASSISTENT ============ -->
+  <section id="assistent" aria-labelledby="assist-h">
+    <div class="wrap">
+      <div class="assist-box rise">
+        <div class="assist-grid">
+          <div>
+            <span class="label">Assistent</span>
+            <h2 id="assist-h" style="margin-top:18px">Sag es einfach. Roger erledigt es.</h2>
+            <p class="lead" style="margin-top:18px">Tippen oder einsprechen, wie du es einer Kollegin sagen würdest. Roger zeigt dir vorher genau, was er ändert. Erst wenn du bestätigst, passiert es.</p>
+            <div class="chips" id="chips"></div>
+          </div>
+          <div class="chat" id="chat" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="aktion" aria-labelledby="aktion-h">
     <div class="wrap">
       <div class="sec-head rise">
@@ -886,22 +903,6 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </div>
   </section>
 
-  <!-- ============ ASSISTENT ============ -->
-  <section id="assistent" aria-labelledby="assist-h" style="padding-top:0">
-    <div class="wrap">
-      <div class="assist-box rise">
-        <div class="assist-grid">
-          <div>
-            <span class="label">Assistent</span>
-            <h2 id="assist-h" style="margin-top:18px">Sag es einfach. Roger erledigt es.</h2>
-            <p class="lead" style="margin-top:18px">Tippen oder einsprechen, wie du es einer Kollegin sagen würdest. Roger zeigt dir vorher genau, was er ändert. Erst wenn du bestätigst, passiert es.</p>
-            <div class="chips" id="chips"></div>
-          </div>
-          <div class="chat" id="chat" aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============ MOMENTE ============ -->
 
@@ -1429,7 +1430,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   const CLIPS = [
     ['dash', 'Dashboard', 'Schüler, Wochenstunden, Umsatz, offene Posten und Trainerkosten auf einer Seite.'],
     ['slot', 'Neue Stunde', 'Freien Platz anklicken, Verein und Trainer wählen, Schüler suchen und eintragen.'],
-    ['assist', 'Assistent', '„Sandra ist heute krank, Lisa übernimmt ab 17 Uhr.“ Bestätigen, fertig.'],
+    ['assist', 'Assistent', '„Rechne die Stunden von Paul Sander ab.“ Bestätigen, fertig.'],
     ['bulk', 'Sammelabrechnung', 'Alle Rechnungen eines Vereins in einem Lauf. Einzelne Stunden lassen sich abwählen.'],
     ['pay', 'Zahlungsabgleich', 'Kontoauszug hochladen. Roger ordnet die Zahlungen den Rechnungen zu.'],
   ];
@@ -1634,7 +1635,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
   // Assistent
   const SCEN = [
-    { ask: 'Sandra ist heute krank – Lisa übernimmt ihre Stunden ab 17 Uhr.', say: 'Alles klar. Ich trage Lisa als Vertretung für Sandras Stunden heute ab 17 Uhr ein.', title: 'Vertretung eintragen', lines: ['Do · 17:00–18:00 U12 · Lisa statt Sandra', 'Do · 18:00–19:00 U15 · Lisa statt Sandra', 'Do · 19:00–20:00 Damen · Lisa statt Sandra'], done: 'Erledigt. Lisa übernimmt heute 17–20 Uhr, die Stunden werden Lisa vergütet.' },
+    { ask: 'Rechne die gespielten Stunden von Paul Sander bis Freitag ab.', say: 'Paul Sander spielt im 3er Training dienstags um 17 Uhr. Bis Freitag sind es 9 gespielte Stunden, eine ist ausgefallen und wird nicht berechnet.', title: 'Rechnung erstellen', lines: ['Paul Sander · 3er Training · Di 17:00', '9 Stunden × 22,00 € = 198,00 €', 'Hallenanteil 9 × 6,00 € = 54,00 € · gesamt 252,00 €'], done: 'Erledigt. Rechnung 0237-2026 über 252,00 € ist erstellt und per E-Mail an Paul verschickt.' },
     { ask: 'Trag Mia Schneider dienstags um 17 Uhr in die U12 ein.', say: 'Ich habe die U12 am Dienstag um 17 Uhr gefunden. Dort ist noch ein Platz frei.', title: 'Schüler einschreiben', lines: ['Mia Schneider → U12 · Di 17:00–18:00', 'TC Musterstadt · Trainer: Marco Klein', 'Ab heute, 15 Einheiten bis Saisonende'], done: 'Erledigt. Mia ist eingetragen, die Gruppe ist jetzt 4/4.' },
     { ask: 'Die Stunde morgen um 16 Uhr fällt aus.', say: 'Morgen um 16 Uhr gibt es eine Stunde. Soll ich sie absagen?', title: 'Stunde absagen', lines: ['Fr · 16:00–17:00 Kids Mittelstufe', 'SV Grünstadt · Trainer: Jonas Weber', '3 Schüler, Einheit wird nicht berechnet'], done: 'Erledigt. Die Stunde ist abgesagt und wird nicht berechnet.' },
   ];
