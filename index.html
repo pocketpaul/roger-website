@@ -114,6 +114,8 @@ h1,h2,h3{overflow-wrap:break-word;hyphens:manual}
 @media (max-width:800px){.faq-grid{grid-template-columns:1fr}}
 @media (max-width:480px){h2{font-size:clamp(28px,8.4vw,34px)}}
 .cap{font:500 12.5px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.02em;margin-top:14px;text-align:center}
+canvas.s3d{display:block;width:100%;height:100%;opacity:0;transition:opacity .9s ease}
+canvas.s3d.ready{opacity:1}
 .win{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 4px rgba(15,29,54,.05),0 50px 90px -30px rgba(15,29,54,.45),0 0 0 1px rgba(15,29,54,.07)}
 .win .bar{height:30px;background:#EEF1F6;border-bottom:1px solid #E1E6EE;display:flex;align-items:center;gap:6px;padding:0 12px}
 .win .bar i{width:9px;height:9px;border-radius:50%;background:#CDD4DF}
@@ -127,9 +129,10 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
 
 .hhero{position:relative;padding-block:clamp(48px,7vw,92px) 0;text-align:center;isolation:isolate;overflow:hidden}
 .hhero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(70% 50% at 50% 0%,#E6EDFB 0%,rgba(245,247,250,0) 70%)}
-.field{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;-webkit-mask:radial-gradient(75% 60% at 50% 35%,#000 30%,transparent 80%);mask:radial-gradient(75% 60% at 50% 35%,#000 30%,transparent 80%)}
+.bgfloat{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+.bgfloat.ready{opacity:1}
 @media (max-width:700px){.hhero{padding-top:84px}}
-.hhero .grid-bg{display:none;position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(15,29,54,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,29,54,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask:radial-gradient(60% 55% at 50% 30%,#000,transparent 75%);mask:radial-gradient(60% 55% at 50% 30%,#000,transparent 75%)}
+.hhero .grid-bg{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(rgba(15,29,54,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(15,29,54,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask:radial-gradient(60% 55% at 50% 30%,#000,transparent 75%);mask:radial-gradient(60% 55% at 50% 30%,#000,transparent 75%)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);background:rgba(255,255,255,.8);border:1px solid var(--rule);border-radius:999px;padding:6px 14px 6px 6px}
 .kicker img{width:26px;height:26px;border-radius:50%;object-fit:cover;background:#fff}
 .hhero h1{font-size:clamp(42px,6.4vw,88px);line-height:.98;margin:26px auto 0;max-width:14ch}
@@ -226,7 +229,7 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
 <main id="top">
 <section class="hhero" aria-labelledby="h">
   <div class="grid-bg" aria-hidden="true"></div>
-  <canvas class="field" id="field" aria-hidden="true"></canvas>
+  <canvas class="bgfloat" id="bgfloat" aria-hidden="true"></canvas>
   <div class="wrap">
     <h1 id="h" style="margin-top:0">Verwaltung für Sportschulen <span>und Vereine.</span></h1>
     <p class="lead">Kursplan, Kunden, Anmeldungen und Rechnungen in einem System, auf Wunsch mit eigener Website. Wir haben Roger für unsere Tennisschule gebaut und richten es heute für Schulen und Vereine in vielen Sportarten ein.</p>
@@ -316,34 +319,10 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
   document.querySelectorAll('.rv').forEach((el) => io.observe(el));
 })();
 </script>
-<script>
-(() => {
-  // Ruhiges Punktfeld: Wellen laufen langsam durch, die Maus hebt Punkte in ihrer Nähe hervor
-  const cv = document.getElementById('field'), g = cv.getContext('2d'), hero = cv.parentElement;
-  const red = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W = 0, H = 0, dpr = 1, gap = 26, px = -9999, py = -9999, ex = -9999, ey = -9999;
-  const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = hero.clientWidth; H = hero.clientHeight; gap = W < 700 ? 22 : 26; cv.width = W * dpr; cv.height = H * dpr; };
-  new ResizeObserver(size).observe(hero); size();
-  hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; });
-  hero.addEventListener('pointerleave', () => { px = py = -9999; });
-  let vis = true; new IntersectionObserver(([en]) => { vis = en.isIntersecting; }).observe(hero);
-  const t0 = performance.now();
-  const draw = (now) => {
-    requestAnimationFrame(draw); if (!vis) return;
-    const t = red ? 0 : (now - t0) / 1000;
-    ex += (px - ex) * .12; ey += (py - ey) * .12;
-    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
-    for (let y = gap / 2; y < H; y += gap) for (let x = gap / 2; x < W; x += gap) {
-      const w = Math.sin(x * .011 + t * .7) * Math.cos(y * .013 - t * .5);
-      const d = Math.hypot(x - ex, y - ey), m = Math.max(0, 1 - d / 170);
-      const dx = m ? (x - ex) / (d || 1) * m * 7 : 0, dy = m ? (y - ey) / (d || 1) * m * 7 : 0;
-      const r = 1.25 + w * .45 + m * 1.7;
-      g.fillStyle = m > .02 ? `rgba(34,82,204,${.18 + m * .55})` : `rgba(15,29,54,${.15 + (w + 1) * .07})`;
-      g.beginPath(); g.arc(x + dx, y + dy + w * 2.2, r, 0, 6.283); g.fill();
-    }
-  };
-  requestAnimationFrame(draw);
-})();
+<script type="module">
+import { mountFloat } from '/js/sport3d.js';
+const ok = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
+if (ok) mountFloat(document.getElementById('bgfloat'), [["tennis", "#2252CC", 0.1, 0.1, 130, 1], ["padel", "#0E7490", 0.89, 0.09, 150, 1], ["golf", "#2F7D5A", 0.18, 0.33, 96, 0.75], ["reiten", "#8B5A2B", 0.83, 0.32, 100, 0.75], ["tanz", "#9D3D7A", 0.08, 0.5, 130, 1], ["schwimmen", "#0E7FB5", 0.93, 0.52, 130, 1], ["fussball", "#B42318", 0.17, 0.78, 130, 1], ["kampfsport", "#4338CA", 0.84, 0.8, 140, 1]], [["tennis", "#2252CC", 0.17, 0.085, 50, 1], ["padel", "#0E7490", 0.84, 0.075, 60, 1], ["golf", "#2F7D5A", 0.14, 0.51, 54, 1], ["schwimmen", "#0E7FB5", 0.87, 0.55, 56, 1], ["fussball", "#B42318", 0.1, 0.66, 54, 1], ["kampfsport", "#4338CA", 0.9, 0.68, 60, 1], ["tanz", "#9D3D7A", 0.12, 0.95, 52, 1], ["reiten", "#8B5A2B", 0.88, 0.96, 50, 1]]);
 </script>
 </body>
 </html>
