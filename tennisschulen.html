@@ -790,7 +790,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
           <span class="label">Aus dem Alltag</span>
           <h2 id="mom-h" style="margin-top:16px">Momente, die dich heute Zeit kosten.</h2>
           <div class="mtabs" role="tablist" id="mtabs">
-            <button class="mtab" role="tab" type="button" aria-selected="true" data-m="0"><h3>Einstieg mitten in der Saison</h3><p>Ein Schüler kommt im November dazu? Einfach eintragen. Roger rechnet nur die Termine ab, die noch kommen, und passt die Preise für die ganze Gruppe automatisch an.</p></button>
+            <button class="mtab" role="tab" type="button" aria-selected="true" data-m="0"><h3>Einstieg mitten in der Saison</h3><p>Ein Schüler kommt im November dazu, aus dem 3er wird ein 4er Training. Einfach eintragen: Roger rechnet bis zum Einstieg den 3er-Preis ab, danach automatisch den 4er-Preis, für alle in der Gruppe.</p></button>
             <button class="mtab" role="tab" type="button" aria-selected="false" data-m="1"><h3>Die Abrechnung nach Saisonende</h3><p>Statt Abende mit Excel: Roger kennt Gruppen, Einstiege und Ausfälle und erstellt alle Rechnungen eines Vereins in einem Lauf.</p></button>
             <button class="mtab" role="tab" type="button" aria-selected="false" data-m="2"><h3>„Haben die Müllers schon bezahlt?“</h3><p>Kontoauszug hochladen. Roger erkennt Rechnungsnummer und Namen und ordnet die Zahlungen zu, du bestätigst mit einem Klick. Offene Posten siehst du auf einen Blick.</p></button>
             <button class="mtab" role="tab" type="button" aria-selected="false" data-m="3"><h3>„Die Halle kostet abends mehr.“</h3><p>Hallenpreise einmal pro Verein eintragen: nach Uhrzeit, am Wochenende, nur im Winter, mit zwei Plätzen. Roger setzt jeder Gruppe den richtigen Preis an und teilt ihn neu, sobald jemand dazukommt.</p></button>
@@ -1403,7 +1403,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
   // Momente: Tabs + isometrischer Platz
   const MOM = [
-    [['user', 'Neu in der Gruppe', 'Jonas steigt am 12.11. ein', 'Di 17:00 · jetzt 4 Schüler'], ['cal', 'Termine', 'Noch 14 von 23 Einheiten', 'Ferien und Ausfälle berücksichtigt'], ['euro', 'Preise angepasst', 'Gruppenpreis neu verteilt', 'Rechnungen aller 4 Schüler aktualisiert']],
+    [['user', 'Neu in der Gruppe', 'Jonas kommt ab 12.11. dazu', 'Di 17:00 · aus 3er wird 4er Training'], ['euro', 'Bis 11.11.: 3er Training', '22,00 € pro Stunde und Schüler', '3 Schüler teilen sich 66 €'], ['euro', 'Ab 12.11.: 4er Training', '16,50 € pro Stunde und Schüler', 'Rechnungen aller 4 automatisch angepasst']],
     [['cal', 'Saisonende', 'Wintersaison 2026/27', '23 Einheiten · 3 Vereine'], ['doc', 'Sammelabrechnung', '49 Rechnungen erstellt', 'Einstiege und Ausfälle berücksichtigt'], ['mail', 'Versand', 'PDFs per E-Mail an Eltern', 'Nr. 0188 bis 0236-2026']],
     [['bank', 'Kontoauszug', 'CSV der Bank hochgeladen', '37 Buchungen gelesen'], ['euro', 'Zuordnung', '34 Zahlungen erkannt', 'über Rechnungsnummer und Namen'], ['bell', 'Offene Posten', '3 Rechnungen offen', 'Erinnerung mit einem Klick']],
     [['cal', 'Hallenpreise', 'Mo–Fr ab 17 Uhr: 26 € statt 18 €', 'Sa/So eigener Preis · nur Okt–Apr'], ['user', 'Neu in der Gruppe', 'Mia ist ab Einheit 7 dabei', 'Hallenanteil ab dann durch 4 geteilt'], ['euro', 'Rechnung', 'Hallenkosten automatisch drauf', 'Sommer ohne Halle: 0 €']],
