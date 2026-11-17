@@ -782,7 +782,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 @media (max-width:980px){.fl{display:none}}
 @media (prefers-reduced-motion:reduce){.fl>div{animation:none}}
 </style>
-<style>.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}@media (max-width:640px){.sw-l{display:none}.sw-s{display:inline}}@media (max-width:560px){.pswitch a{padding:9px 9px!important;font-size:12.5px!important}}@media (max-width:430px){.pswitch a{padding:8px 8px!important;font-size:12px!important}.nav-left{gap:10px!important}.brand svg{width:26px!important;height:26px!important}}</style>
+<style id="navfix">html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}.pswitch:not(:has([aria-current])) .thumb{opacity:0;transition:left .45s var(--ease),width .45s var(--ease),opacity .3s}.pswitch.hov .thumb{opacity:1}@media (max-width:1080px){html{scroll-padding-top:128px}.nav .wrap{flex-wrap:wrap;height:auto!important;padding-top:10px;padding-bottom:10px;row-gap:10px}.nav-left{display:contents!important}.nav .brand{order:1}.nav .brand .bt,.nav .brand>span{display:inline!important}.nav-cta{order:2;margin-left:auto}.nav .wrap::after{content:"";order:3;flex-basis:100%;height:0}.pswitch{order:4;overflow-x:auto;scrollbar-width:none;max-width:100%}.pswitch::-webkit-scrollbar{display:none}.mnav.open{inset:118px 0 auto 0!important}}@media (max-width:600px){.pswitch{flex:1 1 100%;justify-content:space-between}.pswitch a{padding:9px 10px!important;font-size:13px!important;flex:1 1 auto;text-align:center}}@media (min-width:1081px){.mnav.open{left:auto!important;right:max(20px,calc((100vw - 1200px) / 2 + 20px))!important;top:78px!important;width:320px;border:1px solid var(--rule);border-radius:16px}}@media (max-width:440px){.sw-l{display:none}.sw-s{display:inline}.pswitch a{padding:9px 6px!important;font-size:12.5px!important}}</style>
 </head>
 <body>
 <header class="nav" id="nav">
@@ -792,9 +792,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
         <span class="bt">Roger</span>
       </a>
-      <nav class="pswitch" aria-label="Produkt wählen">
-        <a href="/"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/websites" aria-current="page">Websites</a><a href="/vereine">Vereine</a><a href="/sportarten"><span class="sw-l">Weitere Sportarten</span><span class="sw-s">Mehr</span></a><i class="thumb" aria-hidden="true"></i>
-      </nav>
+      <nav class="pswitch" aria-label="Produkt wählen"><a href="/tennisschulen"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/sportarten">Weitere Sportarten</a><a href="/websites" aria-current="page">Websites</a><a href="/vereine">Vereine</a><i class="thumb" aria-hidden="true"></i></nav>
     </div>
     <nav class="nav-links" aria-label="Abschnitte">
       <a href="#beispiel">Beispiel</a><a href="#detail">Individuell</a><a href="#anmeldung">Anmeldung</a><a href="#fragen">Fragen</a>
@@ -813,7 +811,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menü">
-  <a href="#beispiel">Beispiel</a><a href="#detail">Individuell</a><a href="#anmeldung">Anmeldung</a><a href="#leistungen">Leistungen</a><a href="#ablauf">Ablauf</a><a href="#fragen">Fragen</a><a href="#kontakt">Website anfragen</a><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a>
+  <a href="#beispiel">Beispiel</a><a href="#detail">Individuell</a><a href="#anmeldung">Anmeldung</a><a href="#leistungen">Leistungen</a><a href="#ablauf">Ablauf</a><a href="#fragen">Fragen</a><a href="#kontakt">Website anfragen</a><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a>
 <a href="/sportarten">Weitere Sportarten</a></nav>
 
 <main id="top">
@@ -1047,7 +1045,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Roger</a>
         <p>Verwaltung und Websites für Tennisschulen und Vereine. Gebaut in der Tennisschule Simanek, Bochum.</p>
       </div>
-      <div><h4>Produkt</h4><nav><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
+      <div><h4>Produkt</h4><nav><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
       <div><h4>Einstieg</h4><nav><a href="#kontakt">Website anfragen</a><a href="#ablauf">So entsteht eure Website</a><a href="https://tennisschulesimanek.de" target="_blank" rel="noopener">Beispiel: tennisschulesimanek.de</a><a href="https://app.roger-verwaltung.de">Anmelden Tennisschule</a><a href="https://verein.roger-verwaltung.de">Anmelden Tennisverein</a></nav></div>
       <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutzerklärung</a></nav></div>
     </div>

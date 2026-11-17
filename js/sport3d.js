@@ -43,29 +43,63 @@ const BUILD = {
   },
   padel(ac) {
     const g = new THREE.Group();
+    // Kopf als Superellipse, unten in den Hals übergehend
+    const se = (t, a, b, n) => { const c = Math.cos(t), s = Math.sin(t); return [a * Math.sign(c) * Math.pow(Math.abs(c), 2 / n), b * Math.sign(s) * Math.pow(Math.abs(s), 2 / n)]; };
+    const HY = 0.36, HA = 0.5, HB = 0.56, N = 2.5;
     const shape = new THREE.Shape();
-    // Kopf: abgerundete Tropfenform
-    shape.moveTo(0, -0.62);
-    shape.bezierCurveTo(0.42, -0.6, 0.72, -0.25, 0.72, 0.18);
-    shape.bezierCurveTo(0.72, 0.62, 0.42, 0.9, 0, 0.9);
-    shape.bezierCurveTo(-0.42, 0.9, -0.72, 0.62, -0.72, 0.18);
-    shape.bezierCurveTo(-0.72, -0.25, -0.42, -0.6, 0, -0.62);
-    for (let y = -0.3; y <= 0.66; y += 0.16) for (let x = -0.56; x <= 0.56; x += 0.16) {
-      const ox = x + ((Math.round((y + 0.3) / 0.16) % 2) ? 0.08 : 0);
-      const nx = ox / 0.62, ny = (y - 0.16) / 0.66;
-      if (nx * nx + ny * ny > 0.78) continue;
-      const h = new THREE.Path(); h.absarc(ox, y, 0.04, 0, Math.PI * 2, true); shape.holes.push(h);
+    shape.moveTo(0.075, -0.66);
+    shape.bezierCurveTo(0.12, -0.42, 0.34, -0.3, 0.44, -0.08);
+    const a0 = Math.atan2(-0.08 - HY, 0.44) + 0.02;
+    for (let i = 0; i <= 120; i++) { const t = a0 + (Math.PI - 2 * a0) * (i / 120) * -1 + 0; }
+    // Kopf gegen den Uhrzeigersinn von rechts unten über oben nach links unten
+    const tStart = -0.62, tEnd = Math.PI + 0.62;
+    for (let i = 0; i <= 140; i++) { const t = tStart + (tEnd - tStart) * i / 140; const [x, y] = se(t, HA, HB, N); shape.lineTo(x, y + HY); }
+    shape.bezierCurveTo(-0.34, -0.3, -0.12, -0.42, -0.075, -0.66);
+    shape.lineTo(0.075, -0.66);
+    // Herzförmige Öffnung im Hals
+    const heart = new THREE.Path();
+    heart.moveTo(0, -0.46);
+    heart.bezierCurveTo(0.08, -0.36, 0.2, -0.22, 0.17, -0.13);
+    heart.bezierCurveTo(0.14, -0.05, 0.04, -0.06, 0, -0.12);
+    heart.bezierCurveTo(-0.04, -0.06, -0.14, -0.05, -0.17, -0.13);
+    heart.bezierCurveTo(-0.2, -0.22, -0.08, -0.36, 0, -0.46);
+    shape.holes.push(heart);
+    // Lochung
+    const holes = [];
+    for (let r = 0; r < 14; r++) for (let c = -7; c <= 7; c++) {
+      const x = c * 0.075 + (r % 2 ? 0.0375 : 0), y = 0.02 + r * 0.066;
+      const nx = x / (HA * 0.8), ny = (y - HY) / (HB * 0.8);
+      if (Math.pow(Math.abs(nx), N) + Math.pow(Math.abs(ny), N) > 1 || y < 0.02) continue;
+      holes.push([x, y]); const h = new THREE.Path(); h.absarc(x, y, 0.021, 0, Math.PI * 2, true); shape.holes.push(h);
     }
-    const head = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0.14, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 4, curveSegments: 32 }),
-      [new THREE.MeshPhysicalMaterial({ color: ac, roughness: 0.35, clearcoat: 0.8 }), new THREE.MeshPhysicalMaterial({ color: 0x1B2436, roughness: 0.4, clearcoat: 0.6 })]);
-    head.geometry.translate(0, 0, -0.07);
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.16, 0.36, 24), new THREE.MeshPhysicalMaterial({ color: 0x1B2436, roughness: 0.4, clearcoat: 0.6 }));
-    neck.position.y = -0.78;
-    const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.5, 24), new THREE.MeshStandardMaterial({ color: 0xF2F4F8, roughness: 0.9 }));
-    grip.position.y = -1.18;
-    const rk = new THREE.Group(); rk.add(head, neck, grip); rk.position.y = 0.18; rk.scale.setScalar(0.92); rk.rotation.z = -0.35;
-    const ball = seamBall(['#FFFFFF', '#E8ECF3'], ac, 0.2); ball.position.set(0.72, -0.62, 0.35);
-    g.add(rk, ball); g.userData.ball = ball;
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.03, bevelSegments: 5, curveSegments: 16 });
+    geo.translate(0, 0, -0.05);
+    // Schlagfläche: Grafik in Akzentfarbe mit dunklem Rahmen
+    const face = canvasTex(512, 800, (c, w, h) => {
+      const X = (x) => (x + 0.55) / 1.1 * w, Y = (y) => h - (y + 0.7) / 1.7 * h;
+      c.fillStyle = '#F4F6FA'; c.fillRect(0, 0, w, h);
+      c.save(); c.beginPath(); for (let i = 0; i <= 120; i++) { const [x, y] = se(i / 120 * Math.PI * 2, HA, HB, N); c.lineTo(X(x), Y(y + HY)); } c.closePath(); c.clip();
+      const acc = '#' + ac.getHexString();
+      c.fillStyle = acc; c.beginPath(); c.moveTo(X(-0.6), Y(0.15)); c.bezierCurveTo(X(-0.1), Y(0.55), X(0.2), Y(0.2), X(0.6), Y(0.75)); c.lineTo(X(0.6), Y(1.0)); c.lineTo(X(-0.6), Y(1.0)); c.fill();
+      c.fillStyle = '#1B2436'; c.beginPath(); c.moveTo(X(-0.6), Y(0.08)); c.bezierCurveTo(X(-0.1), Y(0.46), X(0.2), Y(0.11), X(0.6), Y(0.64)); c.lineTo(X(0.6), Y(0.7)); c.bezierCurveTo(X(0.2), Y(0.17), X(-0.1), Y(0.52), X(-0.6), Y(0.14)); c.fill();
+      c.restore();
+      c.lineWidth = 0.055 / 1.1 * w; c.strokeStyle = '#1B2436'; c.beginPath(); for (let i = 0; i <= 120; i++) { const [x, y] = se(i / 120 * Math.PI * 2, HA - 0.02, HB - 0.02, N); c.lineTo(X(x), Y(y + HY)); } c.closePath(); c.stroke();
+      c.fillStyle = '#1B2436'; c.fillRect(X(-0.2), Y(-0.05), X(0.2) - X(-0.2), Y(-0.7) - Y(-0.05));
+    });
+    face.wrapS = face.wrapT = THREE.ClampToEdgeWrapping; face.repeat.set(1 / 1.1, 1 / 1.7); face.offset.set(0.5, 0.7 / 1.7);
+    const frameM = new THREE.MeshPhysicalMaterial({ color: 0x1B2436, roughness: 0.35, clearcoat: 0.8 });
+    const head = new THREE.Mesh(geo, [new THREE.MeshPhysicalMaterial({ map: face, roughness: 0.45, clearcoat: 0.6, clearcoatRoughness: 0.3 }), frameM]);
+    // Griff mit Griffband und Schlaufe
+    const grip = canvasTex(256, 256, (c, w, h) => { c.fillStyle = '#F2F4F8'; c.fillRect(0, 0, w, h); c.strokeStyle = '#C9D0DC'; c.lineWidth = 6; for (let i = -h; i < w + h; i += 28) { c.beginPath(); c.moveTo(i, 0); c.lineTo(i + h * 0.6, h); c.stroke(); } });
+    grip.wrapS = grip.wrapT = THREE.RepeatWrapping; grip.repeat.set(2, 2);
+    const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.072, 0.42, 32), new THREE.MeshStandardMaterial({ map: grip, roughness: 0.85 }));
+    handle.position.y = -0.87; handle.scale.z = 0.8;
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.075, 0.06, 32), frameM); cap.position.y = -1.1; cap.scale.z = 0.8;
+    const loop = new THREE.CatmullRomCurve3([new THREE.Vector3(0, -1.12, 0), new THREE.Vector3(0.1, -1.28, 0.02), new THREE.Vector3(0.06, -1.45, 0.05), new THREE.Vector3(-0.07, -1.42, 0.04), new THREE.Vector3(-0.08, -1.26, 0.02), new THREE.Vector3(0, -1.12, 0)], true);
+    const strap = new THREE.Mesh(new THREE.TubeGeometry(loop, 64, 0.014, 8, true), new THREE.MeshStandardMaterial({ color: ac, roughness: 0.6 }));
+    const rk = new THREE.Group(); rk.add(head, handle, cap, strap); rk.position.y = 0.32; rk.rotation.z = -0.32; rk.scale.setScalar(0.95);
+    const ball = seamBall(['#FFFFFF', '#E8ECF3'], '#' + ac.getHexString(), 0.17); ball.position.set(0.78, -0.55, 0.3);
+    g.add(rk, ball); g.userData.ball = ball; g.userData.sway = true;
     return g;
   },
   golf(ac) {
@@ -174,20 +208,52 @@ const BUILD = {
     return wrap;
   },
   kampfsport(ac) {
+    const red = new THREE.MeshPhysicalMaterial({ color: 0xA3141C, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.15 });
+    const white = new THREE.MeshPhysicalMaterial({ color: 0xF5F6F8, roughness: 0.45, clearcoat: 0.6 });
+    const dark = new THREE.MeshStandardMaterial({ color: 0x8E1B20, roughness: 0.55 });
     const g = new THREE.Group();
-    const red = new THREE.MeshPhysicalMaterial({ color: 0xB42318, roughness: 0.35, clearcoat: 1, clearcoatRoughness: 0.2 });
-    const white = new THREE.MeshPhysicalMaterial({ color: 0xF5F6F8, roughness: 0.5, clearcoat: 0.5 });
-    const fist = new THREE.Mesh(new THREE.SphereGeometry(0.6, 48, 32), red); fist.scale.set(1, 1.08, 0.86); fist.position.y = 0.32;
-    const knuckle = new THREE.Mesh(new THREE.CapsuleGeometry(0.26, 0.5, 12, 24), red); knuckle.rotation.z = Math.PI / 2; knuckle.position.set(0, 0.62, 0.18); knuckle.scale.set(1, 1, 0.9);
-    const thumb = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, 0.36, 12, 24), red); thumb.position.set(0.46, 0.2, 0.3); thumb.rotation.set(0.35, 0, 0.18);
-    const cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.44, 0.47, 0.62, 48), red); cuff.position.y = -0.42;
-    const band = new THREE.Mesh(new THREE.CylinderGeometry(0.455, 0.465, 0.14, 48), white); band.position.y = -0.3;
-    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.47, 0.05, 16, 48), white); rim.rotation.x = Math.PI / 2; rim.position.y = -0.73;
-    g.add(fist, knuckle, thumb, cuff, band, rim); g.rotation.set(0.1, -0.3, 0); g.scale.setScalar(0.92);
-    const wrap = new THREE.Group(); wrap.add(g); wrap.userData.spinTarget = g;
+    // Faust: höher als breit, Finger rollen nach vorn, unten fließender Übergang in die Manschette
+    const body = new THREE.SphereGeometry(1, 128, 96), p = body.attributes.position, v = new THREE.Vector3();
+    for (let i = 0; i < p.count; i++) {
+      v.set(p.getX(i), p.getY(i), p.getZ(i));
+      let x = v.x * 0.56, y = v.y * 0.6, z = v.z * 0.56;
+      if (v.y < 0) { const t = Math.pow(-v.y, 1.3); x = v.x * (0.56 - 0.17 * t); z = v.z * (0.56 - 0.17 * t); y = v.y * 0.82; }
+      z += 0.2 * Math.max(0, v.y + 0.2) * (1 - Math.abs(v.x) * 0.3);   // Finger rollen nach vorn
+      if (v.z > 0) z *= 1 + 0.12 * Math.max(0, v.y);                    // volle Schlagfläche
+      if (v.z < 0) z *= 0.82;                                           // flacher Handrücken
+      p.setXYZ(i, x, y, z);
+    }
+    body.computeVertexNormals();
+    const fist = new THREE.Mesh(body, red); fist.position.y = 0.3;
+    // Daumen seitlich an der Handfläche, Spitze liegt an der Faust an
+    const tc = new THREE.CatmullRomCurve3([new THREE.Vector3(0.28, -0.34, 0.2), new THREE.Vector3(0.43, -0.14, 0.3), new THREE.Vector3(0.46, 0.06, 0.42), new THREE.Vector3(0.34, 0.16, 0.56)]);
+    const tg = new THREE.TubeGeometry(tc, 64, 0.17, 24, false);
+    { const q = tg.attributes.position; const c = new THREE.Vector3(); for (let i = 0; i < q.count; i++) { const u = Math.floor(i / 25) / 64; c.copy(tc.getPoint(u)); const d = new THREE.Vector3(q.getX(i), q.getY(i), q.getZ(i)).sub(c); const s = 1 - 0.2 * u; q.setXYZ(i, c.x + d.x * s, c.y + d.y * s, c.z + d.z * s); } tg.computeVertexNormals(); }
+    const thumb = new THREE.Mesh(tg, red); thumb.position.y = 0.3;
+    const e1 = new THREE.Mesh(new THREE.SphereGeometry(0.17, 24, 16), red); e1.position.copy(tc.getPoint(0)); e1.position.y += 0.3;
+    const e2 = new THREE.Mesh(new THREE.SphereGeometry(0.136, 24, 16), red); e2.position.copy(tc.getPoint(1)); e2.position.y += 0.3;
+    // Manschette mit Klettverschluss
+    const cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.37, 0.4, 0.78, 64), red); cuff.position.y = -0.58; cuff.scale.z = 0.9;
+    const band = new THREE.Mesh(new THREE.CylinderGeometry(0.385, 0.4, 0.3, 64), white); band.position.y = -0.62; band.scale.z = 0.92;
+    const tab = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.05), white); tab.position.set(0.2, -0.62, 0.33); tab.rotation.y = 0.55;
+    const stitch = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.22, 0.052), new THREE.MeshStandardMaterial({ color: 0xD9DDE5, roughness: 0.8 })); stitch.position.copy(tab.position); stitch.rotation.y = 0.55;
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.035, 16, 64), white); rim.rotation.x = Math.PI / 2; rim.position.y = -0.97; rim.scale.y = 0.9;
+    const seam = new THREE.Mesh(new THREE.TorusGeometry(0.378, 0.014, 8, 64), dark); seam.rotation.x = Math.PI / 2; seam.position.y = -0.27; seam.scale.y = 0.9;
+    g.add(fist, thumb, e1, e2, cuff, band, tab, stitch, rim, seam);
+    g.scale.setScalar(0.9); g.position.y = 0.12; g.rotation.set(0.12, 0, -0.28);
+    const wrap = new THREE.Group(); wrap.add(g); wrap.userData.sway = true;
     return wrap;
   },
 };
+
+function tickObj(u, t) {
+    if (u.spinTarget) u.spinTarget.rotation.x = t * 0.3;
+    if (u.flag) { const a = u.flag.geometry.attributes.position, b = u.flag.userData.base; for (let i = 0; i < a.count; i++) { const x = b[i * 3]; a.setZ(i, Math.sin(x * 9 - t * 6) * x * 0.12); } a.needsUpdate = true; }
+    if (u.lights) { u.lights[0].position.set(Math.cos(t * 1.4) * 1.6, 0.6, Math.sin(t * 1.4) * 1.6); u.lights[1].position.set(Math.cos(t * 1.1 + 3) * 1.6, -0.4, Math.sin(t * 1.1 + 3) * 1.6); }
+    if (u.star) { u.star.rotation.y = t * 2; u.star.position.y = 0.05 + Math.sin(t * 2) * 0.05; }
+    if (u.bobber) { u.bobber.position.y = Math.sin(t * 1.6) * 0.07; u.bobber.rotation.z = Math.sin(t * 1.1) * 0.08; u.water.scale.setScalar(1 + Math.sin(t * 1.6) * 0.03); }
+    if (u.ball) { u.ball.position.y = -0.62 + Math.abs(Math.sin(t * 2.2)) * 0.25; u.ball.rotation.x = t * 3; }
+}
 
 export function mount(canvas, kind, opts = {}) {
   const ac = new THREE.Color(opts.accent || '#2252CC');
@@ -210,7 +276,7 @@ export function mount(canvas, kind, opts = {}) {
   let w = 0, h = 0;
   const resize = () => { const r = canvas.getBoundingClientRect(); if (!r.width) return; w = r.width; h = r.height; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(canvas); resize();
-  let hover = 0, hv = 0, tx = 0, ty = 0, mx = 0, my = 0, vis = true, spin = 0;
+  let hover = 0, hv = 0, tx = 0, ty = 0, mx = 0, my = 0, vis = true, spin = (opts.phase || 0) * 2.1;
   const host = opts.host || canvas;
   host.addEventListener('pointerenter', () => { hover = 1; });
   host.addEventListener('pointerleave', () => { hover = 0; tx = ty = 0; });
@@ -224,17 +290,11 @@ export function mount(canvas, kind, opts = {}) {
     const t = reduce ? 1.2 : (now - t0) / 1000;
     hv += (hover - hv) * 0.08; mx += (tx - mx) * 0.08; my += (ty - my) * 0.08;
     if (!reduce) spin += dt * (0.5 + hv * 2.2) * (opts.speed || 1);
-    holder.rotation.y = spin * 0.6 + mx * 0.6; holder.rotation.x = my * 0.35 + 0.08;
+    holder.rotation.y = (obj.userData.sway ? Math.sin(spin * 0.9) * 0.75 + 0.35 : spin * 0.6) + mx * 0.6; holder.rotation.x = my * 0.35 + 0.08;
     holder.position.y = Math.sin(t * 1.2) * 0.06 + hv * 0.08;
     holder.scale.setScalar(1 + hv * 0.07);
     sh.scale.setScalar(1.1 - holder.position.y * 0.4);
-    const u = obj.userData;
-    if (u.spinTarget) u.spinTarget.rotation.x = t * 0.3;
-    if (u.flag) { const a = u.flag.geometry.attributes.position, b = u.flag.userData.base; for (let i = 0; i < a.count; i++) { const x = b[i * 3]; a.setZ(i, Math.sin(x * 9 - t * 6) * x * 0.12); } a.needsUpdate = true; }
-    if (u.lights) { u.lights[0].position.set(Math.cos(t * 1.4) * 1.6, 0.6, Math.sin(t * 1.4) * 1.6); u.lights[1].position.set(Math.cos(t * 1.1 + 3) * 1.6, -0.4, Math.sin(t * 1.1 + 3) * 1.6); }
-    if (u.star) { u.star.rotation.y = t * 2; u.star.position.y = 0.05 + Math.sin(t * 2) * 0.05; }
-    if (u.bobber) { u.bobber.position.y = Math.sin(t * 1.6) * 0.07; u.bobber.rotation.z = Math.sin(t * 1.1) * 0.08; u.water.scale.setScalar(1 + Math.sin(t * 1.6) * 0.03); }
-    if (u.ball) { u.ball.position.y = -0.62 + Math.abs(Math.sin(t * 2.2)) * 0.25; u.ball.rotation.x = t * 3; }
+    tickObj(obj.userData, t);
     renderer.render(scene, camera);
   };
   requestAnimationFrame(frame);
@@ -242,3 +302,58 @@ export function mount(canvas, kind, opts = {}) {
 }
 
 export const KINDS = Object.keys(BUILD);
+
+// Startseite: alle Sportarten kreisen um das Produktbild. Zwei Leinwände (hinter und vor dem Bild) erzeugen Tiefe.
+export function mountOrbit(back, front, items) {
+  const mk = (canvas) => {
+    const r = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
+    r.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75)); r.outputColorSpace = THREE.SRGBColorSpace;
+    r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
+    return { r, env: studioEnv(r) };
+  };
+  const A = mk(back), B = mk(front);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, 2, 0.1, 80); camera.position.set(0, 2.3, 12); camera.lookAt(0, -0.2, 0);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xC2CCE0, 0.9));
+  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(-3, 5, 6); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xDDE7FF, 1.1); rim.position.set(4, 1, -4); scene.add(rim);
+  const ring = new THREE.Group(); scene.add(ring);
+  const objs = items.map(([kind, accent], i) => {
+    const o = BUILD[kind](new THREE.Color(accent)); const pivot = new THREE.Group(); pivot.add(o);
+    pivot.scale.setScalar(kind === 'golf' || kind === 'schwimmen' ? 0.62 : 0.7); ring.add(pivot);
+    return { o, pivot, ph: i / items.length * Math.PI * 2, sway: !!o.userData.sway };
+  });
+  let Rx = 5, Rz = 2.6, vis = true, mx = 0, my = 0, tx = 0, ty = 0;
+  const host = back.parentElement;
+  const size = () => {
+    const w = host.clientWidth, h = host.clientHeight; if (!w) return;
+    for (const X of [A, B]) X.r.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    const halfW = Math.tan(THREE.MathUtils.degToRad(15)) * 12 * camera.aspect;
+    Rx = Math.min(5.2, halfW * 0.84); Rz = Math.min(2.6, Rx * 0.5);
+  };
+  new ResizeObserver(size).observe(host); size();
+  new IntersectionObserver(([en]) => { vis = en.isIntersecting; }).observe(host);
+  addEventListener('pointermove', (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; }, { passive: true });
+  const t0 = performance.now();
+  const frame = (now) => {
+    requestAnimationFrame(frame); if (!vis) return;
+    const t = reduce ? 2 : (now - t0) / 1000;
+    mx += (tx - mx) * 0.05; my += (ty - my) * 0.05;
+    ring.rotation.x = my * 0.12; ring.rotation.y = mx * 0.18;
+    objs.forEach((O, i) => {
+      const a = O.ph + t * 0.16;
+      O.pivot.position.set(Math.cos(a) * Rx, -0.1 - Math.sin(a) * 1.45 + Math.sin(t * 1.1 + i) * 0.1, Math.sin(a) * Rz);
+      O.o.rotation.y = O.sway ? Math.sin(t * 0.8 + i) * 0.7 + 0.3 : t * 0.5 + i;
+      tickObj(O.o.userData, t + i);
+    });
+    // hintere Leinwand: Objekte hinter dem Bild, vordere: davor
+    const wp = new THREE.Vector3();
+    objs.forEach((O) => { O.pivot.getWorldPosition(wp); O.pivot.visible = wp.z < 0; });
+    scene.environment = A.env; A.r.render(scene, camera);
+    objs.forEach((O) => { O.pivot.getWorldPosition(wp); O.pivot.visible = wp.z >= 0; });
+    scene.environment = B.env; B.r.render(scene, camera);
+  };
+  requestAnimationFrame(frame);
+  back.classList.add('ready'); front.classList.add('ready');
+}

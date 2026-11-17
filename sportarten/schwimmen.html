@@ -106,27 +106,26 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
 
 .pswitch .thumb{background:var(--ink);box-shadow:0 6px 14px -6px rgba(15,29,54,.6)}
-.sw-s{display:none}
-.nav-links{display:none!important}.burger{display:grid!important}
-@media (max-width:640px){.sw-l{display:none}.sw-s{display:inline}}
-@media (max-width:560px){.pswitch a{padding:9px 9px;font-size:12.5px}}
-@media (max-width:430px){.pswitch a{padding:8px 8px;font-size:12px}.nav-left{gap:10px}.brand svg{width:26px;height:26px}}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-html,main{overflow-x:clip}
+main{overflow-x:clip}
+h1,h2,h3{overflow-wrap:break-word;hyphens:manual}
+@media (max-width:800px){.faq-grid{grid-template-columns:1fr}}
+@media (max-width:480px){h2{font-size:clamp(28px,8.4vw,34px)}}
 .cap{font:500 12.5px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.02em;margin-top:14px;text-align:center}
 canvas.s3d{display:block;width:100%;height:100%;opacity:0;transition:opacity .9s ease}
 canvas.s3d.ready{opacity:1}
 .win{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 4px rgba(15,29,54,.05),0 50px 90px -30px rgba(15,29,54,.45),0 0 0 1px rgba(15,29,54,.07)}
 .win .bar{height:30px;background:#EEF1F6;border-bottom:1px solid #E1E6EE;display:flex;align-items:center;gap:6px;padding:0 12px}
 .win .bar i{width:9px;height:9px;border-radius:50%;background:#CDD4DF}
-.win .bar span{margin-left:12px;font:500 11.5px var(--f-mono);color:#8A94A6;background:#fff;border-radius:6px;padding:3px 10px}
+.win .bar span{margin-left:12px;font:500 11.5px var(--f-mono);color:#8A94A6;background:#fff;border-radius:6px;padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .win img{width:100%;height:auto;display:block}
 .contact{text-align:center;border:1px solid var(--rule);border-radius:28px;padding:clamp(40px,6vw,80px) 24px;position:relative;overflow:hidden}
 .contact .lead{margin:16px auto 0}
 .contact .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 
+html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}.pswitch:not(:has([aria-current])) .thumb{opacity:0;transition:left .45s var(--ease),width .45s var(--ease),opacity .3s}.pswitch.hov .thumb{opacity:1}@media (max-width:1080px){html{scroll-padding-top:128px}.nav .wrap{flex-wrap:wrap;height:auto!important;padding-top:10px;padding-bottom:10px;row-gap:10px}.nav-left{display:contents!important}.nav .brand{order:1}.nav .brand .bt,.nav .brand>span{display:inline!important}.nav-cta{order:2;margin-left:auto}.nav .wrap::after{content:"";order:3;flex-basis:100%;height:0}.pswitch{order:4;overflow-x:auto;scrollbar-width:none;max-width:100%}.pswitch::-webkit-scrollbar{display:none}.mnav.open{inset:118px 0 auto 0!important}}@media (max-width:600px){.pswitch{flex:1 1 100%;justify-content:space-between}.pswitch a{padding:9px 10px!important;font-size:13px!important;flex:1 1 auto;text-align:center}}@media (min-width:1081px){.mnav.open{left:auto!important;right:max(20px,calc((100vw - 1200px) / 2 + 20px))!important;top:78px!important;width:320px;border:1px solid var(--rule);border-radius:16px}}@media (max-width:440px){.sw-l{display:none}.sw-s{display:inline}.pswitch a{padding:9px 6px!important;font-size:12.5px!important}}
 
 .label{color:var(--ac)}
 .shero{position:relative;padding-block:clamp(40px,6vw,80px) clamp(50px,7vw,90px);overflow:hidden;isolation:isolate}
@@ -139,7 +138,8 @@ canvas.s3d.ready{opacity:1}
 .hgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,60px);align-items:center}
 .crumb{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:18px}
 .crumb:hover{color:var(--ink)}
-.shero h1{font-size:clamp(40px,5.4vw,72px);line-height:1;margin-top:12px}
+.hgrid>div:first-child{container-type:inline-size}
+.shero h1{font-size:min(72px,calc(100cqw / var(--L) * 1.66));line-height:1;margin-top:12px;overflow-wrap:normal}
 .shero h1 em{font-style:normal;color:var(--ac);display:block}
 .shero .tag{font-family:var(--f-display);font-weight:600;font-size:clamp(19px,1.8vw,23px);letter-spacing:-.01em;margin-top:22px}
 .shero .lead{margin-top:14px}
@@ -166,6 +166,7 @@ canvas.s3d.ready{opacity:1}
 .tour{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,70px)}
 .tstep{min-height:62vh;display:flex;flex-direction:column;justify-content:center;opacity:.35;transition:opacity .5s}
 .tstep.on{opacity:1}
+.tstep:last-child{min-height:48vh}
 .tstep .n{font:600 13px var(--f-mono);color:var(--ac);letter-spacing:.08em}
 .tstep h3{font-size:clamp(26px,2.6vw,34px);margin:10px 0 12px}
 .tstep p{color:var(--muted);max-width:42ch}
@@ -187,7 +188,13 @@ canvas.s3d.ready{opacity:1}
 .fx .ico svg{width:22px;height:22px}
 .fx p{color:var(--muted);margin-top:10px;font-size:16px}
 .fx:nth-child(1),.fx:nth-child(4),.fx:nth-child(6){grid-column:span 2}
-@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.fx:nth-child(1),.fx:nth-child(4),.fx:nth-child(6){grid-column:auto}}
+.fx.wide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;padding-right:0;padding-bottom:0}
+.fx.wide>div:first-child{padding-bottom:26px}
+.fx .crop{position:relative;align-self:end;height:190px;overflow:hidden;border-radius:12px 0 0 0;border:1px solid var(--rule);border-right:0;border-bottom:0;background:#fff;box-shadow:0 20px 40px -24px rgba(15,29,54,.35);transition:transform .5s var(--ease)}
+.fx .crop img{width:720px;max-width:none;height:auto;margin:-14px 0 0 -128px}
+.fx.wide:hover .crop{transform:translateY(-6px)}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.fx:nth-child(1),.fx:nth-child(4),.fx:nth-child(6){grid-column:1/-1}}
+@media (max-width:620px){.fx.wide{grid-template-columns:1fr;padding-left:26px}.fx .crop{height:150px;margin-left:0}}
 @media (max-width:620px){.bento{grid-template-columns:1fr}}
 .spec{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(34px,5vw,64px);position:relative;overflow:hidden}
 .spec::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-200px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--ac) 70%,transparent),transparent 65%);opacity:.55;animation:drift 16s ease-in-out infinite alternate}
@@ -198,8 +205,10 @@ canvas.s3d.ready{opacity:1}
 .sp3 b{display:block;font:700 44px/1 var(--f-display);color:color-mix(in srgb,var(--ac) 40%,#fff);margin-bottom:14px}
 .sp3 h3{color:#fff}.sp3 p{color:#B7C1D6;margin-top:8px;font-size:16px}
 @media (max-width:800px){.sp3{grid-template-columns:1fr}}
+@media (max-width:480px){.spec h2,.contact h2{font-size:26px}.spec{padding:30px 22px}}
 .webx{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
 .webx .stackimg{perspective:1400px}
+.webx .stackimg .win img{aspect-ratio:16/10;object-fit:cover;object-position:50% 0}
 .webx .stackimg .win{transform:rotateY(-14deg) rotateX(4deg);transition:transform .9s var(--ease)}
 .webx .stackimg:hover .win{transform:none}
 @media (max-width:900px){.webx{grid-template-columns:1fr}}
@@ -217,7 +226,7 @@ canvas.s3d.ready{opacity:1}
   <div class="wrap">
     <div class="nav-left">
       <a class="brand" href="/" aria-label="Roger – Startseite"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg><span class="bt">Roger</span></a>
-      <nav class="pswitch" aria-label="Produkt wählen"><a href="/"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/websites">Websites</a><a href="/vereine">Vereine</a><a href="/sportarten" aria-current="page"><span class="sw-l">Weitere Sportarten</span><span class="sw-s">Mehr</span></a><i class="thumb" aria-hidden="true"></i></nav>
+      <nav class="pswitch" aria-label="Produkt wählen"><a href="/tennisschulen"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/sportarten" aria-current="page">Weitere Sportarten</a><a href="/websites">Websites</a><a href="/vereine">Vereine</a><i class="thumb" aria-hidden="true"></i></nav>
     </div>
     <nav class="nav-links" aria-label="Abschnitte"><a href="#einblick">Einblick</a><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a></nav>
     <div class="nav-cta">
@@ -233,7 +242,7 @@ canvas.s3d.ready{opacity:1}
     </div>
   </div>
 </header>
-<nav class="mnav" id="mnav" aria-label="Menü"><a href="#einblick">Einblick</a><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a><a href="#kontakt">Demo anfragen</a><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a></nav>
+<nav class="mnav" id="mnav" aria-label="Menü"><a href="#einblick">Einblick</a><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a><a href="#kontakt">Demo anfragen</a><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a><a href="https://app.roger-verwaltung.de">Anmelden Schule</a><a href="https://verein.roger-verwaltung.de">Anmelden Verein</a></nav>
 <main>
 <section class="shero" aria-labelledby="h">
   <div class="dots" aria-hidden="true"></div>
@@ -243,7 +252,7 @@ canvas.s3d.ready{opacity:1}
     <div>
       <a class="crumb" href="/sportarten">← Alle Sportarten</a>
       <p class="label">Roger · Schwimmen</p>
-      <h1 id="h">Roger für <em>Schwimmschulen</em></h1>
+      <h1 id="h" style="--L:14">Roger für <em>Schwimmschulen</em></h1>
       <p class="tag">Kurse, Wartelisten und Bahnzeiten in einem System.</p>
       <p class="lead">Seepferdchen-Kurse sind Monate im Voraus voll, die Warteliste wächst und die Bahnzeiten im Bad kosten Geld: Roger verwaltet Kurse, Wartelisten und Abzeichen und rechnet Bahnmiete fair auf die Kurse um.</p>
       <div class="cta-row"><a class="btn btn-ac btn-lg" href="mailto:info@roger-verwaltung.de?subject=Roger%20für%20unsere%20Schwimmschule">Demo anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost btn-lg" href="#rundgang">Rundgang ansehen</a></div>
@@ -260,7 +269,7 @@ canvas.s3d.ready{opacity:1}
 
 <section class="peek" id="einblick" aria-labelledby="peek-h">
   <div class="wrap">
-    <div class="sec-head center"><p class="label">Einblick</p><h2 id="peek-h">So sieht eure Schwimmschule in Roger aus.</h2><p class="lead">Ein Dashboard für alle Bäder, Schwimmlehrer und Kurse. Ohne Excel, ohne Zettelwirtschaft.</p></div>
+    <div class="sec-head center"><p class="label">Einblick</p><h2 id="peek-h">So sieht eure Schwimmschule in Roger aus.</h2><p class="lead">Alle Bäder, Schwimmlehrer und Kurse auf einer Startseite, vom ersten Blick am Morgen bis zur Abrechnung am Monatsende.</p></div>
     <div class="stage" id="stage"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-dashboard.webp" alt="Dashboard in Roger" width="1200" height="750" loading="lazy" decoding="async"></div></div>
     <p class="cap">Beispielansicht mit erfundenen Daten</p>
   </div>
@@ -270,8 +279,8 @@ canvas.s3d.ready{opacity:1}
   <div class="wrap">
     <div class="sec-head"><p class="label">Rundgang</p><h2 id="tour-h">Vom Kursplan bis zur Rechnung.</h2></div>
     <div class="tour">
-      <div class="tsteps"><div class="tstep" data-i="0"><span class="n">01 · ÜBERSICHT</span><h3>Alles Wichtige auf der Startseite</h3><p>Schwimmkinder, Wochenstunden, Umsatz und offene Posten auf einen Blick, aufgeteilt nach Bäder.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-dashboard.webp" alt="Übersicht in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="1"><span class="n">02 · KURSPLAN</span><h3>Der Kursplan für alle Bäder</h3><p>Jede Einheit mit Zeit, Schwimmlehrer und Belegung. Ihr filtert nach Woche, Tag oder Standort und seht sofort, wo noch Platz ist.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-plan.webp" alt="Kursplan in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="2"><span class="n">03 · SCHWIMMKINDER</span><h3>Alles zu einer Person an einem Ort</h3><p>Kontaktdaten, Angaben zum Schwimmen, Kurse, Rechnungen und Notizen der Schwimmlehrer liegen zusammen, statt in Ordnern und Chats verteilt.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-akte.webp" alt="Schwimmkinder in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="3"><span class="n">04 · ANMELDUNGEN</span><h3>Online-Anmeldungen landen sofort im System</h3><p>Neue Anmeldungen von eurer Website erscheinen hier mit allen Angaben. Mit einem Klick tragt ihr sie in den passenden Kurs ein.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-anmeldungen.webp" alt="Anmeldungen in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="4"><span class="n">05 · SAMMELABRECHNUNG</span><h3>Rechnungen für ganze Kurse auf einmal</h3><p>Roger rechnet Einheiten, Preise und Zuschläge pro Teilnehmer zusammen und erstellt alle Rechnungen in einem Durchgang, inklusive Versand per E-Mail.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-abrechnung.webp" alt="Sammelabrechnung in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div></div>
-      <div><div class="tview" id="tview"><div class="win on"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-dashboard.webp" alt="Übersicht in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-plan.webp" alt="Kursplan in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-akte.webp" alt="Schwimmkinder in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-anmeldungen.webp" alt="Anmeldungen in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-abrechnung.webp" alt="Sammelabrechnung in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="prog"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div></div>
+      <div class="tsteps"><div class="tstep" data-i="0"><span class="n">01 · KURSPLAN</span><h3>Der Kursplan für alle Bäder</h3><p>Jede Einheit mit Zeit, Schwimmlehrer und Belegung. Ihr filtert nach Woche, Tag oder Standort und seht sofort, wo noch Platz ist.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-plan.webp" alt="Kursplan in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="1"><span class="n">02 · SCHWIMMKINDER</span><h3>Alles zu einer Person an einem Ort</h3><p>Kontaktdaten, Angaben zum Schwimmen, Kurse, Rechnungen und Notizen der Schwimmlehrer liegen zusammen, statt in Ordnern und Chats verteilt.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-akte.webp" alt="Schwimmkinder in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="2"><span class="n">03 · ANMELDUNGEN</span><h3>Online-Anmeldungen landen sofort im System</h3><p>Neue Anmeldungen von eurer Website erscheinen hier mit allen Angaben. Mit einem Klick tragt ihr sie in den passenden Kurs ein.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-anmeldungen.webp" alt="Anmeldungen in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div><div class="tstep" data-i="3"><span class="n">04 · SAMMELABRECHNUNG</span><h3>Rechnungen für ganze Kurse auf einmal</h3><p>Roger rechnet Einheiten, Preise und Zuschläge pro Teilnehmer zusammen und erstellt alle Rechnungen in einem Durchgang, inklusive Versand per E-Mail.</p><div class="mimg"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-abrechnung.webp" alt="Sammelabrechnung in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div></div></div>
+      <div><div class="tview" id="tview"><div class="win on"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-plan.webp" alt="Kursplan in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-akte.webp" alt="Schwimmkinder in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-anmeldungen.webp" alt="Anmeldungen in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-abrechnung.webp" alt="Sammelabrechnung in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><div class="prog"><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></div></div></div>
     </div>
   </div>
 </section>
@@ -279,7 +288,7 @@ canvas.s3d.ready{opacity:1}
 <section class="band" id="funktionen" aria-labelledby="f-h">
   <div class="wrap">
     <div class="sec-head"><p class="label">Funktionen</p><h2 id="f-h">Gemacht für den Alltag in eurer Schwimmschule.</h2></div>
-    <div class="bento"><article class="fx rv" style="transition-delay:0ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Kursplan für alle Bäder</h3><p>Kurse nach Bad, Bahn und Schwimmlehrer. Gesperrte Bäder und Ferien sind eingetragen, Ausfälle werden abgezogen.</p></article><article class="fx rv" style="transition-delay:70ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg></div><h3>Wartelisten, die arbeiten</h3><p>Wer wartet wie lange auf welchen Kurs? Wird ein Platz frei, schlägt Roger das nächste passende Kind vor.</p></article><article class="fx rv" style="transition-delay:140ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></div><h3>Abzeichen-Fortschritt</h3><p>Wassergewöhnung, Seepferdchen, Bronze, Silber, Gold: Der Stand jedes Kindes ist sichtbar, der Folgekurs wird direkt angeboten.</p></article><article class="fx rv" style="transition-delay:210ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></div><h3>Bahnmiete umgelegt</h3><p>Bahnen und Lehrschwimmbecken kosten pro Stunde. Roger legt die Kosten auf die Kurse um, je nach Uhrzeit und Bad.</p></article><article class="fx rv" style="transition-delay:280ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3>Online-Anmeldung</h3><p>Eltern melden ihr Kind über eure Website an. Ist der Kurs voll, landet es automatisch auf der Warteliste.</p></article><article class="fx rv" style="transition-delay:350ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18L12 4zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18"/></svg></div><h3>Rechnung und Zahlungsabgleich</h3><p>Kursgebühren per Rechnung oder Lastschrift, Erinnerungen, Zahlungen aus dem Kontoauszug zugeordnet.</p></article></div>
+    <div class="bento"><article class="fx wide rv" style="transition-delay:0ms"><div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Kursplan für alle Bäder</h3><p>Kurse nach Bad, Bahn und Schwimmlehrer. Gesperrte Bäder und Ferien sind eingetragen, Ausfälle werden abgezogen.</p></div><div class="crop" aria-hidden="true"><img src="/img/sport/schwimmen-plan.webp" alt="" loading="lazy" width="1200" height="750"></div></article><article class="fx rv" style="transition-delay:70ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg></div><h3>Wartelisten, die arbeiten</h3><p>Wer wartet wie lange auf welchen Kurs? Wird ein Platz frei, schlägt Roger das nächste passende Kind vor.</p></article><article class="fx rv" style="transition-delay:140ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></div><h3>Abzeichen-Fortschritt</h3><p>Wassergewöhnung, Seepferdchen, Bronze, Silber, Gold: Der Stand jedes Kindes ist sichtbar, der Folgekurs wird direkt angeboten.</p></article><article class="fx wide rv" style="transition-delay:210ms"><div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></div><h3>Bahnmiete umgelegt</h3><p>Bahnen und Lehrschwimmbecken kosten pro Stunde. Roger legt die Kosten auf die Kurse um, je nach Uhrzeit und Bad.</p></div><div class="crop" aria-hidden="true"><img src="/img/sport/schwimmen-abrechnung.webp" alt="" loading="lazy" width="1200" height="750"></div></article><article class="fx rv" style="transition-delay:280ms"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3>Online-Anmeldung</h3><p>Eltern melden ihr Kind über eure Website an. Ist der Kurs voll, landet es automatisch auf der Warteliste.</p></article><article class="fx wide rv" style="transition-delay:350ms"><div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18L12 4zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18"/></svg></div><h3>Rechnung und Zahlungsabgleich</h3><p>Kursgebühren per Rechnung oder Lastschrift, Erinnerungen, Zahlungen aus dem Kontoauszug zugeordnet.</p></div><div class="crop" aria-hidden="true"><img src="/img/sport/schwimmen-abrechnung.webp" alt="" loading="lazy" width="1200" height="750"></div></article></div>
   </div>
 </section>
 
@@ -292,7 +301,7 @@ canvas.s3d.ready{opacity:1}
 <section class="band" aria-labelledby="w-h">
   <div class="wrap webx">
     <div class="rv"><p class="label">Website dazu</p><h2 id="w-h">Eure Website, direkt mit Roger verbunden.</h2><p class="lead" style="margin-top:18px">Auf Wunsch gestalten wir eure Website individuell, bis ins kleinste Detail. Kurse, Termine und Online-Anmeldung hängen direkt an Roger, und jede Anmeldung landet ohne Abtippen im System.</p><div class="more"><a class="btn btn-ghost" href="/websites">Alles zu unseren Websites <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
-    <div class="stackimg rv"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/schwimmen-anmeldungen.webp" alt="Online-Anmeldungen in Roger" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispielansicht mit erfundenen Daten</p></div>
+    <div class="stackimg rv"><div class="win"><div class="bar"><i></i><i></i><i></i><span>tennisschulesimanek.de</span></div><img src="/img/web-anmeldung.webp" alt="Anmeldeformular auf tennisschulesimanek.de" width="1200" height="750" loading="lazy" decoding="async"></div><p class="cap">Beispiel: Anmeldung auf tennisschulesimanek.de</p></div>
   </div>
 </section>
 
@@ -310,7 +319,7 @@ canvas.s3d.ready{opacity:1}
       <h2 id="c-h">Roger für eure Schwimmschule ansehen?</h2>
       <p class="lead">Schreibt uns kurz, wie ihr aufgestellt seid. Wir zeigen euch Roger mit euren Kursarten und richten alles für euch ein.</p>
       <div class="cta-row"><a class="btn btn-ac btn-lg" href="mailto:info@roger-verwaltung.de?subject=Roger%20für%20unsere%20Schwimmschule">Demo anfragen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost btn-lg" href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a></div>
-      <div class="others"><a href="/sportarten/padel">Padelschulen</a><a href="/sportarten/golf">Golfschulen</a><a href="/sportarten/reiten">Reitschulen</a><a href="/sportarten/tanz">Tanzschulen</a><a href="/sportarten/fussball">Fußballschulen &amp; Camps</a><a href="/sportarten/kampfsport">Kampfsportschulen</a><a href="/">Tennisschulen</a></div>
+      <div class="others"><a href="/sportarten/padel">Padelschulen</a><a href="/sportarten/golf">Golfschulen</a><a href="/sportarten/reiten">Reitschulen</a><a href="/sportarten/tanz">Tanzschulen</a><a href="/sportarten/fussball">Fußballschulen &amp; Camps</a><a href="/sportarten/kampfsport">Kampfsportschulen</a><a href="/tennisschulen">Tennisschulen</a></div>
     </div>
   </div>
 </section>
@@ -319,7 +328,7 @@ canvas.s3d.ready{opacity:1}
   <div class="wrap">
     <div class="foot">
       <div><a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Roger</a><p>Verwaltung und Websites für Sportschulen und Vereine. Gebaut in der Tennisschule Simanek, Bochum.</p></div>
-      <div><h4>Produkt</h4><nav><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
+      <div><h4>Produkt</h4><nav><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
       <div><h4>Sportarten</h4><nav><a href="/sportarten/padel">Padelschulen</a><a href="/sportarten/golf">Golfschulen</a><a href="/sportarten/reiten">Reitschulen</a><a href="/sportarten/tanz">Tanzschulen</a><a href="/sportarten/schwimmen">Schwimmschulen</a><a href="/sportarten/fussball">Fußballschulen &amp; Camps</a><a href="/sportarten/kampfsport">Kampfsportschulen</a></nav></div>
       <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="/impressum.html">Impressum</a><a href="/datenschutz.html">Datenschutzerklärung</a></nav></div>
     </div>
@@ -337,8 +346,8 @@ canvas.s3d.ready{opacity:1}
   const sw = document.querySelector('.pswitch');
   if (sw) { const thumb = sw.querySelector('.thumb'), cur = sw.querySelector('[aria-current]');
     const place = (el) => { thumb.style.left = el.offsetLeft + 'px'; thumb.style.width = el.offsetWidth + 'px'; };
-    const settle = () => place(cur); settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
-    sw.querySelectorAll('a').forEach((a) => a.addEventListener('mouseenter', () => place(a))); sw.addEventListener('mouseleave', settle); }
+    const settle = () => { if (cur) place(cur); sw.classList.remove('hov'); }; settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
+    sw.querySelectorAll('a').forEach((a) => a.addEventListener('mouseenter', () => { place(a); sw.classList.add('hov'); })); sw.addEventListener('mouseleave', settle); }
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12 });
   document.querySelectorAll('.rv').forEach((el) => io.observe(el));
 })();

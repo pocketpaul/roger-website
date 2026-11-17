@@ -106,35 +106,37 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 
 
 .pswitch .thumb{background:var(--ink);box-shadow:0 6px 14px -6px rgba(15,29,54,.6)}
-.sw-s{display:none}
-.nav-links{display:none!important}.burger{display:grid!important}
-@media (max-width:640px){.sw-l{display:none}.sw-s{display:inline}}
-@media (max-width:560px){.pswitch a{padding:9px 9px;font-size:12.5px}}
-@media (max-width:430px){.pswitch a{padding:8px 8px;font-size:12px}.nav-left{gap:10px}.brand svg{width:26px;height:26px}}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-html,main{overflow-x:clip}
+main{overflow-x:clip}
+h1,h2,h3{overflow-wrap:break-word;hyphens:manual}
+@media (max-width:800px){.faq-grid{grid-template-columns:1fr}}
+@media (max-width:480px){h2{font-size:clamp(28px,8.4vw,34px)}}
 .cap{font:500 12.5px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.02em;margin-top:14px;text-align:center}
 canvas.s3d{display:block;width:100%;height:100%;opacity:0;transition:opacity .9s ease}
 canvas.s3d.ready{opacity:1}
 .win{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 4px rgba(15,29,54,.05),0 50px 90px -30px rgba(15,29,54,.45),0 0 0 1px rgba(15,29,54,.07)}
 .win .bar{height:30px;background:#EEF1F6;border-bottom:1px solid #E1E6EE;display:flex;align-items:center;gap:6px;padding:0 12px}
 .win .bar i{width:9px;height:9px;border-radius:50%;background:#CDD4DF}
-.win .bar span{margin-left:12px;font:500 11.5px var(--f-mono);color:#8A94A6;background:#fff;border-radius:6px;padding:3px 10px}
+.win .bar span{margin-left:12px;font:500 11.5px var(--f-mono);color:#8A94A6;background:#fff;border-radius:6px;padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .win img{width:100%;height:auto;display:block}
 .contact{text-align:center;border:1px solid var(--rule);border-radius:28px;padding:clamp(40px,6vw,80px) 24px;position:relative;overflow:hidden}
 .contact .lead{margin:16px auto 0}
 .contact .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px}
 
+html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:grid!important}.sw-s{display:none}.pswitch:not(:has([aria-current])) .thumb{opacity:0;transition:left .45s var(--ease),width .45s var(--ease),opacity .3s}.pswitch.hov .thumb{opacity:1}@media (max-width:1080px){html{scroll-padding-top:128px}.nav .wrap{flex-wrap:wrap;height:auto!important;padding-top:10px;padding-bottom:10px;row-gap:10px}.nav-left{display:contents!important}.nav .brand{order:1}.nav .brand .bt,.nav .brand>span{display:inline!important}.nav-cta{order:2;margin-left:auto}.nav .wrap::after{content:"";order:3;flex-basis:100%;height:0}.pswitch{order:4;overflow-x:auto;scrollbar-width:none;max-width:100%}.pswitch::-webkit-scrollbar{display:none}.mnav.open{inset:118px 0 auto 0!important}}@media (max-width:600px){.pswitch{flex:1 1 100%;justify-content:space-between}.pswitch a{padding:9px 10px!important;font-size:13px!important;flex:1 1 auto;text-align:center}}@media (min-width:1081px){.mnav.open{left:auto!important;right:max(20px,calc((100vw - 1200px) / 2 + 20px))!important;top:78px!important;width:320px;border:1px solid var(--rule);border-radius:16px}}@media (max-width:440px){.sw-l{display:none}.sw-s{display:inline}.pswitch a{padding:9px 6px!important;font-size:12.5px!important}}
 
 .ohero{position:relative;padding-block:clamp(56px,8vw,100px) 20px;text-align:center;overflow:hidden;isolation:isolate}
 .ohero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(60% 40% at 50% 0%,#E3EBFC 0%,rgba(245,247,250,0) 70%)}
 #orbit{position:absolute;left:0;top:0;width:100%;height:560px;z-index:-1;pointer-events:none}
+@media (max-width:700px){#orbit{display:none}}
 .ohero h1{font-size:clamp(40px,6vw,80px);line-height:1;max-width:16ch;margin:22px auto 0}
-.ohero h1 em{font-style:normal;background:linear-gradient(90deg,#2F7D5A,#0E7490,#2252CC,#9D3D7A,#B42318,#8B5A2B,#2F7D5A);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hue 12s linear infinite}
-@keyframes hue{to{background-position:300% 0}}
+.ohero h1 .rot{display:inline-grid;vertical-align:bottom;overflow:hidden;height:1.08em;padding-bottom:.08em}
+.ohero h1 .rot b{grid-area:1/1;font-weight:inherit;transform:translateY(110%);opacity:0;transition:transform .7s var(--ease),opacity .5s}
+.ohero h1 .rot b.on{transform:none;opacity:1}.ohero h1 .rot b.out{transform:translateY(-110%);opacity:0}
 .ohero .lead{margin:24px auto 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.85);border:1px solid var(--rule);border-radius:999px;padding:7px 15px;font-size:14px;color:var(--muted);box-shadow:var(--shadow)}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;text-align:left}
 .tile{--ac:#2252CC;position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:22px;padding:14px 20px 22px;overflow:hidden;transition:opacity .8s var(--ease),transform .3s var(--ease),box-shadow .35s,border-color .35s}
@@ -172,7 +174,7 @@ canvas.s3d.ready{opacity:1}
   <div class="wrap">
     <div class="nav-left">
       <a class="brand" href="/" aria-label="Roger – Startseite"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg><span class="bt">Roger</span></a>
-      <nav class="pswitch" aria-label="Produkt wählen"><a href="/"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/websites">Websites</a><a href="/vereine">Vereine</a><a href="/sportarten" aria-current="page"><span class="sw-l">Weitere Sportarten</span><span class="sw-s">Mehr</span></a><i class="thumb" aria-hidden="true"></i></nav>
+      <nav class="pswitch" aria-label="Produkt wählen"><a href="/tennisschulen"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/sportarten" aria-current="page">Weitere Sportarten</a><a href="/websites">Websites</a><a href="/vereine">Vereine</a><i class="thumb" aria-hidden="true"></i></nav>
     </div>
     <nav class="nav-links" aria-label="Abschnitte"><a href="#sportarten">Sportarten</a><a href="#basis">Gemeinsame Basis</a><a href="#kontakt">Kontakt</a></nav>
     <div class="nav-cta">
@@ -188,15 +190,15 @@ canvas.s3d.ready{opacity:1}
     </div>
   </div>
 </header>
-<nav class="mnav" id="mnav" aria-label="Menü"><a href="#sportarten">Sportarten</a><a href="#basis">Gemeinsame Basis</a><a href="#kontakt">Kontakt</a><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a></nav>
+<nav class="mnav" id="mnav" aria-label="Menü"><a href="#sportarten">Sportarten</a><a href="#basis">Gemeinsame Basis</a><a href="#kontakt">Kontakt</a><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a><a href="https://app.roger-verwaltung.de">Anmelden Schule</a><a href="https://verein.roger-verwaltung.de">Anmelden Verein</a></nav>
 <main>
 <section class="ohero" aria-labelledby="h">
   <canvas id="orbit" aria-hidden="true"></canvas>
   <div class="wrap">
     <span class="pill">Kursplan · Kunden · Anmeldung · Abrechnung</span>
-    <h1 id="h">Roger für <em>eure Sportart.</em></h1>
+    <h1 id="h">Roger für eure <span class="rot" aria-hidden="true"><b style="color:#0E7490" class="on">Padelschule</b><b style="color:#2F7D5A">Golfschule</b><b style="color:#8B5A2B">Reitschule</b><b style="color:#9D3D7A">Tanzschule</b><b style="color:#0E7FB5">Schwimmschule</b><b style="color:#B42318">Fußballschule</b><b style="color:#4338CA">Kampfsportschule</b></span><span class="sr">Sportschule</span></h1>
     <p class="lead">Ob Golfschule, Reitschule oder Tanzschule: Überall gibt es Kurse, Trainer, Anmeldungen und Rechnungen. Roger bringt das in ein System, mit Begriffen und Abläufen, die zu eurem Sport passen.</p>
-    <div class="tiles" id="sportarten"><a class="tile rv" href="/sportarten/padel" style="--ac:#0E7490;transition-delay:0ms"><div class="cv"><canvas class="s3d" data-kind="padel" data-ac="#0E7490" aria-hidden="true"></canvas></div><h3>Padelschulen</h3><p>Trainingsgruppen, Courts und Coaches im Griff.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/golf" style="--ac:#2F7D5A;transition-delay:60ms"><div class="cv"><canvas class="s3d" data-kind="golf" data-ac="#2F7D5A" aria-hidden="true"></canvas></div><h3>Golfschulen</h3><p>Platzreife, Pro-Stunden und Range in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/reiten" style="--ac:#8B5A2B;transition-delay:120ms"><div class="cv"><canvas class="s3d" data-kind="reiten" data-ac="#8B5A2B" aria-hidden="true"></canvas></div><h3>Reitschulen</h3><p>Reitstunden, Schulpferde und Zehnerkarten in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/tanz" style="--ac:#9D3D7A;transition-delay:180ms"><div class="cv"><canvas class="s3d" data-kind="tanz" data-ac="#9D3D7A" aria-hidden="true"></canvas></div><h3>Tanzschulen</h3><p>Kurse, Paare und Säle in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/schwimmen" style="--ac:#0E7FB5;transition-delay:240ms"><div class="cv"><canvas class="s3d" data-kind="schwimmen" data-ac="#0E7FB5" aria-hidden="true"></canvas></div><h3>Schwimmschulen</h3><p>Kurse, Wartelisten und Bahnzeiten in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/fussball" style="--ac:#B42318;transition-delay:300ms"><div class="cv"><canvas class="s3d" data-kind="fussball" data-ac="#B42318" aria-hidden="true"></canvas></div><h3>Fußballschulen &amp; Camps</h3><p>Fördertraining, Camps und Trainer in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/kampfsport" style="--ac:#1F2937;transition-delay:360ms"><div class="cv"><canvas class="s3d" data-kind="kampfsport" data-ac="#1F2937" aria-hidden="true"></canvas></div><h3>Kampfsportschulen</h3><p>Verträge, Gürtelprüfungen und Training in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/" style="--ac:#2252CC;transition-delay:420ms"><span class="badge">Ursprung</span><div class="cv"><canvas class="s3d" data-kind="tennis" data-ac="#2252CC" aria-hidden="true"></canvas></div><h3>Tennisschulen</h3><p>Trainingsplan, Schüler, Hallen und Abrechnung. Hier hat Roger angefangen.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+    <div class="tiles" id="sportarten"><a class="tile rv" href="/sportarten/padel" style="--ac:#0E7490;transition-delay:0ms"><div class="cv"><canvas class="s3d" data-kind="padel" data-ac="#0E7490" aria-hidden="true"></canvas></div><h3>Padelschulen</h3><p>Trainingsgruppen, Courts und Coaches im Griff.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/golf" style="--ac:#2F7D5A;transition-delay:60ms"><div class="cv"><canvas class="s3d" data-kind="golf" data-ac="#2F7D5A" aria-hidden="true"></canvas></div><h3>Golfschulen</h3><p>Platzreife, Pro-Stunden und Range in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/reiten" style="--ac:#8B5A2B;transition-delay:120ms"><div class="cv"><canvas class="s3d" data-kind="reiten" data-ac="#8B5A2B" aria-hidden="true"></canvas></div><h3>Reitschulen</h3><p>Reitstunden, Schulpferde und Zehnerkarten in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/tanz" style="--ac:#9D3D7A;transition-delay:180ms"><div class="cv"><canvas class="s3d" data-kind="tanz" data-ac="#9D3D7A" aria-hidden="true"></canvas></div><h3>Tanzschulen</h3><p>Kurse, Paare und Säle in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/schwimmen" style="--ac:#0E7FB5;transition-delay:240ms"><div class="cv"><canvas class="s3d" data-kind="schwimmen" data-ac="#0E7FB5" aria-hidden="true"></canvas></div><h3>Schwimmschulen</h3><p>Kurse, Wartelisten und Bahnzeiten in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/fussball" style="--ac:#B42318;transition-delay:300ms"><div class="cv"><canvas class="s3d" data-kind="fussball" data-ac="#B42318" aria-hidden="true"></canvas></div><h3>Fußballschulen &amp; Camps</h3><p>Fördertraining, Camps und Trainer in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/sportarten/kampfsport" style="--ac:#4338CA;transition-delay:360ms"><div class="cv"><canvas class="s3d" data-kind="kampfsport" data-ac="#4338CA" aria-hidden="true"></canvas></div><h3>Kampfsportschulen</h3><p>Verträge, Gürtelprüfungen und Training in einem System.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="tile rv" href="/tennisschulen" style="--ac:#2252CC;transition-delay:420ms"><span class="badge">Ursprung</span><div class="cv"><canvas class="s3d" data-kind="tennis" data-ac="#2252CC" aria-hidden="true"></canvas></div><h3>Tennisschulen</h3><p>Trainingsplan, Schüler, Hallen und Abrechnung. Hier hat Roger angefangen.</p><span class="go">Ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
   </div>
 </section>
 
@@ -217,7 +219,7 @@ canvas.s3d.ready{opacity:1}
   <div class="wrap">
     <div class="foot">
       <div><a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Roger</a><p>Verwaltung und Websites für Sportschulen und Vereine. Gebaut in der Tennisschule Simanek, Bochum.</p></div>
-      <div><h4>Produkt</h4><nav><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
+      <div><h4>Produkt</h4><nav><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Weitere Sportarten</a></nav></div>
       <div><h4>Sportarten</h4><nav><a href="/sportarten/padel">Padelschulen</a><a href="/sportarten/golf">Golfschulen</a><a href="/sportarten/reiten">Reitschulen</a><a href="/sportarten/tanz">Tanzschulen</a><a href="/sportarten/schwimmen">Schwimmschulen</a><a href="/sportarten/fussball">Fußballschulen &amp; Camps</a><a href="/sportarten/kampfsport">Kampfsportschulen</a></nav></div>
       <div><h4>Kontakt</h4><nav><a href="mailto:info@roger-verwaltung.de">info@roger-verwaltung.de</a><a href="/impressum.html">Impressum</a><a href="/datenschutz.html">Datenschutzerklärung</a></nav></div>
     </div>
@@ -235,8 +237,8 @@ canvas.s3d.ready{opacity:1}
   const sw = document.querySelector('.pswitch');
   if (sw) { const thumb = sw.querySelector('.thumb'), cur = sw.querySelector('[aria-current]');
     const place = (el) => { thumb.style.left = el.offsetLeft + 'px'; thumb.style.width = el.offsetWidth + 'px'; };
-    const settle = () => place(cur); settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
-    sw.querySelectorAll('a').forEach((a) => a.addEventListener('mouseenter', () => place(a))); sw.addEventListener('mouseleave', settle); }
+    const settle = () => { if (cur) place(cur); sw.classList.remove('hov'); }; settle(); addEventListener('resize', settle); document.fonts && document.fonts.ready.then(settle);
+    sw.querySelectorAll('a').forEach((a) => a.addEventListener('mouseenter', () => { place(a); sw.classList.add('hov'); })); sw.addEventListener('mouseleave', settle); }
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12 });
   document.querySelectorAll('.rv').forEach((el) => io.observe(el));
 })();
@@ -244,6 +246,8 @@ canvas.s3d.ready{opacity:1}
 <script>
 (() => {
   const red = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rw = [...document.querySelectorAll('.rot b')]; let ri = 0;
+  if (!red && rw.length > 1) setInterval(() => { const a = rw[ri]; a.classList.remove('on'); a.classList.add('out'); setTimeout(() => a.classList.remove('out'), 700); ri = (ri + 1) % rw.length; rw[ri].classList.add('on'); }, 2200);
   document.querySelectorAll('.tile').forEach((c) => {
     c.addEventListener('pointermove', (ev) => { if (red || !c.classList.contains('in')) return; const r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
       c.style.transform = `perspective(900px) rotateX(${(.5 - y) * 8}deg) rotateY(${(x - .5) * 10}deg) translateY(-4px)`; });
