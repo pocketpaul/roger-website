@@ -629,6 +629,83 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .final-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px;color:#DCE3F0}
 .final-list li{display:flex;gap:10px;align-items:flex-start}.final-list svg{width:18px;height:18px;flex:none;margin-top:3px;color:#8FD3AE}
 </style>
+<style>
+/* ---------- Hero: Website entsteht aus Schichten ---------- */
+.whero{text-align:left}
+.whero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(24px,4vw,56px);align-items:center}
+.whero h1{margin-left:0;font-size:clamp(40px,5vw,68px)}
+.whero .lead{margin-left:0}
+.whero .cta-row,.whero .facts{justify-content:flex-start}
+.wstage .build{margin:20px 0 0;max-width:none}
+@media (max-width:980px){.wstage .build{margin-top:clamp(70px,16vw,120px)}.whero{text-align:center}.whero-grid{grid-template-columns:1fr}.whero h1,.whero .lead{margin-inline:auto}.whero .cta-row,.whero .facts{justify-content:center}}
+
+.build{position:relative;max-width:1060px;margin:clamp(36px,5vw,64px) auto 0;perspective:2400px;perspective-origin:50% 30%}
+.bstack{position:relative;width:100%;aspect-ratio:16/10;transform-style:preserve-3d;transform:rotateX(var(--rx,58deg)) rotateZ(var(--rz,-32deg)) scale(var(--sc,.74));transform-origin:50% 50%;will-change:transform}
+.bl{position:absolute;inset:0;border-radius:14px;transform-style:preserve-3d;transform:translateZ(calc(var(--gap,80px) * var(--i) + var(--drop,0px) + var(--lift,0px)));opacity:var(--op,0);transition:opacity .7s var(--ease),--drop .9s var(--ease),--lift .6s var(--ease);will-change:transform,opacity}
+.bl .tag{position:absolute;left:-3px;top:-34px;display:inline-flex;align-items:center;gap:8px;font:600 13px/1 var(--f-body);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:7px 12px 7px 8px;box-shadow:var(--shadow);opacity:var(--tagop,1);transition:opacity .4s;white-space:nowrap}
+.bl .tag b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px}
+.l1{background:rgba(255,255,255,.92);border:1.5px dashed #AFC0DA;box-shadow:0 30px 60px -30px rgba(15,29,54,.35)}
+.l2,.l3{background:transparent}
+.l4{overflow:visible;box-shadow:0 60px 110px -40px rgba(15,29,54,.6),0 0 0 1px rgba(15,29,54,.08)}
+.l4 img{display:block;width:100%;height:100%;object-fit:cover;border-radius:14px}
+.l4 .tag{top:-34px}
+.wf{position:absolute;border:1.5px dashed #AFC0DA;border-radius:8px}
+.tx{position:absolute;height:3.2%;border-radius:4px;background:#0F1D36;opacity:.82}
+.tx.lt{background:#7D8BA3;opacity:.7}
+.ph{position:absolute;border-radius:8px;background:linear-gradient(135deg,#7FA3D9,#3E6CB8);opacity:.85}
+.ph::after{content:"";position:absolute;inset:30% 35%;border-radius:50%;border:2px solid rgba(255,255,255,.7)}
+.ds{position:absolute;border-radius:8px}
+.blabel{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:var(--muted)}
+.blabel span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--rule);transition:background .4s,color .4s,border-color .4s}
+.blabel span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+@property --drop{syntax:'<length>';inherits:false;initial-value:0px}
+@property --lift{syntax:'<length>';inherits:false;initial-value:0px}
+.bl.act .tag{background:var(--ink);color:#fff;border-color:var(--ink)}.bl.act .tag b{background:#C2457A}
+@media (max-width:640px){.bl .tag{font-size:11px;top:-28px;padding:5px 9px 5px 6px}.bl .tag b{width:16px;height:16px;font-size:10px}}
+
+/* ---------- Bis ins Detail: Live-Editor ---------- */
+.edit{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(30px,5vw,64px);align-items:center;position:relative}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:grid;gap:18px;margin-top:26px}
+.panel h4{margin:0 0 8px;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sw{display:flex;gap:10px;flex-wrap:wrap}
+.sw button{width:38px;height:38px;border-radius:12px;border:2px solid #fff;box-shadow:0 0 0 1px var(--rule);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink);transform:scale(1.08)}
+.seg2{display:flex;gap:6px;background:var(--bg);border:1px solid var(--rule);border-radius:12px;padding:4px;width:fit-content;flex-wrap:wrap}
+.seg2 button{border:0;background:transparent;font:500 14px var(--f-body);color:var(--muted);padding:8px 12px;border-radius:9px;cursor:pointer}
+.seg2 button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.mini-wrap{position:relative;perspective:1800px}
+.mini-win{transform:rotateY(-8deg) rotateX(4deg);transform-style:preserve-3d;transition:transform .8s var(--ease)}
+.mini-wrap:hover .mini-win{transform:rotateY(-3deg) rotateX(2deg)}
+.mini{--c:#C2457A;--hbg:#0B2A5B;--htx:#fff;--r:12px;--ff:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;font-family:var(--f-body);background:#fff;transition:background .6s}
+.mini *{transition:background-color .6s,color .6s,border-radius .5s,border-color .6s,font-family .1s}
+.mn{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--hbg);color:var(--htx)}
+.mn .lg{width:26px;height:26px;border-radius:calc(var(--r) * .7);background:var(--c);display:grid;place-items:center;color:#fff;font:800 13px var(--ff)}
+.mn b{font:800 13px/1 var(--ff);letter-spacing:.02em;text-transform:uppercase}
+.mn .lk{margin-left:auto;display:flex;gap:12px;font-size:11px;opacity:.85}
+.mn .bt{background:var(--c);color:#fff;font-size:11px;font-weight:600;padding:7px 11px;border-radius:var(--r)}
+.mh{background:var(--hbg);color:var(--htx);padding:30px 22px 34px;position:relative;overflow:hidden}
+.mh::after{content:"";position:absolute;right:-60px;top:-40px;width:260px;height:260px;border-radius:50%;border:2px solid currentColor;opacity:.12}
+.mh h3{font:800 clamp(24px,3vw,36px)/1.02 var(--ff);letter-spacing:-.02em;margin:0;max-width:12ch}
+.mh h3 em{font-style:normal;color:var(--c)}
+.mh p{font-size:13px;opacity:.8;margin:12px 0 18px;max-width:38ch}
+.mh .bs{display:flex;gap:8px;flex-wrap:wrap}
+.mh .b1{background:var(--c);color:#fff;font-size:12px;font-weight:600;padding:9px 14px;border-radius:var(--r)}
+.mh .b2{border:1.5px solid currentColor;font-size:12px;font-weight:600;padding:8px 13px;border-radius:var(--r);opacity:.85}
+.mc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
+.mc div{border:1px solid #E6EAF1;border-radius:var(--r);padding:12px;display:grid;gap:6px}
+.mc i{width:26px;height:26px;border-radius:calc(var(--r) * .7);background:color-mix(in srgb,var(--c) 14%,#fff);display:block}
+.mc b{font:700 12px var(--ff)}.mc span{font-size:10.5px;color:#6B778C}
+.mf{margin:0 16px 16px;border-radius:var(--r);border:1px solid #E6EAF1;padding:12px;display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}
+.mf label{font-size:10px;color:#6B778C;display:grid;gap:4px}.mf label i{display:block;height:24px;border:1px solid #DDE3EC;border-radius:calc(var(--r) * .6);background:#FAFBFD}
+.mf .send{background:var(--c);color:#fff;font-size:11px;font-weight:600;padding:8px 12px;border-radius:var(--r)}
+.ecur{position:absolute;left:0;top:0;width:22px;height:22px;pointer-events:none;z-index:5;transition:transform .7s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 4px 6px rgba(15,29,54,.3))}
+.ecur.click::after{content:"";position:absolute;left:-10px;top:-10px;width:40px;height:40px;border-radius:50%;border:2px solid var(--blue);animation:clk .5s ease-out}
+@keyframes clk{from{transform:scale(.3);opacity:1}to{transform:scale(1.2);opacity:0}}
+.edit-note{margin-top:14px;font-size:14px;color:var(--muted)}
+@media (max-width:980px){.edit{grid-template-columns:1fr}.mini-win{transform:none}}
+@media (max-width:560px){.mn .lk{display:none}.mc{grid-template-columns:1fr 1fr}.mc div:nth-child(3){display:none}.mf{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bstack{transform:none}.bl{transition:none}.ecur{display:none}}
+</style>
 </head>
 <body>
 <header class="nav" id="nav">
@@ -639,11 +716,11 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <span class="bt">Roger</span>
       </a>
       <nav class="pswitch" aria-label="Produkt wählen">
-        <a href="/">Tennisschulen</a><a href="/vereine">Vereine</a><a href="/websites" aria-current="page">Websites</a><i class="thumb" aria-hidden="true"></i>
+        <a href="/">Tennisschulen</a><a href="/websites" aria-current="page">Websites</a><a href="/vereine">Vereine</a><i class="thumb" aria-hidden="true"></i>
       </nav>
     </div>
     <nav class="nav-links" aria-label="Abschnitte">
-      <a href="#beispiel">Beispiel</a><a href="#anmeldung">Anmeldung</a><a href="#leistungen">Leistungen</a><a href="#fragen">Fragen</a>
+      <a href="#beispiel">Beispiel</a><a href="#detail">Individuell</a><a href="#anmeldung">Anmeldung</a><a href="#fragen">Fragen</a>
     </nav>
     <div class="nav-cta">
       <details class="login-menu">
@@ -659,20 +736,41 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   </div>
 </header>
 <nav class="mnav" id="mnav" aria-label="Menü">
-  <a href="#beispiel">Beispiel</a><a href="#anmeldung">Anmeldung</a><a href="#leistungen">Leistungen</a><a href="#ablauf">Ablauf</a><a href="#fragen">Fragen</a><a href="#kontakt">Website anfragen</a><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a>
+  <a href="#beispiel">Beispiel</a><a href="#detail">Individuell</a><a href="#anmeldung">Anmeldung</a><a href="#leistungen">Leistungen</a><a href="#ablauf">Ablauf</a><a href="#fragen">Fragen</a><a href="#kontakt">Website anfragen</a><a href="/">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a>
 </nav>
 
 <main id="top">
   <section class="hero whero" aria-labelledby="hero-h">
-    <div class="wrap">
+    <div class="wrap whero-grid">
+      <div class="wtext">
       <span class="pill">Websites von Roger</span>
-      <h1 id="hero-h">Eure Website. <em>Bis ins Detail eure.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></h1>
-      <p class="lead">Wir gestalten Tennisschulen und Vereinen eine eigene Website, individuell nach euren Wünschen: Kurse, Camps, News und Online-Anmeldung. Jede Anmeldung landet direkt in Roger, ohne Abtippen.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="#kontakt">Website anfragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost btn-lg" href="https://tennisschulesimanek.de" target="_blank" rel="noopener">Beispiel live ansehen</a>
+        <h1 id="hero-h">Eure Website. <em>Bis ins Detail eure.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></h1>
+        <p class="lead">Wir gestalten Tennisschulen und Vereinen eine eigene Website, individuell nach euren Wünschen: Kurse, Camps, News und Online-Anmeldung. Jede Anmeldung landet direkt in Roger, ohne Abtippen.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="#kontakt">Website anfragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost btn-lg" href="https://tennisschulesimanek.de" target="_blank" rel="noopener">Beispiel live ansehen</a>
+        </div>
+        <div class="facts"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Individuelles Design</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Direkt mit Roger verbunden</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>News &amp; Events selbst pflegen</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Für das Handy gemacht</span></div>
       </div>
-      <div class="facts"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Individuelles Design</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Direkt mit Roger verbunden</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>News &amp; Events selbst pflegen</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Für das Handy gemacht</span></div>
+      <div class="wstage">
+      <div class="build" id="build" aria-label="Illustration: Eine Website entsteht aus Struktur, Inhalten und Design">
+          <div class="bstack" id="bstack">
+            <div class="bl l1" style="--i:0"><span class="tag"><b>1</b>Struktur</span><div class="wf" style="left:3%;top:4%;width:94%;height:9%"></div><div class="wf" style="left:3%;top:16%;width:94%;height:44%"></div><div class="wf" style="left:3%;top:64%;width:29%;height:30%"></div><div class="wf" style="left:35.5%;top:64%;width:29%;height:30%"></div><div class="wf" style="left:68%;top:64%;width:29%;height:30%"></div></div>
+            <div class="bl l2" style="--i:1"><span class="tag"><b>2</b>Inhalte</span><div class="tx" style="left:6%;top:7%;width:12%"></div><div class="tx lt" style="left:40%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:49%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:58%;top:7.5%;width:6%;height:2.4%"></div><div class="tx lt" style="left:67%;top:7.5%;width:6%;height:2.4%"></div>
+<div class="tx" style="left:7%;top:26%;width:34%;height:6%"></div><div class="tx" style="left:7%;top:34%;width:28%;height:6%"></div><div class="tx lt" style="left:7%;top:44%;width:36%"></div><div class="tx lt" style="left:7%;top:49%;width:30%"></div>
+<div class="ph" style="left:55%;top:20%;width:38%;height:36%"></div>
+<div class="ph" style="left:5%;top:67%;width:25%;height:14%"></div><div class="ph" style="left:37.5%;top:67%;width:25%;height:14%"></div><div class="ph" style="left:70%;top:67%;width:25%;height:14%"></div>
+<div class="tx" style="left:5%;top:84%;width:16%;height:2.6%"></div><div class="tx" style="left:37.5%;top:84%;width:16%;height:2.6%"></div><div class="tx" style="left:70%;top:84%;width:16%;height:2.6%"></div></div>
+            <div class="bl l3" style="--i:2"><span class="tag"><b>3</b>Euer Design</span><div class="ds" style="left:0;top:0;width:100%;height:60%;border-radius:14px 14px 0 0;background:linear-gradient(160deg,#0B2A5B,#123E7C);opacity:.88"></div>
+<div class="ds" style="left:5%;top:5.5%;width:4%;height:6.5%;border-radius:50%;background:#E26C9A"></div><div class="ds" style="left:83%;top:5%;width:12%;height:7%;background:#C2457A"></div>
+<div class="ds" style="left:7%;top:51%;width:12%;height:6%;background:#C2457A"></div><div class="ds" style="left:21%;top:51%;width:14%;height:6%;border:2px solid #fff"></div>
+<div class="ds" style="left:3%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div><div class="ds" style="left:35.5%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div><div class="ds" style="left:68%;top:64%;width:29%;height:30%;background:#fff;box-shadow:0 20px 40px -20px rgba(15,29,54,.5)"></div></div>
+            <div class="bl l4" style="--i:3"><span class="tag"><b>4</b>Eure Website</span><img src="img/web-start.webp" width="2400" height="1500" alt="" fetchpriority="high"></div>
+          </div>
+        </div>
+        <div class="blabel" id="blabel" aria-hidden="true"><span>Struktur</span><span>Inhalte</span><span>Euer Design</span><span>Online &amp; mit Roger verbunden</span></div>
+    </div>
+      </div>
     </div>
   </section>
 
@@ -693,6 +791,47 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         <p class="web-cap" id="webCap"></p>
       </div>
 
+    </div>
+  </section>
+
+  <section class="band" id="detail" aria-labelledby="det-h">
+    <div class="wrap edit">
+      <div class="rise">
+        <span class="label">Individuell</span>
+        <h2 id="det-h" style="margin-top:14px">Bis ins kleinste Detail.</h2>
+        <p class="lead" style="margin-top:16px">Farbe, Schrift, Ecken, hell oder dunkel: Ihr sagt, wie es aussehen soll, wir setzen es um. Und wenn euch nach dem Start noch etwas auffällt, ändern wir auch das.</p>
+        <div class="panel" id="panel">
+          <div><h4>Farbe</h4><div class="sw" data-k="c">
+            <button type="button" aria-label="Pink" data-v="#C2457A" style="background:#C2457A" aria-pressed="true"></button>
+            <button type="button" aria-label="Vereinsgrün" data-v="#1F7A4D" style="background:#1F7A4D" aria-pressed="false"></button>
+            <button type="button" aria-label="Blau" data-v="#2252CC" style="background:#2252CC" aria-pressed="false"></button>
+            <button type="button" aria-label="Asche" data-v="#B5532E" style="background:#B5532E" aria-pressed="false"></button>
+            <button type="button" aria-label="Weinrot" data-v="#8E2440" style="background:#8E2440" aria-pressed="false"></button>
+          </div></div>
+          <div><h4>Schrift</h4><div class="seg2" data-k="ff">
+            <button type="button" data-v='"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif' aria-pressed="true">Modern</button>
+            <button type="button" data-v='Georgia,"Times New Roman",serif' aria-pressed="false">Klassisch</button>
+            <button type="button" data-v='"Geist Mono",ui-monospace,monospace' aria-pressed="false">Technisch</button>
+          </div></div>
+          <div style="display:flex;gap:26px;flex-wrap:wrap">
+            <div><h4>Ecken</h4><div class="seg2" data-k="r"><button type="button" data-v="12px" aria-pressed="true">Rund</button><button type="button" data-v="2px" aria-pressed="false">Eckig</button><button type="button" data-v="999px" aria-pressed="false">Pille</button></div></div>
+            <div><h4>Kopfbereich</h4><div class="seg2" data-k="mode"><button type="button" data-v="dark" aria-pressed="true">Dunkel</button><button type="button" data-v="light" aria-pressed="false">Hell</button></div></div>
+          </div>
+        </div>
+        <p class="edit-note">Probiert es aus. Bei euch passen wir zusätzlich Logo, Bilder, Texte und den Aufbau jeder Seite an.</p>
+      </div>
+      <div class="mini-wrap rise d1" aria-hidden="true">
+        <div class="mini-win"><div class="window">
+          <div class="bar"><i></i><i></i><i></i><span>eure-tennisschule.de</span></div>
+          <div class="mini" id="mini">
+            <div class="mn"><span class="lg">T</span><b id="miniName">Tennisschule Sonnenhang</b><span class="lk"><span>Kurse</span><span>Camps</span><span>News</span><span>Kontakt</span></span><span class="bt">Jetzt buchen</span></div>
+            <div class="mh"><h3>Tennis mit <em>Leidenschaft</em></h3><p>Training für Kinder und Erwachsene an drei Standorten, mit Online-Anmeldung in zwei Minuten.</p><div class="bs"><span class="b1">Kurse entdecken</span><span class="b2">Probetraining</span></div></div>
+            <div class="mc"><div><i></i><b>Kinder &amp; Jugend</b><span>Spielerisch lernen</span></div><div><i></i><b>Erwachsene</b><span>In festen Gruppen</span></div><div><i></i><b>Camps</b><span>In den Ferien</span></div></div>
+            <div class="mf"><label>Vorname<i></i></label><label>E-Mail<i></i></label><span class="send">Anmelden</span></div>
+          </div>
+        </div></div>
+      </div>
+      <svg class="ecur" id="ecur" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#0F1D36" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
     </div>
   </section>
 
@@ -889,6 +1028,78 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     phoneImg.style.transform = `translateY(${-pm * (f < .08 ? 0 : f > .92 ? 1 : (f - .08) / .84)}px)`;
   };
   requestAnimationFrame(step);
+})();
+</script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ---------- Schichten: fallen nacheinander ein, verschmelzen beim Scrollen zur fertigen Website ----------
+  const build = document.getElementById('build'), stack = document.getElementById('bstack');
+  const layers = [...stack.querySelectorAll('.bl')], chips = [...document.querySelectorAll('#blabel span')];
+  layers.forEach((l) => { l.style.setProperty('--drop', '420px'); });
+  const intro = () => layers.forEach((l, i) => setTimeout(() => { l.style.setProperty('--op', i === 3 ? '.94' : '1'); l.style.setProperty('--drop', '0px'); chips[i] && chips.forEach((c, j) => c.classList.toggle('on', j === i)); }, reduce ? 0 : 350 + i * 520));
+  let p = 0, t0 = performance.now(), introDone = false, lastA = -1;
+  setTimeout(() => { introDone = true; }, reduce ? 0 : 350 + 4 * 520);
+  intro();
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const frame = (now) => {
+    const r = build.getBoundingClientRect(), vh = innerHeight;
+    const narrow = innerWidth <= 980;
+    const target = reduce ? 1 : Math.min(1, Math.max(0, narrow ? (vh * .3 - r.top) / (vh * .45) : scrollY / (vh * .55)));
+    p += (target - p) * .12;
+    const e = p * p * (3 - 2 * p), t = (now - t0) / 1000;
+    const idle = (1 - e) * Math.sin(t * .6) * 2.2;
+    stack.style.setProperty('--rx', lerp(56, 0, e).toFixed(2) + 'deg');
+    stack.style.setProperty('--rz', (lerp(-30, 0, e) + idle).toFixed(2) + 'deg');
+    stack.style.setProperty('--sc', lerp(innerWidth <= 980 ? .86 : .8, 1, e).toFixed(3));
+    stack.style.setProperty('--gap', lerp(build.clientWidth * .13, 0, e).toFixed(1) + 'px');
+    if (introDone) {
+      layers.forEach((l, i) => { l.style.setProperty('--op', i === 3 ? (lerp(.94, 1, e)).toFixed(3) : (e > .86 ? Math.max(0, 1 - (e - .86) / .12) : 1).toFixed(3)); l.style.setProperty('--tagop', (1 - Math.min(1, e * 1.6)).toFixed(2)); });
+      const a = e > .85 ? 3 : Math.floor(t / 1.6) % 4;
+      if (a !== lastA) { lastA = a; chips.forEach((c, j) => c.classList.toggle('on', j === a)); layers.forEach((l, j) => { l.classList.toggle('act', j === a && e < .85); l.style.setProperty('--lift', j === a && e < .85 ? (build.clientWidth * .05).toFixed(0) + 'px' : '0px'); }); }
+    }
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+
+  // ---------- Live-Editor ----------
+  const mini = document.getElementById('mini'), panel = document.getElementById('panel'), cur = document.getElementById('ecur'), sec = document.getElementById('detail');
+  const names = { '#C2457A': 'Tennisschule Sonnenhang', '#1F7A4D': 'TC Grün-Weiß', '#2252CC': 'Tennisakademie Blau', '#B5532E': 'Aschenplatz Club', '#8E2440': 'TC Rot-Weiß' };
+  const apply = (k, v) => {
+    if (k === 'c') { mini.style.setProperty('--c', v); document.getElementById('miniName').textContent = names[v] || 'Eure Tennisschule'; mini.querySelector('.lg').textContent = (names[v] || 'T').split(' ').pop()[0]; }
+    if (k === 'ff') mini.style.setProperty('--ff', v);
+    if (k === 'r') mini.style.setProperty('--r', v);
+    if (k === 'mode') {
+      const dark = v === 'dark', c = getComputedStyle(mini).getPropertyValue('--c').trim();
+      mini.style.setProperty('--hbg', dark ? '#0B2A5B' : '#F3F6FA'); mini.style.setProperty('--htx', dark ? '#fff' : '#0F1D36');
+    }
+  };
+  let auto = true;
+  panel.querySelectorAll('[data-k]').forEach((g) => g.querySelectorAll('button').forEach((b) => b.addEventListener('click', (ev) => {
+    if (ev.isTrusted) auto = false;
+    g.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(g.dataset.k, b.dataset.v);
+  })));
+  const seq = [['c', 1], ['ff', 1], ['mode', 1], ['r', 1], ['c', 3], ['mode', 0], ['ff', 0], ['r', 2], ['c', 4], ['ff', 2], ['r', 0], ['c', 2], ['mode', 1], ['ff', 0], ['c', 0], ['mode', 0]];
+  let si = 0, vis = false;
+  new IntersectionObserver(([en]) => { vis = en.isIntersecting; }, { threshold: .35 }).observe(sec);
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const run = async () => {
+    if (reduce) { cur.style.display = 'none'; return; }
+    for (;;) {
+      await sleep(400);
+      if (!vis || !auto) { cur.style.opacity = auto ? '1' : '0'; continue; }
+      const [k, n] = seq[si++ % seq.length];
+      const btn = panel.querySelector(`[data-k="${k}"]`).querySelectorAll('button')[n];
+      const sr = cur.parentElement.getBoundingClientRect(), br = btn.getBoundingClientRect();
+      cur.style.transform = `translate(${br.left - sr.left + br.width * .55}px, ${br.top - sr.top + br.height * .55}px)`;
+      await sleep(800);
+      if (!auto) continue;
+      cur.classList.remove('click'); void cur.offsetWidth; cur.classList.add('click');
+      btn.click();
+      await sleep(1500);
+    }
+  };
+  run();
 })();
 </script>
 </body>
