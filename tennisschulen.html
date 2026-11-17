@@ -813,6 +813,23 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     </div>
   </section>
 
+  <!-- ============ FUNKTIONEN ============ -->
+  <section class="band" id="funktionen" aria-labelledby="feat-h">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="label">Funktionen</span>
+        <h2 id="feat-h">Einmal einstellen. Der Trainingsplan macht den Rest.</h2>
+        <p class="lead">Preise, Saisons, Ferien und Hallenkosten legst du einmal fest. Sie gelten automatisch für jede Stunde im Trainingsplan, und aus dem Plan entstehen Rechnungen, Trainerabrechnung und offene Posten.</p>
+      </div>
+      <div class="feat">
+        <div id="flist"></div>
+        <div class="feat-stage" aria-hidden="true">
+          <div class="window"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><div class="shots" id="shots"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="aktion" aria-labelledby="aktion-h">
     <div class="wrap">
       <div class="sec-head rise">
@@ -832,20 +849,6 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   </section>
 
   <!-- ============ FUNKTIONEN ============ -->
-  <section class="band" id="funktionen" aria-labelledby="feat-h">
-    <div class="wrap">
-      <div class="sec-head rise">
-        <span class="label">Funktionen</span>
-        <h2 id="feat-h">Vom Plan bis zur bezahlten Rechnung.</h2>
-      </div>
-      <div class="feat">
-        <div id="flist"></div>
-        <div class="feat-stage" aria-hidden="true">
-          <div class="window"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><div class="shots" id="shots"></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============ DATENÜBERNAHME ============ -->
   <section id="umzug" aria-labelledby="umzug-h">
@@ -1450,9 +1453,9 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   // Funktionen (sticky)
   const FEATS = [
     ['plan', 'Trainingsplan', 'Alle Vereine in einem Plan', 'Woche, Tag oder Monat. Jede Stunde zeigt Gruppe, Trainer und Belegung. Ferien und trainingsfreie Tage sind eingetragen.'],
+    ['tarife', 'Tarife & Preise', 'Stundenpreise einmal festlegen', 'Lege fest, was eine Stunde kostet: pro Gruppengröße vom Einzel- bis zum 4er-Training, pro Saison oder für einzelne Gruppen. Dazu Ferien, trainingsfreie Tage und Hallenkosten pro Verein, auch abends teurer, am Wochenende anders oder nur im Winter. Alles gilt automatisch für jede Stunde im Trainingsplan, und Roger rechnet daraus jede Rechnung selbst.'],
     ['vertretung', 'Vertretungen', 'Ausfall in zwei Klicks geregelt', 'Vertretung direkt in der Stunde wählen. Der Plan markiert sie, die Abrechnung bezahlt den richtigen Trainer.'],
     ['schueler', 'Schülerakte', 'Alles über jeden Schüler', 'Kontakt, Eltern, Vereine, Trainingsgruppen, Rechnungen und Zahlungen auf einer Seite.'],
-    ['tarife', 'Tarife & Preise', 'Preise einmal festlegen', 'Saisons, Ferien und Preise pro Gruppengröße, individuelle Preise für einzelne Gruppen und Hallenkosten pro Verein: abends teurer, am Wochenende anders, nur im Winter oder mit zwei Plätzen. Roger rechnet jede Rechnung selbst.'],
     ['sammel', 'Sammelabrechnung', 'Die ganze Saison in einem Lauf', 'Vorschau nach Trainingsstunden, einzelne Stunden abwählen, fortlaufende Rechnungsnummern.'],
     ['rechnung', 'Rechnungen', 'PDF-Rechnungen mit deinen Daten', 'Mit Bankverbindung, Leistungszeitraum und Rechnungsnummer. Per E-Mail direkt an die Eltern, mit Zahlungserinnerung in drei Stufen.'],
     ['zahlung', 'Zahlungsabgleich', 'Kontoauszug rein, fertig', 'Roger erkennt Rechnungsnummer und Namen im Verwendungszweck und bucht die Zahlung auf die richtige Rechnung, auch Teilzahlungen.'],
