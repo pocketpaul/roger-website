@@ -228,7 +228,7 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
       <a class="brand" href="/" aria-label="Roger – Startseite"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg><span class="bt">Roger</span></a>
       <nav class="pswitch" aria-label="Produkt wählen"><a href="/tennisschulen"><span class="sw-l">Tennisschulen</span><span class="sw-s">Tennis</span></a><a href="/sportarten" aria-current="page">Weitere Sportarten</a><a href="/websites">Websites</a><a href="/vereine">Vereine</a><i class="thumb" aria-hidden="true"></i></nav>
     </div>
-    <nav class="nav-links" aria-label="Abschnitte"><a href="#einblick">Einblick</a><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a></nav>
+    <nav class="nav-links" aria-label="Abschnitte"><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a></nav>
     <div class="nav-cta">
       <details class="login-menu">
         <summary class="btn btn-ghost">Anmelden <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -242,7 +242,7 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
     </div>
   </div>
 </header>
-<nav class="mnav" id="mnav" aria-label="Menü"><a href="#einblick">Einblick</a><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a><a href="#kontakt">Demo anfragen</a><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a><a href="https://app.roger-verwaltung.de">Anmelden Schule</a><a href="https://verein.roger-verwaltung.de">Anmelden Verein</a></nav>
+<nav class="mnav" id="mnav" aria-label="Menü"><a href="#rundgang">Rundgang</a><a href="#funktionen">Funktionen</a><a href="#fragen">Fragen</a><a href="#kontakt">Demo anfragen</a><a href="/tennisschulen">Roger für Tennisschulen</a><a href="/vereine">Roger für Vereine</a><a href="/websites">Websites</a><a href="/sportarten">Alle Sportarten</a><a href="https://app.roger-verwaltung.de">Anmelden Schule</a><a href="https://verein.roger-verwaltung.de">Anmelden Verein</a></nav>
 <main>
 <section class="shero" aria-labelledby="h">
   <div class="dots" aria-hidden="true"></div>
@@ -267,15 +267,7 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
   </div>
 </section>
 
-<section class="peek" id="einblick" aria-labelledby="peek-h">
-  <div class="wrap">
-    <div class="sec-head center"><p class="label">Einblick</p><h2 id="peek-h">So sieht eure Kampfsportschule in Roger aus.</h2><p class="lead">Alle Standorte, Trainer und Kurse auf einer Startseite, vom ersten Blick am Morgen bis zur Abrechnung am Monatsende.</p></div>
-    <div class="stage" id="stage"><div class="win"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><img src="/img/sport/kampfsport-dashboard.webp" alt="Dashboard in Roger" width="1200" height="750" loading="lazy" decoding="async"></div></div>
-    <p class="cap">Beispielansicht mit erfundenen Daten</p>
-  </div>
-</section>
-
-<section id="rundgang" aria-labelledby="tour-h" style="padding-top:20px">
+<section id="rundgang" aria-labelledby="tour-h">
   <div class="wrap">
     <div class="sec-head"><p class="label">Rundgang</p><h2 id="tour-h">Vom Trainingsplan bis zur Rechnung.</h2></div>
     <div class="tour">
@@ -355,10 +347,6 @@ html{scroll-padding-top:84px}.nav-links{display:none!important}.burger{display:g
 <script>
 (() => {
   const red = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const st = document.getElementById('stage'), w = st.querySelector('.win');
-  const upd = () => { const r = st.getBoundingClientRect(), vh = innerHeight; const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * .75)));
-    w.style.setProperty('--tilt', (red ? 0 : 24 * (1 - p)) + 'deg'); w.style.setProperty('--sc', red ? 1 : .92 + .08 * p); };
-  addEventListener('scroll', upd, { passive: true }); upd();
   const steps = [...document.querySelectorAll('.tstep')], wins = [...document.querySelectorAll('#tview .win')], dots = [...document.querySelectorAll('.prog i')];
   const set = (i) => { steps.forEach((s, j) => s.classList.toggle('on', j === i)); wins.forEach((v, j) => { v.classList.toggle('on', j === i); v.classList.toggle('past', j < i); }); dots.forEach((d, j) => d.classList.toggle('on', j === i)); };
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) set(+en.target.dataset.i); }), { rootMargin: '-45% 0px -45% 0px' });
