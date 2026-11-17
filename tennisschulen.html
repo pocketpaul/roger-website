@@ -831,7 +831,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
   </section>
 
   <!-- ============ ASSISTENT ============ -->
-  <section id="assistent" aria-labelledby="assist-h">
+  <section class="band" id="assistent" aria-labelledby="assist-h" style="padding-top:0">
     <div class="wrap">
       <div class="assist-box rise">
         <div class="assist-grid">
@@ -842,6 +842,22 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
             <div class="chips" id="chips"></div>
           </div>
           <div class="chat" id="chat" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WEITERE FUNKTIONEN ============ -->
+  <section class="band" id="funktionen2" aria-labelledby="feat2-h">
+    <div class="wrap">
+      <div class="sec-head rise">
+        <span class="label">Weitere Funktionen</span>
+        <h2 id="feat2-h">Vom Plan bis zur bezahlten Rechnung.</h2>
+      </div>
+      <div class="feat">
+        <div id="flist2"></div>
+        <div class="feat-stage" aria-hidden="true">
+          <div class="window"><div class="bar"><i></i><i></i><i></i><span>app.roger-verwaltung.de</span></div><div class="shots" id="shots2"></div></div>
         </div>
       </div>
     </div>
@@ -1462,19 +1478,22 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
     ['zahlung', 'Zahlungsabgleich', 'Kontoauszug rein, fertig', 'Roger erkennt Rechnungsnummer und Namen im Verwendungszweck und bucht die Zahlung auf die richtige Rechnung, auch Teilzahlungen.'],
     ['anmeldungen', 'Anmeldungen', 'Von der Website direkt in den Plan', 'Neue Anmeldungen landen in Roger. Ein Klick legt den Schüler an und trägt ihn in seine Gruppe ein.'],
   ];
-  const flist = $('#flist'), shotsEl = $('#shots');
-  FEATS.forEach(([img, tag, h, p], i) => {
-    const d = document.createElement('div'); d.className = 'fi' + (i === 0 ? ' on' : ''); d.dataset.i = i;
-    d.innerHTML = `<span class="tag">${tag}</span><h3>${h}</h3><p>${p}</p><img src="img/${img}.webp" alt="${tag} in Roger" loading="lazy" width="2400" height="1500">`;
-    flist.appendChild(d);
-    const im = document.createElement('img'); im.src = `img/${img}.webp`; im.alt = ''; im.loading = i ? 'lazy' : 'eager'; if (!i) im.className = 'on'; shotsEl.appendChild(im);
-  });
-  const fio = new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return; const i = +e.target.dataset.i;
-    flist.querySelectorAll('.fi').forEach((f, j) => f.classList.toggle('on', j === i));
-    shotsEl.querySelectorAll('img').forEach((im, j) => im.classList.toggle('on', j === i));
-  }), { rootMargin: '-45% 0px -45% 0px' });
-  flist.querySelectorAll('.fi').forEach((f) => fio.observe(f));
+  const buildFeats = (flist, shotsEl, items) => {
+    items.forEach(([img, tag, h, p], i) => {
+      const d = document.createElement('div'); d.className = 'fi' + (i === 0 ? ' on' : ''); d.dataset.i = i;
+      d.innerHTML = `<span class="tag">${tag}</span><h3>${h}</h3><p>${p}</p><img src="img/${img}.webp" alt="${tag} in Roger" loading="lazy" width="2400" height="1500">`;
+      flist.appendChild(d);
+      const im = document.createElement('img'); im.src = `img/${img}.webp`; im.alt = ''; im.loading = i ? 'lazy' : 'eager'; if (!i) im.className = 'on'; shotsEl.appendChild(im);
+    });
+    const fio = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return; const i = +e.target.dataset.i;
+      flist.querySelectorAll('.fi').forEach((f, j) => f.classList.toggle('on', j === i));
+      shotsEl.querySelectorAll('img').forEach((im, j) => im.classList.toggle('on', j === i));
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    flist.querySelectorAll('.fi').forEach((f) => fio.observe(f));
+  };
+  buildFeats($('#flist'), $('#shots'), FEATS.slice(0, 2));
+  buildFeats($('#flist2'), $('#shots2'), FEATS.slice(2));
 
   // Module
   const MODS = [
