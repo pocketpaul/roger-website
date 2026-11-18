@@ -134,6 +134,9 @@ section{padding-block:clamp(80px,10vw,130px)}
 @keyframes draw{to{stroke-dashoffset:0}}
 .hero .lead{margin:26px auto 0;font-size:clamp(17px,1.6vw,20px)}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;justify-content:center}
+.slogan{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.2vw,40px);letter-spacing:-.02em;line-height:1.15;color:var(--ink);margin:22px auto 0;text-wrap:balance}
+.slogan span{color:var(--grass)}
+.slogan+h1{margin-top:14px}
 .claim{margin-top:46px;text-align:center}
 .claim-line{font-family:var(--f-display);font-weight:700;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.02em;color:var(--ink)}
 .claim-line span{color:var(--grass)}
@@ -650,8 +653,8 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
 .praxis .c2{display:none}.praxis .cchip{font-size:12.5px;padding:8px 11px}.praxis .c1{right:0;top:2%}.praxis .c3{right:2%;bottom:2%}
 @media (max-width:860px){.praxis{grid-template-columns:1fr}.praxis .court-stage{max-width:460px;width:100%;margin:0 auto}}
 @media (max-width:560px){.praxis blockquote{font-size:18.5px}.praxis{padding:24px 20px 24px 24px}}
-.hl{position:absolute;z-index:3;border:2px solid var(--blue);border-radius:12px;box-shadow:0 0 0 6px rgba(34,82,204,.12);opacity:0;transition:opacity .4s;pointer-events:none}
-.hl.on{opacity:1}
+.stage>.hl{position:absolute;z-index:3;border:2px solid var(--blue);border-radius:12px;box-shadow:0 0 0 6px rgba(34,82,204,.12);opacity:0;transition:opacity .4s;pointer-events:none}
+.stage>.hl.on{opacity:1}
 .lens{position:absolute;z-index:4;background:#fff;border-radius:16px;padding:8px;box-shadow:0 2px 6px rgba(15,29,54,.08),0 40px 80px -30px rgba(15,29,54,.55),0 0 0 1px rgba(15,29,54,.08);opacity:0;transform:translateY(14px) scale(.92);transition:opacity .45s var(--ease),transform .6s var(--ease);pointer-events:none}
 .lens.on{opacity:1;transform:none}
 .lens .lz{position:relative;overflow:hidden;border-radius:10px;background:#F8FAFC}
@@ -703,6 +706,7 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
       <div class="hero-top">
         <div class="hero-txt">
       <span class="pill"><b>Neu</b><span class="pl-long">Verwaltung für Tennisschulen mit mehreren Vereinen</span><span class="pl-short">Software für Tennisschulen</span></span>
+      <p class="slogan">Von Tennistrainern. <span>Für Tennistrainer.</span></p>
       <h1 id="hero-h"><span class="hl">Deine ganze Tennisschule.</span> <span class="hl">Ein Tool. <em>Kein Büro-Stress.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 80 4, 200 4, 296 12"/></svg></em></span></h1>
       <p class="lead">Trainingsplan, Anmeldungen, Schüler, Trainer, Rechnungen und Zahlungen an einem Ort. Was du einmal einträgst, rechnet Roger überall weiter.</p>
       <div class="cta-row">
@@ -712,7 +716,6 @@ footer{padding-block:56px 34px;color:var(--muted);font-size:14.5px;border-top:1p
         </div>
       </div>
       <div class="claim" id="claim">
-        <p class="claim-line">Von Tennistrainern. <span>Für Tennistrainer.</span></p>
         <div class="rally" id="rally">
           <svg class="rally-court" aria-hidden="true"><path id="rallyTrail"/></svg>
           <span class="rally-ball" id="rallyBall" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#2252CC"/><path d="M6 6.5c5 4 5 15 0 19M26 6.5c-5 4-5 15 0 19" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></span>
